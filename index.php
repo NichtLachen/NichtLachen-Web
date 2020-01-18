@@ -1,6 +1,11 @@
 <html>
-<?php require_once ('include/head.php'); ?>
+<?php
+
+$root = dirname(__FILE__);
+require_once ($root . '/include/head.php');
+
+?>
 <body>
-<?php require_once ('include/navbar.php'); ?>
+<?php require_once ($root . '/include/navbar.php'); ?>
 </body>
 </html>
