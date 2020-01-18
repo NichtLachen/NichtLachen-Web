@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS users (
   UID varchar(64) NOT NULL,
-  Name varchar(64) NOT NULL,
-  EMail varchar(64) NOT NULL,
+  Name varchar(255) NOT NULL,
+  EMail varchar(255) NOT NULL,
   Description LONGTEXT,
   ProfileImageID varchar(64),
   Rank int,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS followers (
 
 CREATE TABLE IF NOT EXISTS categories (
   CID varchar(64) NOT NULL,
-  Name varchar(64) NOT NULL,
+  Name varchar(255) NOT NULL,
   PRIMARY KEY (CID)
 );
 
@@ -63,3 +63,15 @@ CREATE TABLE IF NOT EXISTS likes (
   )
 );
 
+CREATE TABLE IF NOT EXISTS verify (
+  VID varchar(64) NOT NULL,
+  EMail varchar(255) NOT NULL,
+  PRIMARY KEY (VID)
+);
+
+CREATE TABLE IF NOT EXISTS sessions (
+  SID varchar(64) NOT NULL,
+  UID varchar(64) NOT NULL,
+  PRIMARY KEY (SID),
+  FOREIGN KEY (UID) REFERENCES users (UID)
+);
