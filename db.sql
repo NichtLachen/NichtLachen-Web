@@ -1,6 +1,8 @@
 CREATE TABLE IF NOT EXISTS users (
   UID varchar(64) NOT NULL,
   Name varchar(255) NOT NULL,
+  OldName varchar(255),
+  Password varchar(255),
   EMail varchar(255) NOT NULL,
   Description LONGTEXT,
   ProfileImageID varchar(64),
@@ -65,6 +67,8 @@ CREATE TABLE IF NOT EXISTS likes (
 
 CREATE TABLE IF NOT EXISTS verify (
   VID varchar(64) NOT NULL,
+  Name varchar(255) NOT NULL,
+  Password varchar(255) NOT NULL,
   EMail varchar(255) NOT NULL,
   ExpiresAt DATETIME NOT NULL,
   PRIMARY KEY (VID)
