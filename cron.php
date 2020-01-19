@@ -2,7 +2,10 @@
 <?php
 
 $root = dirname(__FILE__);
-require_once ($root . '/db/database.php');
+require_once ($root . '/db/Database.php');
+
+$database = new Database();
+$conn = $database->conn;
 
 // delete expired verify entries
 $stmt = $conn->prepare('DELETE FROM verify WHERE ExpiresAt < NOW()');
