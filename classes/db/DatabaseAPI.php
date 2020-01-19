@@ -16,7 +16,7 @@ class DatabaseAPI {
 	}
 
 	public function getUserByName(string $name) : User {
-		$stmt = $database->conn->prepare("SELECT * FROM users WHERE Name = :name");
+		$stmt = $this->database->conn->prepare("SELECT * FROM users WHERE Name = :name");
 		$stmt->execute(array("name" => $name));
 
 		foreach ($stmt as $row) {
