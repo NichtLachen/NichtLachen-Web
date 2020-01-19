@@ -12,7 +12,8 @@ class DatabaseAPI {
 		$database = new Database();
 	}
 
-	private function getUser(
+	private function getUser(array_map $row) : User {
+	}
 
 	public function getUserByName(string $name) : User {
 		$stmt = $database->conn->prepare("SELECT * FROM users WHERE Name = :name");
