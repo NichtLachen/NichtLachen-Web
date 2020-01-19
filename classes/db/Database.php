@@ -1,7 +1,7 @@
 <?php
 
 $root = dirname(__FILE__);
-require_once ($root . '/../config.php');
+require_once ($root . '/../../config.php');
 
 class Database {
 

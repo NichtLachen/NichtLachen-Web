@@ -2,7 +2,7 @@
 <?php
 
 $root = dirname(__FILE__);
-require_once ($root . '/db/Database.php');
+require_once ($root . '/classes/db/Database.php');
 
 $database = new Database();
 $conn = $database->conn;
