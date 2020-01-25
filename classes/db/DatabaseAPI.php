@@ -128,6 +128,50 @@ class DatabaseAPI {
 		$stmt = $this->database->conn->prepare("UPDATE sessions SET ExpiresAt = NOW() + INTERVAL 7 DAY WHERE SID = :sid");
 		$stmt->execute(array("sid" => $sid));
 	}
+
+	public function countPostLikes(int $pid) : ?int {
+		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE PID = :pid AND POS = '1'");
+		$stmt->execute(array("pid" => $pid));
+
+		foreach ($stmt as $row) {
+			return $row['COUNT(LID)'];
+		}
+
+		return null;
+	}
+
+	public function countPostDislikes(int $pid) : ?int {
+		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE PID = :pid AND POS = '0'");
+		$stmt->execute(array("pid" => $pid));
+
+		foreach ($stmt as $row) {
+			return $row['COUNT(LID)'];
+		}
+
+		return null;
+	}
+
+	public function countCommentLikes(int $cmtid) : ?int {
+		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE CMTID = :cmtid AND POS = '1'");
+		$stmt->execute(array("cmtid" => $cmtid));
+
+		foreach ($stmt as $row) {
+			return $row['COUNT(LID)'];
+		}
+
+		return null;
+	}
+
+	public function countCommentDislikes(int $cmtid) : ?int {
+		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE CMTID = :cmtid AND POS = '0'");
+		$stmt->execute(array("cmtid" => $cmtid));
+
+		foreach ($stmt as $row) {
+			return $row['COUNT(LID)'];
+		}
+
+		return null;
+	}
 }
 
 ?>
