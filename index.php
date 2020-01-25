@@ -9,7 +9,7 @@ $root = dirname(__FILE__);
 		<link rel="stylesheet" href="/css/stylesheet.css"/>
 	</head>
 	<body>
-		<h1>
+		<h1 style="margin-top: 0%;">
 			<center><br>Willkommen bei Nicht Lachen 2.0!<br><br></center>
 		</h1>
 		<center>
