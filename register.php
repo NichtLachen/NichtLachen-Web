@@ -36,10 +36,10 @@ if (isset($_POST['register'])) {
 				$api = new DatabaseAPI();
 				$user = $api->getUserByName($username);
 
-				if($user == null) {
+				if($user == null && !$api->isNameInVerification($username)) {
 					$user = $api->getUserByEMail($email);
 
-					if($user == null) {
+					if($user == null && !$api->isEMailInVerification($email)) {
 						$vid = $api->verify($username, $email, $password);
 						sendVerifyMail($username, $email, $vid);
 						$SUCCESS = "Eine Bestätigungsemail wurde an die angegebene EMail-Adresse gesendet, klicken Sie auf den Link in der EMail um Ihren Account zu aktivieren!";

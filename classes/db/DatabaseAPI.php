@@ -75,7 +75,29 @@ class DatabaseAPI {
 		return false;
 	}
 
-	public function authenticate(int $uid, string $password) {
+	public function isNameInVerification(string $name) : bool {
+		$stmt = $this->database->conn->prepare("SELECT * FROM verify WHERE Name LIKE :name");
+		$stmt->execute(array("name" => $name));
+
+		foreach ($stmt as $row) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public function isEMailInVerification(string $email) : bool {
+		$stmt = $this->database->conn->prepare("SELECT * FROM verify WHERE EMail LIKE :email");
+		$stmt->execute(array("email" => $email));
+
+		foreach ($stmt as $row) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public function authenticate(int $uid, string $password) : bool {
 		$stmt = $this->database->conn->prepare("SELECT Password FROM users WHERE UID = :uid");
 		$stmt->execute(array("uid" => $uid));
 
