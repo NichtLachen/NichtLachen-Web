@@ -1,32 +1,31 @@
 CREATE TABLE IF NOT EXISTS users (
-  UID varchar(64) NOT NULL,
+  UID bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   Name varchar(255) NOT NULL,
   OldName varchar(255),
   Password varchar(255),
   EMail varchar(255) NOT NULL,
   Description LONGTEXT,
-  ProfileImageID varchar(64),
-  Rank int,
+  Rank int UNSIGNED,
   PRIMARY KEY (UID)
 );
 
 CREATE TABLE IF NOT EXISTS followers (
-  UID varchar(64) NOT NULL,
-  FollowerUID varchar(64),
+  UID bigint UNSIGNED NOT NULL,
+  FollowerUID bigint UNSIGNED NOT NULL,
   FOREIGN KEY (UID) REFERENCES users(UID),
   FOREIGN KEY (FollowerUID) REFERENCES users(UID)
 );
 
 CREATE TABLE IF NOT EXISTS categories (
-  CID varchar(64) NOT NULL,
+  CID bigint UNSIGNED NOT NULL,
   Name varchar(255) NOT NULL,
   PRIMARY KEY (CID)
 );
 
 CREATE TABLE IF NOT EXISTS posts (
-  PID varchar(64) NOT NULL,
-  CID varchar(64) NOT NULL,
-  UID varchar(64) NOT NULL,
+  PID bigint UNSIGNED NOT NULL,
+  CID bigint UNSIGNED NOT NULL,
+  UID bigint UNSIGNED NOT NULL,
   CreatedAt DATETIME NOT NULL,
   Content LONGTEXT,
   PRIMARY KEY (PID),
@@ -35,10 +34,10 @@ CREATE TABLE IF NOT EXISTS posts (
 );
 
 CREATE TABLE IF NOT EXISTS comments (
-  CMTID varchar(64) NOT NULL,
-  PID varchar(64),
-  CMTID_F varchar(64),
-  UID varchar(64) NOT NULL,
+  CMTID bigint UNSIGNED NOT NULL,
+  PID bigint UNSIGNED,
+  CMTID_F bigint UNSIGNED,
+  UID bigint UNSIGNED NOT NULL,
   CreatedAt DATETIME NOT NULL,
   Content LONGTEXT,
   PRIMARY KEY (CMTID),
@@ -52,10 +51,10 @@ CREATE TABLE IF NOT EXISTS comments (
 );
 
 CREATE TABLE IF NOT EXISTS likes (
-  LID varchar(64) NOT NULL,
-  PID varchar(64),
-  CMTID varchar(64),
-  UID varchar(64),
+  LID bigint UNSIGNED NOT NULL,
+  PID bigint UNSIGNED,
+  CMTID bigint UNSIGNED,
+  UID bigint UNSIGNED,
   PRIMARY KEY (LID),
   FOREIGN KEY (PID) REFERENCES posts (PID),
   FOREIGN KEY (CMTID) REFERENCES comments(CMTID),
@@ -76,7 +75,7 @@ CREATE TABLE IF NOT EXISTS verify (
 
 CREATE TABLE IF NOT EXISTS sessions (
   SID varchar(64) NOT NULL,
-  UID varchar(64) NOT NULL,
+  UID bigint UNSIGNED NOT NULL,
   ExpiresAt DATETIME NOT NULL,
   PRIMARY KEY (SID),
   FOREIGN KEY (UID) REFERENCES users (UID)
