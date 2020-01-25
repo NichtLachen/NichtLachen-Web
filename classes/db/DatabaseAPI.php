@@ -54,7 +54,7 @@ class DatabaseAPI {
 	}
 
 	public function verify(string $name, string $email, string $password) : string {
-		$vid = uniqid();
+		$vid = uniqid("", true);
 		$stmt = $this->database->conn->prepare("INSERT INTO verify (VID, Name, Password, EMail, ExpiresAT) VALUES (:vid, :name, :password, :email, NOW() + INTERVAL 1 DAY)");
 		$stmt->execute(array("vid" => $vid, "name" => $name, "password" => $password, "email" => $email));
 
