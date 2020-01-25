@@ -8,14 +8,14 @@ $root = dirname(__FILE__);
 		<title>Nicht Lachen! | Willkommen</title>
 		<link rel="stylesheet" href="/css/stylesheet.css"/>
 	</head>
-	<body style="background-color: yellow">
-		<h1 style="font-family: Arial; background-color: orange; color: white">
+	<body>
+		<h1>
 			<center><br>Willkommen bei Nicht Lachen 2.0!<br><br></center>
 		</h1>
 		<center>
-			<table style="font-family: Arial; background-color: orange; color: white">
+			<table style="font-family: Arial; background-color: orange; color: white;">
 				<tr>
-					<td style="font-size: x-large; text-align: center">
+					<td style="font-size: x-large; text-align: center;">
 						Melden Sie sich an:<br>
 						<div class="container">
 							<a href="login.php" class="button">Anmelden</a>

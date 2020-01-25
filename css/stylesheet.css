@@ -110,10 +110,12 @@ ul.navbar a {
 }
 
 h1 {
+	font-family: Arial;
+	background-color: orange;
+	color: white;
 	text-transform: uppercase;
-	font-size: .8rem;
+	font-size: xx-large;
 	margin-bottom: 2rem;
-	color: #777;
 }
 
 span {
@@ -127,4 +129,8 @@ span a {
 	font-size: .7rem;
 	color: #999;
 	text-decoration: underline;
+}
+
+body {
+	background-color: yellow;
 }
