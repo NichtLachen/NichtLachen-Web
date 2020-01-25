@@ -5,10 +5,10 @@ class User {
 	private int $uid;
 	private string $name;
 	private string $email;
-	private string $description;
-	private int $rank;
+	private ?string $description;
+	private ?int $rank;
 
-	function __construct(int $uid, string $name, string $email, string $description, int $rank) {
+	function __construct(int $uid, string $name, string $email, ?string $description, ?int $rank) {
 		$this->uid = $uid;
 		$this->name = $name;
 		$this->email = $email;
