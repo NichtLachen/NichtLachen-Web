@@ -1,5 +1,6 @@
 <?php
 
+require_once (dirname(__FILE__) . '/include/loginredirect.php');
 require_once (dirname(__FILE__) . '/classes/db/DatabaseAPI.php');
 
 function sendVerifyMail(string $email, string $key) {

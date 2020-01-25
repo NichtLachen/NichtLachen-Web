@@ -42,6 +42,17 @@ class DatabaseAPI {
 		return null;
 	}
 
+	public function getUserByUID(int $uid) : ?User {
+		$stmt = $this->database->conn->prepare("SELECT * FROM users WHERE UID = :uid");
+		$stmt->execute(array("uid" => $uid));
+
+		foreach ($stmt as $row) {
+			return $this->getUser($row);
+		}
+
+		return null;
+	}
+
 	public function verify(string $name, string $email, string $password) : string {
 		$vid = uniqid();
 		$stmt = $this->database->conn->prepare("INSERT INTO verify (VID, Name, Password, EMail, ExpiresAT) VALUES (:vid, :name, :password, :email, NOW() + INTERVAL 1 DAY)");
@@ -73,6 +84,27 @@ class DatabaseAPI {
 		}
 
 		return false;
+	}
+
+	public function setSessionID(int $uid, string $sid) {
+		$stmt = $this->database->conn->prepare("INSERT INTO sessions (SID, UID, ExpiresAt) VALUES (:sid, :uid, NOW() + INTERVAL 7 DAY)");
+		$stmt->execute(array("uid" => $uid, "sid" => $sid));
+	}
+
+	public function getUIDBySessionID(string $sid) : ?int {
+		$stmt = $this->database->conn->prepare("SELECT UID FROM sessions WHERE SID = :sid");
+		$stmt->execute(array("sid" => $sid));
+
+		foreach ($stmt as $row) {
+			return $row['UID'];
+		}
+
+		return null;
+	}
+
+	public function refreshSession(string $sid) {
+		$stmt = $this->database->conn->prepare("UPDATE sessions SET ExpiresAt = NOW() + INTERVAL 7 DAY WHERE SID = :sid");
+		$stmt->execute(array("sid" => $sid));
 	}
 }
 
