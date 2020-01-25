@@ -11,6 +11,16 @@ function sendVerifyMail(string $email, string $key) {
 	mail($email, $subject, $content, $headers);
 }
 
+?>
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Nicht Lachen! | Registrieren</title>
+		<link rel="stylesheet" href="/css/stylesheet.css"/>
+	</head>
+	<body>
+<?php
 if (isset($_POST['register'])) {
 	if(isset ($_POST['username']) && !empty($_POST['username'])) {
 		$username = $_POST['username'];
@@ -30,7 +40,8 @@ if (isset($_POST['register'])) {
 					if($user == null) {
 						$vid = $api->verify($username, $email, $password);
 						sendVerifyMail($email, $vid);
-						// TODO: tell user verification email was sent and will expire in one day
+						$SUCCESS = "Eine Bestätigungsemail wurde an die angegebene EMail-Adresse gesendet, klicken Sie auf den Link in der EMail um Ihren Account zu aktivieren!";
+						include (dirname(__FILE__) . '/templates/success.php');
 					} else {
 						$ERROR = "Diese EMail-Adresse wird bereits verwendet!";
 						include (dirname(__FILE__) . '/templates/error.php');
@@ -55,22 +66,13 @@ if (isset($_POST['register'])) {
 	$api = new DatabaseAPI();
 	
 	if($api->verifyEnable($_GET['key'])) {
-		// TODO: enabled account
+		$SUCCESS = 'Ihr Account wurde erfolgreich aktiviert! <div class="container"><a href="login.php" class="button">Anmelden</a></div>';
+		include (dirname(__FILE__) . '/templates/success.php');
 	} else {
 		$ERROR = "Die angegebene Verifikations-ID existiert nicht! Ist Ihre Registrierung abgelaufen?";
 		include (dirname(__FILE__) . '/templates/error.php');
 	}
-}
-
-?>
-<!DOCTYPE html>
-<html lang="de" dir="ltr">
-	<head>
-		<meta charset="utf-8">
-		<title>Nicht Lachen! | Registrieren</title>
-		<link rel="stylesheet" href="/css/stylesheet.css"/>
-	</head>
-	<body>
+} ?>
 		<h1 style="margin-top: 0%;">
 			<center><br>Registrieren<br><br></center>
 		</h1>

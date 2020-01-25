@@ -1,7 +1,7 @@
 <div class="modal" id="modal">
-	<div class="modal-content error">
+	<div class="modal-content success">
 		<span class="close">&times;</span>
-		<p>Fehler: <?php echo $ERROR ?></p>
+		<p><?php echo $SUCCESS ?></p>
 	</div>
 </div>
 
