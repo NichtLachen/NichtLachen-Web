@@ -1,3 +1,9 @@
+<?php
+
+require_once (dirname(__FILE__) . '/include/loginredirect.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="de" dir="ltr">
 	<head>
