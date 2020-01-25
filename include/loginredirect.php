@@ -2,6 +2,8 @@
 
 require_once (dirname(__FILE__) . '/../classes/db/DatabaseAPI.php');
 
+session_name("NL_SID");
+session_set_cookie_params(pow(2, 32) - 1);
 if(session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
