@@ -1,6 +1,3 @@
-<?php
-$root = dirname(__FILE__);
-?>
 <!DOCTYPE html>
 <html lang="de" dir="ltr">
 	<head>
@@ -13,7 +10,7 @@ $root = dirname(__FILE__);
 			<center><br>Willkommen bei Nicht Lachen 2.0!<br><br></center>
 		</h1>
 		<center>
-			<table style="font-family: Arial; background-color: orange; color: white;">
+			<table style="font-family: Arial; background-color: orange; color: white; border-radius: 8px;">
 				<tr>
 					<td style="font-size: x-large; text-align: center;">
 						Melden Sie sich an:<br>
@@ -35,7 +32,7 @@ $root = dirname(__FILE__);
 			</table>
 		</center>
 <?php
-require_once ($root . '/templates/footer.html');
+require_once (dirname(__FILE__) . '/templates/footer.html');
 ?>
 	</body>
 </html>

@@ -55,6 +55,7 @@ ul.navbar a {
 }
 
 .button {
+	background-color: orange;
 	text-decoration: none;
 	display: inline-block;
 	padding: .75rem 1.25rem;
@@ -134,4 +135,13 @@ span a {
 body {
 	background-color: yellow;
 	font-size: large;
+}
+
+.error {
+	text-align: center;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	width: 100%;
+	background-color: #d9534f;
+	color: white;
 }
