@@ -3,11 +3,12 @@
 require_once (dirname(__FILE__) . '/include/loginredirect.php');
 require_once (dirname(__FILE__) . '/classes/db/DatabaseAPI.php');
 
-function sendVerifyMail(string $email, string $key) {
+function sendVerifyMail(string $username, string $email, string $key) {
 	$headers = "From: NichtLachen.nl <verify@nichtlachen.nl>";
 	$subject = "NichtLachen.nl | E-Mail bestätigen";
-	$content = "Willkommen auf NichtLachen.nl, bitte bestätigen Sie Ihre E-Mail Adresse indem Sie auf den folgenden Link in ihrem Browser öffnen: ";
-	$content = $content . "\n" . "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?key=" . $key;
+	$content = file_get_contents(dirname(__FILE__) . '/templates/email.txt');
+	$content = str_replace('$USER', $username, $content);
+	$content = str_replace('$URL', "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?key=" . $key, $content);
 
 	mail($email, $subject, $content, $headers);
 }
@@ -40,7 +41,7 @@ if (isset($_POST['register'])) {
 
 					if($user == null) {
 						$vid = $api->verify($username, $email, $password);
-						sendVerifyMail($email, $vid);
+						sendVerifyMail($username, $email, $vid);
 						$SUCCESS = "Eine Bestätigungsemail wurde an die angegebene EMail-Adresse gesendet, klicken Sie auf den Link in der EMail um Ihren Account zu aktivieren!";
 						include (dirname(__FILE__) . '/templates/success.php');
 					} else {

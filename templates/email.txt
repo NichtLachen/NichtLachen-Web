@@ -1,0 +1,11 @@
+Willkommen auf NichtLachen.nl,
+
+
+Um Ihr Benutzerkonto zu aktivieren, müssen Sie folgenden Link aufrufen:
+
+$URL
+
+Vielen Dank für Ihre Registrierung.
+
+-- 
+NichtLachen.nl Team
