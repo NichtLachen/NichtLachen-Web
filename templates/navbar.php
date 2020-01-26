@@ -9,13 +9,19 @@ function active(string $php) : string {
 }
 
 ?>
+	<div class="topnav" style="overflow: visible;">
+		Nicht lachen!
+		<div class="dropdown" style="float: right;">
+			<button class="dropbtn" style="border-radius: 50%;"><i class="fas fa-cog" style="font-size: xx-large;"></i></button>
+			<div class="dropdown-content">
+				<a<?php echo active("myprofile.php"); ?> href="myprofile.php">Mein Profil</a>
+			</div>
+		</div>
+		<br><br>
 
-	<ul class="topnav">
-		<p>Nicht lachen!<br></p>
-
-		<li<?php echo active("home.php"); ?>><a href="home.php">Home</a></li>
-		<li<?php echo active("top.php"); ?>><a href="top.php">Top</a></li>
-		<li<?php echo active("neu.php"); ?>><a href="neu.php">Neu</a></li>
-		<li><?php echo active("kategorien.php"); ?><a href="kategorien.php">Kategorien</a></li>
-		<li><?php echo active("abos.php"); ?><a href="abos.php">Abos</a></lI>
-	</ul>
+		<a<?php echo active("home.php"); ?> href="home.php">Home</a>
+		<a<?php echo active("top.php"); ?> href="top.php">Top</a>
+		<a<?php echo active("new.php"); ?> href="new.php">Neu</a>
+		<a<?php echo active("categories.php"); ?> href="categories.php">Kategorien</a>
+		<a<?php echo active("abos.php"); ?> href="abos.php">Abos</a>
+	</div>
