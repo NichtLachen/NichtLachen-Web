@@ -85,6 +85,7 @@ body {
 	margin: 0;
 	background-color: yellow;
 	font-size: large;
+	padding-bottom: 100px;
 }
 
 .error {
@@ -156,8 +157,6 @@ body {
 	text-decoration: none;
 	cursor: pointer;
 }
-
-
 
 .topnav {
 	font-size: x-large;
@@ -288,7 +287,10 @@ footer {
 	font-size: large;
 	background-color: orange;
 	text-align: right;
-	position: absolute;
+	position: fixed;
 	bottom: 0;
-	visibility: hidden; /* TODO: FIX footer overlaying content */
+	left: 0;
+	right: 0;
+	min-height: 60px;
+	max-height: 100px;
 }
