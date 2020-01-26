@@ -94,7 +94,13 @@ body {
 	background-color: #5cb85c;
 }
 
+.btnControl {
+	display: none;
+}
 
+.btnControl:checked + label > div {
+	visibility: hidden;
+}
 
 /* The Modal (background) */
 
