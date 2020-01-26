@@ -20,14 +20,20 @@ $user = $api->getUserByUID($uid);
 <?php
 require_once (dirname(__FILE__) . '/templates/navbar.php');
 ?>
-		<div class="profileimage" style="float: left;">
+		<center>
+		<div class="profileimage">
 			<?php
 			if (file_exists(dirname(__FILE__) . '/profileimages/' . $uid . '.jpg')) {
 				echo '<img src="profileimages/' . $uid . '.jpg"></img>';
 			}
 			?>
 		</div>
-		<center><p style="font-size: x-large; font-weight: bold;"><?php echo $user->getName(); ?></p></center>
+		<p style="font-size: x-large; font-weight: bold;"><?php echo $user->getName(); ?></p>
+		<br>
+<?php
+require_once (dirname(__FILE__) . '/templates/userinfo.php');
+?>
+		</center>
 <?php
 require_once (dirname(__FILE__) . '/templates/footer.html');
 ?>

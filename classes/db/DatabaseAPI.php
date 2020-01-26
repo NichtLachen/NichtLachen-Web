@@ -172,6 +172,40 @@ class DatabaseAPI {
 
 		return null;
 	}
+
+	public function countFollowers(int $uid) : ?int {
+		$stmt = $this->database->conn->prepare("SELECT COUNT(FollowerUID) FROM followers WHERE UID = :uid");
+		$stmt->execute(array("uid" => $uid));
+
+		foreach ($stmt as $row) {
+			return $row['COUNT(FollowerUID)'];
+		}
+
+		return null;
+	}
+
+
+	public function countFollows(int $uid) : ?int {
+		$stmt = $this->database->conn->prepare("SELECT COUNT(UID) FROM followers WHERE FollowerUID = :uid");
+		$stmt->execute(array("uid" => $uid));
+
+		foreach ($stmt as $row) {
+			return $row['COUNT(UID)'];
+		}
+
+		return null;
+	}
+
+	public function countPosts(int $uid) : ?int {
+		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM posts WHERE UID = :uid");
+		$stmt->execute(array("uid" => $uid));
+
+		foreach ($stmt as $row) {
+			return $row['COUNT(PID)'];
+		}
+
+		return null;
+	}
 }
 
 ?>
