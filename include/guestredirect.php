@@ -15,7 +15,7 @@ if($uid != null) {
 	$api->refreshSession($sid);
 } else {
 	header("Status: 302 Found");
-	header("Location: /");
+	header("Location: ./");
 	return;
 }
 

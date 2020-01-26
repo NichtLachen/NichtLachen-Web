@@ -166,11 +166,12 @@ body {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
+	overflow: visible;
 	background-color: orange;
 }
 
 .topnav a {
+	border-bottom: 5px solid orange;
 	text-transform: uppercase;
 	text-align: left;
 	display: inline-block;
@@ -244,5 +245,16 @@ body {
 	ul.topnav li.right, ul.topnav li {float: none; width: 100%; position: absolute; top: 0;};
 }
 */
+
+.profileimage {
+	width: 256px;
+	height: 256px;
+	border: 20px solid rgba(0,0,0,0);
+}
+
+.profileimage img {
+	width: 100%;
+	height: 100%;
+}
 
 

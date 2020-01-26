@@ -9,7 +9,7 @@ function active(string $php) : string {
 }
 
 ?>
-	<div class="topnav" style="overflow: visible;">
+	<div class="topnav">
 		Nicht lachen!
 		<div class="dropdown" style="float: right;">
 			<button class="dropbtn" style="border-radius: 50%;"><i class="fas fa-cog" style="font-size: xx-large;"></i></button>
