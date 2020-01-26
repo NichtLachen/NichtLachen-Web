@@ -8,7 +8,6 @@ $uid = $api->getUIDBySessionID(session_id());
 $user = $api->getUserByUID($uid);
 
 ?>
-
 <!DOCTYPE html>
 <html lang="de" dir="ltr">
 	<head>
@@ -24,7 +23,7 @@ require_once (dirname(__FILE__) . '/templates/navbar.php');
 		<div class="profileimage">
 			<?php
 			if (file_exists(dirname(__FILE__) . '/profileimages/' . $uid . '.jpg')) {
-				echo '<img src="profileimages/' . $uid . '.jpg"></img>';
+				echo '<img src="profileimages/' . $uid . '.jpg"/>';
 			}
 			?>
 		</div>
