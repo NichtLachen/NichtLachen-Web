@@ -6,4 +6,4 @@
 			<p><?php echo $SUCCESS ?></p>
 		</div>
 	</div>
-</label
+</label>

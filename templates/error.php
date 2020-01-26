@@ -6,4 +6,4 @@
 			<p>Fehler: <?php echo $ERROR ?></p>
 		</div>
 	</div>
-</label
+</label>
