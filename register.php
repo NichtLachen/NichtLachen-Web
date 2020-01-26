@@ -34,9 +34,8 @@ if (isset($_POST['register'])) {
 			if($pwlen >= 8) {
 				$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 				$api = new DatabaseAPI();
-				$user = $api->getUserByName($username);
 
-				if($user == null && !$api->isNameInVerification($username)) {
+				if(!$api->isNameInUse($username) && !$api->isNameInVerification($username)) {
 					$user = $api->getUserByEMail($email);
 
 					if($user == null && !$api->isEMailInVerification($email)) {

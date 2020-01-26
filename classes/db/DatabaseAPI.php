@@ -31,6 +31,21 @@ class DatabaseAPI {
 		return null;
 	}
 
+	public function getUserByOldName(string $oldname) : ?User {
+		$stmt = $this->database->conn->prepare("SELECT * FROM users WHERE OldName LIKE :name");
+		$stmt->execute(array("name" => $oldname));
+
+		foreach ($stmt as $row) {
+			return $this->getUser($row);
+		}
+
+		return null;
+	}
+
+	public function isNameInUse(string $name) : bool {
+		return $this->getUserByName($name) != null || $this->getUserByOldName($name) != null;
+	}
+
 	public function getUserByEMail(string $email) : ?User {
 		$stmt = $this->database->conn->prepare("SELECT * FROM users WHERE EMail LIKE :email");
 		$stmt->execute(array("email" => $email));
