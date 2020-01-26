@@ -8,7 +8,7 @@ require_once (dirname(__FILE__) . '/include/guestredirect.php');
 <html lang="de" dir="ltr">
 	<head>
 		<meta charset="utf-8">
-		<title>Nicht Lachen! | Willkommen</title>
+		<title>Nicht Lachen! | Home</title>
 		<link rel="stylesheet" href="/css/stylesheet.css"/>
 	</head>
 	<body>
