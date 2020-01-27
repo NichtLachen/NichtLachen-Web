@@ -20,12 +20,7 @@ $user = $api->getUserByUID($uid);
 require_once (dirname(__FILE__) . '/templates/navbar.php');
 ?>
 		<center>
-		<div class="profileimage">
-			<?php
-			if (file_exists(dirname(__FILE__) . '/profileimages/' . $uid . '.jpg')) {
-				echo '<img src="profileimages/' . $uid . '.jpg"/>';
-			}
-			?>
+		<div class="profileimage" style="background-image: url('profileimages/<?php echo $uid; ?>.jpg');">
 		</div>
 		<p style="font-size: x-large; font-weight: bold;"><?php echo $user->getName(); ?></p>
 		<br>
