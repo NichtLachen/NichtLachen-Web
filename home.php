@@ -10,6 +10,7 @@ require_once (dirname(__FILE__) . '/include/guestredirect.php');
 		<meta charset="utf-8">
 		<title>Nicht Lachen! | Home</title>
 		<link rel="stylesheet" href="/css/stylesheet.css"/>
+		<meta name='viewport' content="width=device-width, initial-scale=1" />
 	</head>
 	<body>
 <?php

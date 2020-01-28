@@ -10,7 +10,7 @@ function active(string $php) : string {
 
 ?>
 	<div class="topnav">
-		Nicht lachen!
+		<font class="header">Nicht lachen!</font>
 		<div class="dropdown" style="float: right;">
 			<button class="dropbtn" style="border-radius: 50%;"><i class="fas fa-cog" style="font-size: xx-large;"></i></button>
 			<div class="dropdown-content">
