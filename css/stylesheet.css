@@ -284,3 +284,21 @@ footer {
 	min-height: 60px;
 	max-height: 100px;
 }
+
+.post {
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	width: 90%;
+	margin: auto;
+	border: 10px solid white;
+	background-color: white;
+	margin-top: 10px;
+	border-radius: 5px;
+}
+
+.post-category {
+	color: orange;
+}
+
+.post-info {
+	color: grey;
+}

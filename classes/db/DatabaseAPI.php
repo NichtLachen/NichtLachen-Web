@@ -2,6 +2,7 @@
 
 require_once (dirname(__FILE__) . '/Database.php');
 require_once (dirname(__FILE__) . '/../user/User.php');
+require_once (dirname(__FILE__) . '/../post/Post.php');
 
 class DatabaseAPI {
 
@@ -220,6 +221,40 @@ class DatabaseAPI {
 		}
 
 		return null;
+	}
+
+	private function getPost(array $row) : Post {
+		return new Post($row['PID'], $row['CID'], $row['UID'], $row['Content'], $row['CreatedAt']);
+	}
+
+	public function getCategoryName(int $cid) : ?string {
+		$stmt = $this->database->conn->prepare("SELECT Name FROM categories WHERE CID = :cid");
+		$stmt->execute(array("cid" => $cid));
+
+		foreach ($stmt as $row) {
+			return $row['Name'];
+		}
+
+		return null;
+	}
+
+	public function post(int $cid, int $uid, string $content) {
+		$stmt = $this->database->conn->prepare("INSERT INTO posts(CID,UID,CreatedAt,Content) VALUES (:cid,:uid,NOW(),:content)");
+		$stmt->execute(array("cid" => $cid, "uid" => $uid, "content" => $content));
+	}
+
+	public function getNewPosts(int $page, int $perPage) : array {
+		$res = [];
+		$start = $page * $perPage;
+		$end = $start + $perPage - 1;
+		$stmt = $this->database->conn->prepare("SELECT * FROM posts ORDER BY PID DESC LIMIT :start,:end");
+		$stmt->execute(array("start" => $start, "end" => $end));
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $this->getPost($row);
+		}
+
+		return $res;
 	}
 }
 
