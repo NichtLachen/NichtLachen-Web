@@ -19,7 +19,6 @@ function active(string $php) : string {
 		</div>
 		<br><br>
 
-		<a<?php echo active("home.php"); ?> href="home.php">Home</a>
 		<a<?php echo active("top.php"); ?> href="top.php">Top</a>
 		<a<?php echo active("new.php"); ?> href="new.php">Neu</a>
 		<a<?php echo active("categories.php"); ?> href="categories.php">Kategorien</a>

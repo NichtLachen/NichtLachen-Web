@@ -33,7 +33,7 @@ if(isset($_POST['login'])) {
 					session_regenerate_id(); // new session id for every session
 					$api->setSessionID($user->getUID(), session_id());
 ?>
-		<meta http-equiv="refresh" content="1; url=home.php">
+		<meta http-equiv="refresh" content="1; url=top.php">
 <?php
 				}
 			}

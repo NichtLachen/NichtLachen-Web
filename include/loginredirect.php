@@ -14,7 +14,7 @@ $uid = $api->getUIDBySessionID($sid);
 if($uid != null) {
 	$api->refreshSession($sid);
 	header("Status: 302 Found");
-	header("Location: home.php");
+	header("Location: top.php");
 	return;
 }
 

@@ -20,9 +20,9 @@ if(isset($_GET['like']) && isset($_GET['pid'])) {
 		}
 	}
 
-	$url = isset($_GET['from']) ? urldecode($_GET['from']) : "home.php";
+	$url = isset($_GET['from']) ? urldecode($_GET['from']) : "top.php";
 
-	header("Status: 302");
+	header("Status: 302 Found");
 	header("Location: " . $url); // TODO: navbar overlaps selected post (e.g top.php#30 only post 29 will be visible)
 }
 ?>
