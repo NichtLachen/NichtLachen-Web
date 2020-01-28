@@ -297,11 +297,19 @@ footer {
 }
 
 .post-category {
+	text-decoration: none;
+	font-weight: bold;
 	color: orange;
 }
 
 .post-info {
 	color: grey;
+}
+
+.post-info a {
+	text-decoration: none;
+	color: grey;
+	font-weight: bold;
 }
 
 .post-like {
@@ -310,8 +318,18 @@ footer {
 	color: green;
 }
 
+.post-like a {
+	text-decoration: none;
+	color: green;
+}
+
 .post-dislike {
 	margin-left: 5px;
 	display: inline;
+	color: red;
+}
+
+.post-dislike a {
+	text-decoration: none;
 	color: red;
 }

@@ -270,6 +270,34 @@ class DatabaseAPI {
 
 		return $res;
 	}
+
+	public function removeLikes(int $pid, int $uid) {
+		$stmt = $this->database->conn->prepare("DELETE FROM likes WHERE PID = :pid AND UID = :uid");
+		$stmt->execute(array("pid" => $pid, "uid" => $uid));
+	}
+
+	public function likePost(int $pid, int $uid) {
+		$this->removeLikes($pid, $uid);
+		$stmt = $this->database->conn->prepare("INSERT INTO likes (PID,UID,POS) VALUES (:pid,:uid,1)");
+		$stmt->execute(array("pid" => $pid, "uid" => $uid));
+	}
+
+	public function dislikePost(int $pid, int $uid) {
+		$this->removeLikes($pid, $uid);
+		$stmt = $this->database->conn->prepare("INSERT INTO likes (PID,UID,POS) VALUES (:pid,:uid,0)");
+		$stmt->execute(array("pid" => $pid, "uid" => $uid));
+	}
+
+	public function isLikeSet(int $pid, int $uid, int $pos) : bool {
+		$stmt = $this->database->conn->prepare("SELECT LID FROM likes WHERE PID = :pid AND UID = :uid AND POS = :pos");
+		$stmt->execute(array("pid" => $pid, "uid" => $uid, "pos" => $pos));
+
+		foreach ($stmt as $row) {
+			return true;
+		}
+
+		return false;
+	}
 }
 
 ?>
