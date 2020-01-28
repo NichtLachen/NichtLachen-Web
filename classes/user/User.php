@@ -28,11 +28,11 @@ class User {
 		return $this->email;
 	}
 
-	function getDescription() : string {
+	function getDescription() : ?string {
 		return $this->description;
 	}
 
-	function getRank() : int {
+	function getRank() : ?int {
 		return $this->rank;
 	}
 

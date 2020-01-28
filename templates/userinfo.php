@@ -4,7 +4,11 @@ require_once (dirname(__FILE__) . '/../classes/db/DatabaseAPI.php');
 $api = new DatabaseAPI();
 $user = $api->getUserByUID($uid);
 
-function escapeHTML(string $text) : string {
+function escapeHTML(?string $text) : ?string {
+	if ($text == null) {
+		return null;
+	}
+
 	$res = str_replace("<", "&lt;", $text);
 	$res = str_replace(">", "&gt;", $res);
 	return $res;
