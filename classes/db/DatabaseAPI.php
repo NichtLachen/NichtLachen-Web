@@ -256,6 +256,20 @@ class DatabaseAPI {
 
 		return $res;
 	}
+
+	public function getTopPosts(int $page, int $perPage) : array {
+		$res = [];
+		$start = $page * $perPage;
+		$end = $start + $perPage - 1;
+		$stmt = $this->database->conn->prepare("SELECT * FROM likes,posts WHERE likes.PID IS NOT NULL AND likes.POS = 1 AND posts.PID = likes.PID GROUP BY likes.PID ORDER BY SUM(likes.POS) DESC LIMIT :start,:end"); // TODO: subtract dislikes
+		$stmt->execute(array("start" => $start, "end" => $end));
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $this->getPost($row);
+		}
+
+		return $res;
+	}
 }
 
 ?>

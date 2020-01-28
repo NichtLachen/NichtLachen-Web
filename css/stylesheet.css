@@ -1,6 +1,7 @@
 @import url("/fontawesome/css/fontawesome.css");
 @import url("/fontawesome/css/brands.css");
 @import url("/fontawesome/css/solid.css");
+@import url("/fontawesome/css/regular.css");
 
 .button {
 	background-color: orange;
@@ -301,4 +302,16 @@ footer {
 
 .post-info {
 	color: grey;
+}
+
+.post-like {
+	margin-left: 5px;
+	display: inline;
+	color: green;
+}
+
+.post-dislike {
+	margin-left: 5px;
+	display: inline;
+	color: red;
 }
