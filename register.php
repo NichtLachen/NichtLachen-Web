@@ -4,13 +4,13 @@ require_once (dirname(__FILE__) . '/include/loginredirect.php');
 require_once (dirname(__FILE__) . '/classes/db/DatabaseAPI.php');
 
 function sendVerifyMail(string $username, string $email, string $key) {
-	$headers = "From: NichtLachen.nl <verify@nichtlachen.nl>";
+	$headers = array("Content-Type: text/plain; charset=UTF-8");
 	$subject = "NichtLachen.nl | E-Mail bestätigen";
 	$content = file_get_contents(dirname(__FILE__) . '/templates/email.txt');
 	$content = str_replace('$USER', $username, $content);
 	$content = str_replace('$URL', "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?key=" . $key, $content);
 
-	mail($email, $subject, $content, $headers);
+	mail($email, "=?utf-8?B?" . base64_encode($subject) . "?=", $content, $headers, "-f verify@nichtlachen.nl -F NichtLachen.nl");
 }
 
 ?>
