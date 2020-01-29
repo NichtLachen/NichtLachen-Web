@@ -6,8 +6,8 @@ $api = new DatabaseAPI();
 $uid = $api->getUIDBySessionID(session_id());
 
 if(isset($_GET['like']) && isset($_GET['pid'])) {
-	if($_GET['like'] == 0) {
-		if($api->isLikeSet($_GET['pid'], $uid, 0)) {
+	if($_GET['like'] == -1) {
+		if($api->isLikeSet($_GET['pid'], $uid, -1)) {
 			$api->removeLikes($_GET['pid'], $uid);
 		} else {
 			$api->dislikePost($_GET['pid'], $uid);

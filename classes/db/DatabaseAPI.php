@@ -146,7 +146,7 @@ class DatabaseAPI {
 	}
 
 	public function countPostLikes(int $pid) : ?int {
-		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE PID = :pid AND POS = '1'");
+		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE PID = :pid AND Value = '1'");
 		$stmt->execute(array("pid" => $pid));
 
 		foreach ($stmt as $row) {
@@ -157,7 +157,7 @@ class DatabaseAPI {
 	}
 
 	public function countPostDislikes(int $pid) : ?int {
-		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE PID = :pid AND POS = '0'");
+		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE PID = :pid AND Value = '-1'");
 		$stmt->execute(array("pid" => $pid));
 
 		foreach ($stmt as $row) {
@@ -168,7 +168,7 @@ class DatabaseAPI {
 	}
 
 	public function countCommentLikes(int $cmtid) : ?int {
-		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE CMTID = :cmtid AND POS = '1'");
+		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE CMTID = :cmtid AND Value = '1'");
 		$stmt->execute(array("cmtid" => $cmtid));
 
 		foreach ($stmt as $row) {
@@ -179,7 +179,7 @@ class DatabaseAPI {
 	}
 
 	public function countCommentDislikes(int $cmtid) : ?int {
-		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE CMTID = :cmtid AND POS = '0'");
+		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE CMTID = :cmtid AND Value = '-1'");
 		$stmt->execute(array("cmtid" => $cmtid));
 
 		foreach ($stmt as $row) {
@@ -246,7 +246,7 @@ class DatabaseAPI {
 	public function getNewPosts(int $page, int $perPage) : array {
 		$res = [];
 		$start = $page * $perPage;
-		$end = $start + $perPage - 1;
+		$end = $start + $perPage;
 		$stmt = $this->database->conn->prepare("SELECT * FROM posts ORDER BY PID DESC LIMIT :start,:end");
 		$stmt->execute(array("start" => $start, "end" => $end));
 
@@ -260,8 +260,8 @@ class DatabaseAPI {
 	public function getTopPosts(int $page, int $perPage) : array {
 		$res = [];
 		$start = $page * $perPage;
-		$end = $start + $perPage - 1;
-		$stmt = $this->database->conn->prepare("SELECT * FROM likes,posts WHERE likes.PID IS NOT NULL AND likes.POS = 1 AND posts.PID = likes.PID GROUP BY likes.PID ORDER BY SUM(likes.POS) DESC LIMIT :start,:end"); // TODO: subtract dislikes
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT * FROM likes,posts WHERE likes.PID IS NOT NULL AND posts.PID = likes.PID GROUP BY likes.PID HAVING SUM(likes.Value) > 0 ORDER BY SUM(likes.Value) DESC LIMIT :start,:end");
 		$stmt->execute(array("start" => $start, "end" => $end));
 
 		foreach ($stmt as $row) {
@@ -278,19 +278,19 @@ class DatabaseAPI {
 
 	public function likePost(int $pid, int $uid) {
 		$this->removeLikes($pid, $uid);
-		$stmt = $this->database->conn->prepare("INSERT INTO likes (PID,UID,POS) VALUES (:pid,:uid,1)");
+		$stmt = $this->database->conn->prepare("INSERT INTO likes (PID,UID,Value) VALUES (:pid,:uid,1)");
 		$stmt->execute(array("pid" => $pid, "uid" => $uid));
 	}
 
 	public function dislikePost(int $pid, int $uid) {
 		$this->removeLikes($pid, $uid);
-		$stmt = $this->database->conn->prepare("INSERT INTO likes (PID,UID,POS) VALUES (:pid,:uid,0)");
+		$stmt = $this->database->conn->prepare("INSERT INTO likes (PID,UID,Value) VALUES (:pid,:uid,-1)");
 		$stmt->execute(array("pid" => $pid, "uid" => $uid));
 	}
 
-	public function isLikeSet(int $pid, int $uid, int $pos) : bool {
-		$stmt = $this->database->conn->prepare("SELECT LID FROM likes WHERE PID = :pid AND UID = :uid AND POS = :pos");
-		$stmt->execute(array("pid" => $pid, "uid" => $uid, "pos" => $pos));
+	public function isLikeSet(int $pid, int $uid, int $val) : bool {
+		$stmt = $this->database->conn->prepare("SELECT LID FROM likes WHERE PID = :pid AND UID = :uid AND Value = :val");
+		$stmt->execute(array("pid" => $pid, "uid" => $uid, "val" => $val));
 
 		foreach ($stmt as $row) {
 			return true;
