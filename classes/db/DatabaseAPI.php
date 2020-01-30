@@ -298,6 +298,27 @@ class DatabaseAPI {
 
 		return false;
 	}
+
+	public function favPost(int $pid, int $uid) {
+		$stmt = $this->database->conn->prepare("INSERT INTO favorites (PID,UID) VALUES (:pid,:uid)");
+		$stmt->execute(array("pid" => $pid, "uid" => $uid));
+	}
+
+	public function isFavSet(int $pid, int $uid) : bool {
+		$stmt = $this->database->conn->prepare("SELECT FID FROM favorites WHERE PID = :pid AND UID = :uid");
+		$stmt->execute(array("pid" => $pid, "uid" => $uid));
+
+		foreach ($stmt as $row) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public function removeFav(int $pid, int $uid) {
+		$stmt = $this->database->conn->prepare("DELETE FROM favorites WHERE PID = :pid AND UID = :uid");
+		$stmt->execute(array("pid" => $pid, "uid" => $uid));
+	}
 }
 
 ?>
