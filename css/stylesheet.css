@@ -333,3 +333,22 @@ footer {
 	text-decoration: none;
 	color: red;
 }
+
+.post-fav {
+	display: inline;
+	margin-left: 15px;
+	color: grey;
+}
+
+.post-fav.active {
+	color: gold;
+}
+
+.post-fav a {
+	text-decoration: none;
+	color: grey;
+}
+
+.post-fav.active a {
+	color: gold;
+}
