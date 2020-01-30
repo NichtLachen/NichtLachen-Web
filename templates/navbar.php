@@ -30,10 +30,14 @@ function active(string $php) : string {
 				var currentScrollPos = window.pageYOffset;
 				if (prevScrollpos > currentScrollPos) {
 					document.getElementById("navbar").style.top = "0";
+					document.getElementById("navbar").style.visibility = "visible";
 					document.getElementById("footer").style.bottom = "0";
+					document.getElementById("footer").style.visibility = "visible";
 				} else {
 					document.getElementById("navbar").style.top = "-1000px";
 					document.getElementById("footer").style.bottom = "-1000px";
+					document.getElementById("navbar").style.visibility = "hidden";
+					document.getElementById("footer").style.visibility = "hidden";
 				}
 				prevScrollpos = currentScrollPos;
 			} 
