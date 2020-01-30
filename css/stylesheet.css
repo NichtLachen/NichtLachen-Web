@@ -160,13 +160,14 @@ body {
 	position: -webkit-sticky;
 	/* Safari */
 	position: sticky;
-	top: 0;
+	top: -50px;
 	z-index: 1;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	overflow: visible;
 	background-color: orange;
+	transition: top 0.3s;
 }
 
 .topnav a {
