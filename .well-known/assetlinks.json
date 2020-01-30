@@ -1,0 +1,28 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "nl.nichtlachen",
+    "sha256_cert_fingerprints":
+    ["E5:3E:FC:04:C9:04:49:09:01:54:D6:7B:96:CE:91:9A:7E:30:0F:70:93:9D:C6:6D:81:2B:0A:0E:37:3E:BF:24"]
+  }
+  },
+  {
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "nl.nichtlachen.beta",
+    "sha256_cert_fingerprints":
+    ["E5:3E:FC:04:C9:04:49:09:01:54:D6:7B:96:CE:91:9A:7E:30:0F:70:93:9D:C6:6D:81:2B:0A:0E:37:3E:BF:24"]
+  }
+  },
+  {
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "nl.nichtlachen.dev",
+    "sha256_cert_fingerprints":
+    ["E5:3E:FC:04:C9:04:49:09:01:54:D6:7B:96:CE:91:9A:7E:30:0F:70:93:9D:C6:6D:81:2B:0A:0E:37:3E:BF:24"]
+   }
+}]
+
