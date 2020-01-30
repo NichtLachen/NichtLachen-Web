@@ -9,7 +9,7 @@ function active(string $php) : string {
 }
 
 ?>
-		<div class="topnav" id="navbar">
+		<div class="topnav">
 			<font class="header">Nicht lachen!</font>
 			<div class="dropdown" style="float: right;">
 				<button class="dropbtn" style="border-radius: 50%;"><i class="fas fa-cog" style="font-size: xx-large;"></i></button>
@@ -24,21 +24,3 @@ function active(string $php) : string {
 			<a<?php echo active("categories.php"); ?> href="categories.php">Kategorien</a>
 			<a<?php echo active("abos.php"); ?> href="abos.php">Abos</a>
 		</div>
-		<script language="javascript">
-			var prevScrollpos = window.pageYOffset;
-			window.onscroll = function() {
-				var currentScrollPos = window.pageYOffset;
-				if (prevScrollpos > currentScrollPos) {
-					document.getElementById("navbar").style.top = "0";
-					document.getElementById("navbar").style.visibility = "visible";
-					document.getElementById("footer").style.bottom = "0";
-					document.getElementById("footer").style.visibility = "visible";
-				} else {
-					document.getElementById("navbar").style.top = "-1000px";
-					document.getElementById("footer").style.bottom = "-1000px";
-					document.getElementById("navbar").style.visibility = "hidden";
-					document.getElementById("footer").style.visibility = "hidden";
-				}
-				prevScrollpos = currentScrollPos;
-			} 
-		</script>
