@@ -18,7 +18,7 @@ $user = $api->getUserByUID($uid);
 	</head>
 	<body>
 <?php
-require_once (dirname(__FILE__) . '/templates/navbar.php');
+require_once (dirname(__FILE__) . '/templates/profilenavbar.php');
 ?>
 		<center>
 		<div class="profileimage" style="background-image: url('profileimages/<?php echo $uid; ?>.jpg');">
