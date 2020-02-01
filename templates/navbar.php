@@ -9,6 +9,7 @@ require_once (dirname(__FILE__) . '/../include/navutils.php');
 				<button class="dropbtn" style="border-radius: 50%;"><i class="fas fa-cog" style="font-size: xx-large;"></i></button>
 				<div class="dropdown-content">
 					<a href="myprofile.php">Mein Profil</a>
+					<a href="about.php">Über</a>
 				</div>
 			</div>
 			<br><br>
