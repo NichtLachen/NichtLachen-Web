@@ -13,4 +13,12 @@ function getAppVersion() : ?string {
 	}
 }
 
+function getWebVersionTag() : ?string {
+	return trim(shell_exec("git describe --tags"));
+}
+
+function getWebVersion() : string {
+	return shell_exec("git rev-parse --short HEAD");
+}
+
 ?>

@@ -22,12 +22,14 @@ $user = $api->getUserByUID($uid);
 $TITLE = "Über";
 require_once (dirname(__FILE__) . '/templates/navbar_back.php');
 ?>
-		<h1 style="background-color: transparent; color: orange; margin-left: 20px;">Über</h1>
-<?php
-if (isApp()) {
-	echo "<p>App Version: " . getAppVersion() . "</p>";
-}
-?>
+		<div class="about">
+			<h1>Über</h1>
+			<hr/>
+			<p>App Version: <?php echo isApp() ? getAppVersion() : "App wird nicht verwendet"; ?></p>
+			<hr/>
+			<p>Web Version: <?php echo getWebVersionTag() . "-" . getWebVersion(); ?></p>
+			<hr/>
+		</div>
 <?php
 
 require_once (dirname(__FILE__) . '/templates/footer.html');
