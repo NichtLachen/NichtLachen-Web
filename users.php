@@ -25,10 +25,12 @@ require_once (dirname(__FILE__) . '/templates/navbar_back.php');
 		<center>
 		<div class="profileimage" style="background-image: url('profileimages/<?php echo $uid; ?>.jpg');">
 		</div>
-		<p style="font-size: x-large; font-weight: bold;"><?php echo $user->getName(); ?></p>
+		<p style="font-size: x-large; font-weight: bold;"><?php echo $user != null ? $user->getName() : $TITLE; ?></p>
 		<br>
 <?php
-require_once (dirname(__FILE__) . '/templates/userinfo.php');
+if ($user != null) {
+	require_once (dirname(__FILE__) . '/templates/userinfo.php');
+}
 ?>
 		</center>
 <?php
