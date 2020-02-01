@@ -10,7 +10,7 @@ function active(string $php) : string {
 
 ?>
 		<div class="topnav">
-			<a href="top.php"<i class="fa fa-arrow-left" style="font-size: large; margin-left: 20px;"></i></a>
+			<a href="./"<i class="fa fa-arrow-left" style="font-size: large; margin-left: 20px;"></i></a>
 			<font class="header">Mein Profil</font>
 			<a style="float: right" href="logout.php">Ausloggen</a>
 			<br><br>

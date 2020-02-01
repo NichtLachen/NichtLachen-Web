@@ -145,6 +145,11 @@ class DatabaseAPI {
 		$stmt->execute(array("sid" => $sid));
 	}
 
+	public function removeSession(string $sid) {
+		$stmt = $this->database->conn->prepare("DELETE FROM sessions WHERE SID = :sid");
+		$stmt->execute(array("sid" => $sid));
+	}
+
 	public function countPostLikes(int $pid) : ?int {
 		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE PID = :pid AND Value = '1'");
 		$stmt->execute(array("pid" => $pid));
