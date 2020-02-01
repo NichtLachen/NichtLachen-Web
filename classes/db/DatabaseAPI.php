@@ -250,7 +250,7 @@ class DatabaseAPI {
 
 	public function getNewPosts(int $page, int $perPage) : array {
 		$res = [];
-		$start = $page * $perPage;
+		$start = ($page - 1) * $perPage;
 		$end = $start + $perPage;
 		$stmt = $this->database->conn->prepare("SELECT * FROM posts ORDER BY PID DESC LIMIT :start,:end");
 		$stmt->execute(array("start" => $start, "end" => $end));
@@ -262,9 +262,24 @@ class DatabaseAPI {
 		return $res;
 	}
 
+	public function moreNewPosts(int $page, int $perPage) : bool {
+		$start = ($page - 1) * $perPage;
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM posts ORDER BY PID");
+		$stmt->execute();
+
+		foreach ($stmt as $row) {
+			if ($row['COUNT(PID)'] > $end) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function getTopPosts(int $page, int $perPage) : array {
 		$res = [];
-		$start = $page * $perPage;
+		$start = ($page - 1) * $perPage;
 		$end = $start + $perPage;
 		$stmt = $this->database->conn->prepare("SELECT * FROM likes,posts WHERE likes.PID IS NOT NULL AND posts.PID = likes.PID GROUP BY likes.PID HAVING SUM(likes.Value) > 0 ORDER BY SUM(likes.Value) DESC LIMIT :start,:end");
 		$stmt->execute(array("start" => $start, "end" => $end));
@@ -274,6 +289,21 @@ class DatabaseAPI {
 		}
 
 		return $res;
+	}
+
+	public function moreTopPosts(int $page, int $perPage) : bool {
+		$start = ($page - 1) * $perPage;
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT COUNT(posts.PID) FROM likes,posts WHERE likes.PID IS NOT NULL AND posts.PID = likes.PID GROUP BY likes.PID HAVING SUM(likes.Value) > 0 ORDER BY SUM(likes.Value) DESC");
+		$stmt->execute();
+
+		foreach ($stmt as $row) {
+			if ($row['COUNT(PID)'] > $end) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public function removeLikes(int $pid, int $uid) {

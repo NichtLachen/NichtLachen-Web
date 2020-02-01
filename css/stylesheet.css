@@ -368,3 +368,34 @@ footer {
 .about p {
 	margin-left: 5%;
 }
+
+div.nextpage {
+	margin-top: 20px;
+	display: table;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+div.nextpage a {
+	background-color: orange;
+	font-size: xx-large;
+	text-decoration: none;
+	display: inline-block;
+	padding: 8px 16px;
+}
+
+div.nextpage a:hover {
+	box-shadow:inset 0 0 0 99999px rgba(0,0,0,0.2);
+}
+
+.previous {
+	margin-right: 5px;
+	color: white;
+}
+
+.next {
+	margin-left: 5px;
+	color: white;
+}
+
+
