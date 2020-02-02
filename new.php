@@ -7,8 +7,8 @@ require_once (dirname(__FILE__) . '/config.php');
 $api = new DatabaseAPI();
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
 
-$prev = $page > 1 ? $_SERVER['PHP_SELF'] . "?page=" . ($page - 1) : "#previous";
-$next = $api->moreNewPosts($page, POSTS_PER_PAGE) ? $_SERVER['PHP_SELF'] . "?page=" . ($page + 1): "#next";
+$prev = $page > 1 ? " href=\"" . $_SERVER['PHP_SELF'] . "?page=" . ($page - 1) . "\"": "";
+$next = $api->moreNewPosts($page, POSTS_PER_PAGE) ? " href=\"" . $_SERVER['PHP_SELF'] . "?page=" . ($page + 1) . "\"" : "";
 
 ?>
 
@@ -29,8 +29,8 @@ require (dirname(__FILE__) . '/templates/post_array.php');
 
 ?>
 		<div class="nextpage">
-			<a id="previous" class="previous" href="<?php echo $prev; ?>"><i class="fas fa-caret-left"></i></a>
-			<a id="next" class="next" href="<?php echo $next; ?>"><i class="fas fa-caret-right"></i></a>
+			<a id="previous" class="previous"<?php echo $prev; ?>><i class="fas fa-caret-left"></i></a>
+			<a id="next" class="next"<?php echo $next; ?>><i class="fas fa-caret-right"></i></a>
 		</div>
 <?php
 
