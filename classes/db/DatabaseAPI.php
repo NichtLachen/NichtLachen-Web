@@ -277,6 +277,35 @@ class DatabaseAPI {
 		return false;
 	}
 
+	public function getUserPosts(int $uid, int $page, int $perPage) : array {
+		$res = [];
+		$start = ($page - 1) * $perPage;
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT * FROM posts WHERE UID = :uid ORDER BY PID DESC LIMIT :start,:end");
+		$stmt->execute(array("uid" => $uid, "start" => $start, "end" => $end));
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $this->getPost($row);
+		}
+
+		return $res;
+	}
+
+	public function moreUserPosts(int $uid, int $page, int $perPage) : bool {
+		$start = ($page - 1) * $perPage;
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM posts WHERE UID = :uid ORDER BY PID");
+		$stmt->execute(array("uid" => $uid));
+
+		foreach ($stmt as $row) {
+			if ($row['COUNT(PID)'] > $end) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function getTopPosts(int $page, int $perPage) : array {
 		$res = [];
 		$start = ($page - 1) * $perPage;

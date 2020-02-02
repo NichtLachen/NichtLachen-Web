@@ -16,7 +16,7 @@ function escapeHTML(?string $text) : ?string {
 ?>
 		<table class="userinfo">
 			<tr>
-				<th><?php echo $api->countPosts($uid); ?></th>
+				<th><a href="user_posts.php?uid=<?php echo $uid;?>"><?php echo $api->countPosts($uid); ?></a></th>
 				<th><?php echo $api->countFollowers($uid); ?></th>
 				<th><?php echo $api->countFollows($uid); ?></th>
 			</tr>

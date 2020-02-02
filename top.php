@@ -29,16 +29,7 @@ require_once (dirname(__FILE__) . '/templates/navbar.php');
 $posts = $api->getTopPosts($page, POSTS_PER_PAGE);
 require (dirname(__FILE__) . '/templates/post_array.php');
 
-?>
-		<div class="nextpage">
-			<a class="previous"<?php echo $prev; ?>><i class="fas fa-caret-left"></i></a>
-			<?php echo $prevNum; ?>
-			<a class="active"><?php echo $page; ?></a>
-			<?php echo $nextNum; ?>
-			<a class="next"<?php echo $next; ?>><i class="fas fa-caret-right"></i></a>
-		</div>
-<?php
-
+require_once (dirname(__FILE__) . '/templates/prevnext.php');
 require_once (dirname(__FILE__) . '/templates/footer.html');
 ?>
 	</body>
