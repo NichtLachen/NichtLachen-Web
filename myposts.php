@@ -5,7 +5,7 @@ require_once (dirname(__FILE__) . '/classes/db/DatabaseAPI.php');
 require_once (dirname(__FILE__) . '/config.php');
 
 $api = new DatabaseAPI();
-$uid = isset($_GET['uid']) && is_numeric($_GET['uid']) ? $_GET['uid'] : 0; // UID 0 does never exist
+$uid = $api->getUIDBySessionID(session_id());
 $user = $api->getUserByUID($uid);
 
 $TITLE = $user != null ? "Beiträge von " . $user->getName() : "Benutzer nicht gefunden!";
@@ -21,7 +21,7 @@ $TITLE = $user != null ? "Beiträge von " . $user->getName() : "Benutzer nicht g
 	</head>
 	<body>
 <?php
-require_once (dirname(__FILE__) . '/templates/navbar_back.php');
+require_once (dirname(__FILE__) . '/templates/profilenavbar.php');
 ?>
 <?php
 if ($user != null) {
