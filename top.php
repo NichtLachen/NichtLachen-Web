@@ -8,7 +8,9 @@ $api = new DatabaseAPI();
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
 
 $prev = $page > 1 ? " href=\"" . $_SERVER['PHP_SELF'] . "?page=" . ($page - 1) . "\"": "";
+$prevNum = $page > 1 ? '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . ($page - 1) . '">' . ($page - 1) . '</a>' : "";
 $next = $api->moreTopPosts($page, POSTS_PER_PAGE) ? " href=\"" . $_SERVER['PHP_SELF'] . "?page=" . ($page + 1) . "\"" : "";
+$nextNum = !empty($next) ? '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . ($page + 1) . '">' . ($page + 1) . '</a>' : "";
 
 ?>
 
@@ -29,8 +31,11 @@ require (dirname(__FILE__) . '/templates/post_array.php');
 
 ?>
 		<div class="nextpage">
-			<a id="previous" class="previous"<?php echo $prev; ?>><i class="fas fa-caret-left"></i></a>
-			<a id="next" class="next"<?php echo $next; ?>><i class="fas fa-caret-right"></i></a>
+			<a class="previous"<?php echo $prev; ?>><i class="fas fa-caret-left"></i></a>
+			<?php echo $prevNum; ?>
+			<a class="active"><?php echo $page; ?></a>
+			<?php echo $nextNum; ?>
+			<a class="next"<?php echo $next; ?>><i class="fas fa-caret-right"></i></a>
 		</div>
 <?php
 
