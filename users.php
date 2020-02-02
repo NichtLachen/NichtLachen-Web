@@ -4,7 +4,7 @@ require_once (dirname(__FILE__) . '/include/guestredirect.php');
 require_once (dirname(__FILE__) . '/classes/db/DatabaseAPI.php');
 
 $api = new DatabaseAPI();
-$uid = $_GET['uid'];
+$uid = isset($_GET['uid']) && is_numeric($_GET['uid']) ? $_GET['uid'] : 0; // UID 0 does never exist
 $user = $api->getUserByUID($uid);
 
 $TITLE = $user != null ? "Profil von " . $user->getName() : "Benutzer nicht gefunden!";
