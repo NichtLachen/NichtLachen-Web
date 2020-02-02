@@ -1,18 +1,9 @@
 <?php
 require_once (dirname(__FILE__) . '/../classes/db/DatabaseAPI.php');
+require_once (dirname(__FILE__) . '/../include/htmlutils.php');
 
 $api = new DatabaseAPI();
 $user = $api->getUserByUID($uid);
-
-function escapeHTML(?string $text) : ?string {
-	if ($text == null) {
-		return null;
-	}
-
-	$res = str_replace("<", "&lt;", $text);
-	$res = str_replace(">", "&gt;", $res);
-	return $res;
-}
 ?>
 		<table class="userinfo">
 			<tr>
