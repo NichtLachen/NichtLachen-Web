@@ -232,6 +232,42 @@ class DatabaseAPI {
 		return new Post($row['PID'], $row['CID'], $row['UID'], $row['Content'], $row['CreatedAt']);
 	}
 
+	public function getParentLessCategories() : array {
+		$res = [];
+		$stmt = $this->database->conn->prepare("SELECT CID FROM categories WHERE Parent IS NULL AND Super = '0' ORDER BY CID ASC");
+		$stmt->execute();
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $row['CID'];
+		}
+
+		return $res;		
+	}
+
+	public function getSuperCategories() : array {
+		$res = [];
+		$stmt = $this->database->conn->prepare("SELECT CID FROM categories WHERE Super = '1' ORDER BY CID ASC");
+		$stmt->execute();
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $row['CID'];
+		}
+
+		return $res;
+	}
+
+	public function getSubCategories(int $supercid) : array {
+		$res = [];
+		$stmt = $this->database->conn->prepare("SELECT CID FROM categories WHERE Parent = :cid ORDER BY CID ASC");
+		$stmt->execute(array("cid" => $supercid));
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $row['CID'];
+		}
+
+		return $res;
+	}
+
 	public function getCategoryName(int $cid) : ?string {
 		$stmt = $this->database->conn->prepare("SELECT Name FROM categories WHERE CID = :cid");
 		$stmt->execute(array("cid" => $cid));
