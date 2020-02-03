@@ -19,14 +19,10 @@ CREATE TABLE IF NOT EXISTS followers (
 CREATE TABLE IF NOT EXISTS categories (
   CID bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   Parent bigint UNSIGNED,
-  Super TINYINT(1),
+  Super TINYINT(1) NOT NULL,
   Name varchar(255) NOT NULL,
   PRIMARY KEY (CID),
-  FOREIGN KEY (Parent) REFERENCES categories(CID),
-  CONSTRAINT chk_null check (
-    Parent IS NOT NULL
-    OR Super = 1
-  )
+  FOREIGN KEY (Parent) REFERENCES categories(CID)
 );
 
 CREATE TABLE IF NOT EXISTS posts (
