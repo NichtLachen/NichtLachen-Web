@@ -409,4 +409,22 @@ div.nextpage a:last-child {
 	border-bottom-right-radius: 5px;
 }
 
+.categories hr {
+	color: lightgrey;
+	width: 95%;
+}
+
+.categories div.super {
+	color: orange;
+	text-transform: uppercase;
+	margin-left: 5%;
+}
+
+.categories a {
+	line-height: 32pt;
+	text-decoration: none;
+	color: black;
+	margin-left: 7%;
+}
+
 

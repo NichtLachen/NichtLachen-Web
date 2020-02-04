@@ -19,19 +19,38 @@ $api = new DatabaseAPI();
 	<body>
 <?php
 require_once (dirname(__FILE__) . '/templates/navbar.php');
+?>
+
+		<div class="categories">
+			<br><br>
+			<hr>
+<?php
 
 foreach ($api->getParentLessCategories() as $cat) {
-	echo $api->getCategoryName($cat) . "<br>";
+	echo "<a href=\"?cid=" . $cat . "\">" . $api->getCategoryName($cat) . "</a><br>";
+	echo "<hr>";
 }
+
+?>
+			<br><br>
+<?php
 
 foreach ($api->getSuperCategories() as $supercat) {
-	echo $api->getCategoryName($supercat) . "<br>";
+	echo "<div class=\"super\">" . $api->getCategoryName($supercat) . "</div><br>";
+	echo "<hr>";
 
 	foreach ($api->getSubCategories($supercat) as $cat) {
-		echo $api->getCategoryName($cat) . "<br>";
+		echo "<a href=\"?cid=" . $cat . "\">" . $api->getCategoryName($cat) . "</a><br>";
+		echo "<hr>";
 	}
+	echo "<br><br>";
 }
 
+?>
+
+		</div>
+
+<?php
 require_once (dirname(__FILE__) . '/templates/footer.html');
 ?>
 	</body>
