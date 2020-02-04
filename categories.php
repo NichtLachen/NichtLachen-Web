@@ -18,7 +18,8 @@ $api = new DatabaseAPI();
 	</head>
 	<body>
 <?php
-require_once (dirname(__FILE__) . '/templates/navbar.php');
+if (!isset($_GET['cid'])) {
+	require_once (dirname(__FILE__) . '/templates/navbar.php');
 ?>
 
 		<div class="categories">
@@ -51,6 +52,33 @@ foreach ($api->getSuperCategories() as $supercat) {
 		</div>
 
 <?php
+} else {
+	$cid = $_GET['cid'];
+	$name = $api->getCategoryName($cid);
+	$page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
+
+	$prev = $page > 1 ? " href=\"" . $_SERVER['PHP_SELF'] . "?cid=" . $cid . "&page=" . ($page - 1) . "\"": "";
+	$prevNum = $page > 1 ? '<a href="' . $_SERVER['PHP_SELF'] . '?cid=' . $cid . '&page=' . ($page - 1) . '">' . ($page - 1) . '</a>' : "";
+	$next = $api->moreNewPosts($page, POSTS_PER_PAGE) ? " href=\"" . $_SERVER['PHP_SELF'] . "?cid=" . $cid . "&page=" . ($page + 1) . "\"" : "";
+	$nextNum = !empty($next) ? '<a href="' . $_SERVER['PHP_SELF'] . '?cid=' . $cid . '&page=' . ($page + 1) . '">' . ($page + 1) . '</a>' : "";
+
+	if ($name != null && !$api->isSuperCategory($cid)) {
+		$TITLE = $name;
+		require_once (dirname(__FILE__) . '/templates/navbar_back.php');
+
+		$posts = $api->getNewCategoryPosts($cid, $page, POSTS_PER_PAGE);
+		require (dirname(__FILE__) . '/templates/post_array.php');
+
+		require_once (dirname(__FILE__) . '/templates/prevnext.php');
+	} else {
+		$TITLE = "Kategorie nicht gefunden!";
+		require_once (dirname(__FILE__) . '/templates/navbar_back.php');
+
+		$ERROR = $TITLE;
+		include (dirname(__FILE__) . '/templates/error.php');
+	}
+}
+
 require_once (dirname(__FILE__) . '/templates/footer.html');
 ?>
 	</body>

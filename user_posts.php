@@ -26,6 +26,9 @@ require_once (dirname(__FILE__) . '/templates/navbar_back.php');
 <?php
 if ($user != null) {
 	require_once (dirname(__FILE__) . '/templates/user_posts.php');
+} else {
+	$ERROR = $TITLE;
+	include (dirname(__FILE__) . '/templates/error.php');
 }
 ?>
 		</center>

@@ -279,6 +279,46 @@ class DatabaseAPI {
 		return null;
 	}
 
+	public function isSuperCategory(int $cid) : bool {
+		$stmt = $this->database->conn->prepare("SELECT Name FROM categories WHERE CID = :cid AND Super = '1'");
+		$stmt->execute(array("cid" => $cid));
+
+		foreach ($stmt as $row) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public function getNewCategoryPosts(int $cid, int $page, int $perPage) : array {
+		$res = [];
+		$start = ($page - 1) * $perPage;
+		$end = $perPage; // LIMIT offset,amount
+		$stmt = $this->database->conn->prepare("SELECT * FROM posts WHERE CID = :cid ORDER BY PID DESC LIMIT :start,:end");
+		$stmt->execute(array("cid" => $cid, "start" => $start, "end" => $end));
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $this->getPost($row);
+		}
+
+		return $res;
+	}
+
+	public function moreNewCategoryPosts(int $cid, int $page, int $perPage) : bool {
+		$start = ($page - 1) * $perPage;
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM posts WHERE CID = :cid ORDER BY PID");
+		$stmt->execute(array("cid" => $cid));
+
+		foreach ($stmt as $row) {
+			if ($row['COUNT(PID)'] > $end) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function post(int $cid, int $uid, string $content) {
 		$stmt = $this->database->conn->prepare("INSERT INTO posts(CID,UID,CreatedAt,Content) VALUES (:cid,:uid,NOW(),:content)");
 		$stmt->execute(array("cid" => $cid, "uid" => $uid, "content" => $content));
