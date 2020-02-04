@@ -59,7 +59,7 @@ foreach ($api->getSuperCategories() as $supercat) {
 
 	$prev = $page > 1 ? " href=\"" . $_SERVER['PHP_SELF'] . "?cid=" . $cid . "&page=" . ($page - 1) . "\"": "";
 	$prevNum = $page > 1 ? '<a href="' . $_SERVER['PHP_SELF'] . '?cid=' . $cid . '&page=' . ($page - 1) . '">' . ($page - 1) . '</a>' : "";
-	$next = $api->moreNewPosts($page, POSTS_PER_PAGE) ? " href=\"" . $_SERVER['PHP_SELF'] . "?cid=" . $cid . "&page=" . ($page + 1) . "\"" : "";
+	$next = $api->moreNewCategoryPosts($cid, $page, POSTS_PER_PAGE) ? " href=\"" . $_SERVER['PHP_SELF'] . "?cid=" . $cid . "&page=" . ($page + 1) . "\"" : "";
 	$nextNum = !empty($next) ? '<a href="' . $_SERVER['PHP_SELF'] . '?cid=' . $cid . '&page=' . ($page + 1) . '">' . ($page + 1) . '</a>' : "";
 
 	if ($name != null && !$api->isSuperCategory($cid)) {
