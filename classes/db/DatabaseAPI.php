@@ -241,7 +241,7 @@ class DatabaseAPI {
 			$res[sizeof($res)] = $row['CID'];
 		}
 
-		return $res;		
+		return $res;
 	}
 
 	public function getSuperCategories() : array {
@@ -287,8 +287,8 @@ class DatabaseAPI {
 	public function getNewPosts(int $page, int $perPage) : array {
 		$res = [];
 		$start = ($page - 1) * $perPage;
-		$end = $start + $perPage;
-		$stmt = $this->database->conn->prepare("SELECT * FROM posts ORDER BY PID DESC LIMIT :start,:end");
+		$end = $perPage; // LIMIT offset,amount
+ 		$stmt = $this->database->conn->prepare("SELECT * FROM posts ORDER BY PID DESC LIMIT :start,:end");
 		$stmt->execute(array("start" => $start, "end" => $end));
 
 		foreach ($stmt as $row) {
@@ -316,7 +316,7 @@ class DatabaseAPI {
 	public function getUserPosts(int $uid, int $page, int $perPage) : array {
 		$res = [];
 		$start = ($page - 1) * $perPage;
-		$end = $start + $perPage;
+		$end = $perPage; // LIMIT offset,amount
 		$stmt = $this->database->conn->prepare("SELECT * FROM posts WHERE UID = :uid ORDER BY PID DESC LIMIT :start,:end");
 		$stmt->execute(array("uid" => $uid, "start" => $start, "end" => $end));
 
@@ -345,7 +345,7 @@ class DatabaseAPI {
 	public function getTopPosts(int $page, int $perPage) : array {
 		$res = [];
 		$start = ($page - 1) * $perPage;
-		$end = $start + $perPage;
+		$end = $perPage; // LIMIT offset,amount
 		$stmt = $this->database->conn->prepare("SELECT * FROM likes,posts WHERE likes.PID IS NOT NULL AND posts.PID = likes.PID GROUP BY likes.PID HAVING SUM(likes.Value) > 0 ORDER BY SUM(likes.Value) DESC LIMIT :start,:end");
 		$stmt->execute(array("start" => $start, "end" => $end));
 
