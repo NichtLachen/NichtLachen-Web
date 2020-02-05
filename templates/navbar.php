@@ -1,6 +1,7 @@
 <?php
 
 require_once (dirname(__FILE__) . '/../include/navutils.php');
+$from = urlencode($_SERVER['REQUEST_URI']);
 
 ?>
 		<div class="topnav">
@@ -8,8 +9,8 @@ require_once (dirname(__FILE__) . '/../include/navutils.php');
 			<div class="dropdown" style="float: right;">
 				<button class="dropbtn" style="border-radius: 50%;"><i class="fas fa-cog" style="font-size: xx-large;"></i></button>
 				<div class="dropdown-content">
-					<a href="myprofile.php">Mein Profil</a>
-					<a href="about.php">Über</a>
+					<a href="myprofile.php?from=<?php echo $from; ?>">Mein Profil</a>
+					<a href="about.php?from=<?php echo $from; ?>">Über</a>
 				</div>
 			</div>
 			<br><br>
