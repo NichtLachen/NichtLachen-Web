@@ -6,6 +6,8 @@ require_once (dirname(__FILE__) . '/config.php');
 
 $api = new DatabaseAPI();
 
+$from = urlencode($_SERVER['REQUEST_URI']);
+
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +30,7 @@ if (!isset($_GET['cid'])) {
 <?php
 
 foreach ($api->getParentLessCategories() as $cat) {
-	echo "<a href=\"?cid=" . $cat . "\">" . $api->getCategoryName($cat) . "</a><br>";
+	echo "<a href=\"?cid=" . $cat . "&from=" . $from . "\">" . $api->getCategoryName($cat) . "</a><br>";
 	echo "<hr>";
 }
 
@@ -41,7 +43,7 @@ foreach ($api->getSuperCategories() as $supercat) {
 	echo "<hr>";
 
 	foreach ($api->getSubCategories($supercat) as $cat) {
-		echo "<a href=\"?cid=" . $cat . "\">" . $api->getCategoryName($cat) . "</a><br>";
+		echo "<a href=\"?cid=" . $cat . "&from=" . $from . "\">" . $api->getCategoryName($cat) . "</a><br>";
 		echo "<hr>";
 	}
 	echo "<br><br>";
