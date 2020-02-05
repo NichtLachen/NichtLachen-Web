@@ -1,6 +1,6 @@
 <?php
-require_once (dirname(__FILE__) . '/../classes/db/DatabaseAPI.php');
-require_once (dirname(__FILE__) . '/../include/htmlutils.php');
+require_once (__DIR__ . '/../classes/db/DatabaseAPI.php');
+require_once (__DIR__ . '/../include/htmlutils.php');
 
 $api = new DatabaseAPI();
 $user = $api->getUserByUID($uid);

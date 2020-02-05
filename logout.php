@@ -1,6 +1,6 @@
 <?php
-require_once (dirname(__FILE__) . '/include/guestredirect.php');
-require_once (dirname(__FILE__) . '/classes/db/DatabaseAPI.php');
+require_once (__DIR__ . '/include/guestredirect.php');
+require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
 
 $api = new DatabaseAPI();
 $api->removeSession(session_id());

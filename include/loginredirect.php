@@ -1,6 +1,6 @@
 <?php
 
-require_once (dirname(__FILE__) . '/../classes/db/DatabaseAPI.php');
+require_once (__DIR__ . '/../classes/db/DatabaseAPI.php');
 
 session_name("NL_SID");
 session_set_cookie_params(pow(2, 32) - 1);

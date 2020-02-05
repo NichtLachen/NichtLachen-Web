@@ -1,8 +1,8 @@
 <?php
 
-require_once (dirname(__FILE__) . '/include/guestredirect.php');
-require_once (dirname(__FILE__) . '/classes/db/DatabaseAPI.php');
-require_once (dirname(__FILE__) . '/config.php');
+require_once (__DIR__ . '/include/guestredirect.php');
+require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
+require_once (__DIR__ . '/config.php');
 
 $api = new DatabaseAPI();
 $uid = isset($_GET['uid']) && is_numeric($_GET['uid']) ? $_GET['uid'] : 0; // UID 0 does never exist
@@ -21,19 +21,19 @@ $TITLE = $user != null ? "Beiträge von " . $user->getName() : "Benutzer nicht g
 	</head>
 	<body>
 <?php
-require_once (dirname(__FILE__) . '/templates/navbar_back.php');
+require_once (__DIR__ . '/templates/navbar_back.php');
 ?>
 <?php
 if ($user != null) {
-	require_once (dirname(__FILE__) . '/templates/user_posts.php');
+	require_once (__DIR__ . '/templates/user_posts.php');
 } else {
 	$ERROR = $TITLE;
-	require (dirname(__FILE__) . '/templates/error.php');
+	require (__DIR__ . '/templates/error.php');
 }
 ?>
 		</center>
 <?php
-require_once (dirname(__FILE__) . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.html');
 ?>
 	</body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 
-require_once (dirname(__FILE__) . '/include/loginredirect.php');
+require_once (__DIR__ . '/include/loginredirect.php');
 
 ?>
 
@@ -39,7 +39,7 @@ require_once (dirname(__FILE__) . '/include/loginredirect.php');
 			</table>
 		</center>
 <?php
-require_once (dirname(__FILE__) . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.html');
 ?>
 	</body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 
-require_once (dirname(__FILE__) . '/../include/navutils.php');
+require_once (__DIR__ . '/../include/navutils.php');
 $from = urlencode($_SERVER['REQUEST_URI']);
 
 ?>

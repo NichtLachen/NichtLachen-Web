@@ -1,8 +1,8 @@
 <?php
 
-require_once (dirname(__FILE__) . '/Database.php');
-require_once (dirname(__FILE__) . '/../user/User.php');
-require_once (dirname(__FILE__) . '/../post/Post.php');
+require_once (__DIR__ . '/Database.php');
+require_once (__DIR__ . '/../user/User.php');
+require_once (__DIR__ . '/../post/Post.php');
 
 class DatabaseAPI {
 

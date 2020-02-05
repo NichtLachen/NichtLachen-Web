@@ -1,7 +1,7 @@
 <?php
 
 foreach ($posts as $post) {
-	require (dirname(__FILE__) . '/post.php');
+	require (__DIR__ . '/post.php');
 }
 
 ?>

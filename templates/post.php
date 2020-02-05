@@ -1,7 +1,7 @@
 <?php
-require_once (dirname(__FILE__) . '/../classes/db/DatabaseAPI.php');
-require_once (dirname(__FILE__) . '/../classes/date/DateUtil.php');
-require_once (dirname(__FILE__) . '/../include/htmlutils.php');
+require_once (__DIR__ . '/../classes/db/DatabaseAPI.php');
+require_once (__DIR__ . '/../classes/date/DateUtil.php');
+require_once (__DIR__ . '/../include/htmlutils.php');
 
 $api = new DatabaseAPI();
 $category = $api->getCategoryName($post->getCID());

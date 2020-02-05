@@ -1,7 +1,7 @@
 <?php
 
-require_once (dirname(__FILE__) . '/include/loginredirect.php');
-require_once (dirname(__FILE__) . '/classes/db/DatabaseAPI.php');
+require_once (__DIR__ . '/include/loginredirect.php');
+require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
 
 ?>
 <!DOCTYPE html>
@@ -26,7 +26,7 @@ if(isset($_POST['login'])) {
 				if ($api->authenticate($user->getUID(), $_POST['password'])) {
 					$login = true;
 					$SUCCESS = "Erfolgreich angemeldet!";
-					require (dirname(__FILE__) . '/templates/success.php');
+					require (__DIR__ . '/templates/success.php');
 
 					// Session ID:
 					if(session_status() == PHP_SESSION_NONE) {
@@ -44,7 +44,7 @@ if(isset($_POST['login'])) {
 
 	if(!$login) {
 		$ERROR = "Benutzername oder Passwort falsch!";
-		require (dirname(__FILE__) . '/templates/error.php');
+		require (__DIR__ . '/templates/error.php');
 	}
 }
 ?>
@@ -61,7 +61,7 @@ if(isset($_POST['login'])) {
 			</form>
 		</center>
 <?php
-require_once (dirname(__FILE__) . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.html');
 ?>
 	</body>
 </html>

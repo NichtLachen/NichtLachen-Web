@@ -1,8 +1,8 @@
 <?php
 
-require_once (dirname(__FILE__) . '/include/guestredirect.php');
-require_once (dirname(__FILE__) . '/classes/db/DatabaseAPI.php');
-require_once (dirname(__FILE__) . '/config.php');
+require_once (__DIR__ . '/include/guestredirect.php');
+require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
+require_once (__DIR__ . '/config.php');
 
 $api = new DatabaseAPI();
 $uid = $api->getUIDBySessionID(session_id());
@@ -21,16 +21,16 @@ $TITLE = $user != null ? "Beiträge von " . $user->getName() : "Benutzer nicht g
 	</head>
 	<body>
 <?php
-require_once (dirname(__FILE__) . '/templates/profilenavbar.php');
+require_once (__DIR__ . '/templates/profilenavbar.php');
 ?>
 <?php
 if ($user != null) {
-	require_once (dirname(__FILE__) . '/templates/user_posts.php');
+	require_once (__DIR__ . '/templates/user_posts.php');
 }
 ?>
 		</center>
 <?php
-require_once (dirname(__FILE__) . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.html');
 ?>
 	</body>
 </html>

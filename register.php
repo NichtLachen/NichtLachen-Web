@@ -1,12 +1,12 @@
 <?php
 
-require_once (dirname(__FILE__) . '/include/loginredirect.php');
-require_once (dirname(__FILE__) . '/classes/db/DatabaseAPI.php');
+require_once (__DIR__ . '/include/loginredirect.php');
+require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
 
 function sendVerifyMail(string $username, string $email, string $key) {
 	$headers = array("Content-Type: text/plain; charset=UTF-8");
 	$subject = "NichtLachen.nl | E-Mail bestätigen";
-	$content = file_get_contents(dirname(__FILE__) . '/templates/email.txt');
+	$content = file_get_contents(__DIR__ . '/templates/email.txt');
 	$content = str_replace('$USER', $username, $content);
 	$content = str_replace('$URL', "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?key=" . $key, $content);
 
@@ -43,22 +43,22 @@ if (isset($_POST['register'])) {
 						$vid = $api->verify($username, $email, $password);
 						sendVerifyMail($username, $email, $vid);
 						$SUCCESS = "Eine Bestätigungsemail wurde an die angegebene EMail-Adresse gesendet, klicken Sie auf den Link in der EMail um Ihren Account zu aktivieren!";
-						require (dirname(__FILE__) . '/templates/success.php');
+						require (__DIR__ . '/templates/success.php');
 					} else {
 						$ERROR = "Diese EMail-Adresse wird bereits verwendet!";
-						require (dirname(__FILE__) . '/templates/error.php');
+						require (__DIR__ . '/templates/error.php');
 					}
 				} else {
 					$ERROR = "Dieser Benutzername wird bereits verwendet!";
-					require (dirname(__FILE__) . '/templates/error.php');
+					require (__DIR__ . '/templates/error.php');
 				}
 			} else {
 				$ERROR = "Das Passwort muss mindestens 8 Zeichen lang sein!";
-				require (dirname(__FILE__) . '/templates/error.php');
+				require (__DIR__ . '/templates/error.php');
 			}
 		} else {
 			$ERROR = "EMail-Adresse darf nicht leer sein!";
-			require (dirname(__FILE__) . '/templates/error.php');
+			require (__DIR__ . '/templates/error.php');
 		}
 	} else {
 		$ERROR = "Benutzername darf nicht leer sein!";
@@ -69,10 +69,10 @@ if (isset($_POST['register'])) {
 	
 	if($api->verifyEnable($_GET['key'])) {
 		$SUCCESS = 'Ihr Account wurde erfolgreich aktiviert! <div class="container"><a href="login.php" class="button">Anmelden</a></div>';
-		require (dirname(__FILE__) . '/templates/success.php');
+		require (__DIR__ . '/templates/success.php');
 	} else {
 		$ERROR = "Die angegebene Verifikations-ID existiert nicht! Ist Ihre Registrierung abgelaufen?";
-		require (dirname(__FILE__) . '/templates/error.php');
+		require (__DIR__ . '/templates/error.php');
 	}
 } ?>
 		<h1 style="margin-top: 0%;">
@@ -90,7 +90,7 @@ if (isset($_POST['register'])) {
 			</form>
 		</center>
 <?php
-require_once (dirname(__FILE__) . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.html');
 ?>
 	</body>
 </html>

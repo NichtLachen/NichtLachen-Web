@@ -1,8 +1,8 @@
 <?php
 
-require_once (dirname(__FILE__) . '/include/guestredirect.php');
-require_once (dirname(__FILE__) . '/classes/db/DatabaseAPI.php');
-require_once (dirname(__FILE__) . '/include/version.php');
+require_once (__DIR__ . '/include/guestredirect.php');
+require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
+require_once (__DIR__ . '/include/version.php');
 
 $api = new DatabaseAPI();
 $uid = $api->getUIDBySessionID(session_id());
@@ -20,7 +20,7 @@ $user = $api->getUserByUID($uid);
 	<body>
 <?php
 $TITLE = "Über";
-require_once (dirname(__FILE__) . '/templates/navbar_back.php');
+require_once (__DIR__ . '/templates/navbar_back.php');
 ?>
 		<div class="about">
 			<h1>Über</h1>
@@ -32,7 +32,7 @@ require_once (dirname(__FILE__) . '/templates/navbar_back.php');
 		</div>
 <?php
 
-require_once (dirname(__FILE__) . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.html');
 ?>
 	</body>
 </html>

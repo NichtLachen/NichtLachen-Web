@@ -1,8 +1,8 @@
 <?php
 
-require_once (dirname(__FILE__) . '/include/guestredirect.php');
-require_once (dirname(__FILE__) . '/classes/db/DatabaseAPI.php');
-require_once (dirname(__FILE__) . '/config.php');
+require_once (__DIR__ . '/include/guestredirect.php');
+require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
+require_once (__DIR__ . '/config.php');
 
 $api = new DatabaseAPI();
 
@@ -21,7 +21,7 @@ $from = urlencode($_SERVER['REQUEST_URI']);
 	<body>
 <?php
 if (!isset($_GET['cid'])) {
-	require_once (dirname(__FILE__) . '/templates/navbar.php');
+	require_once (__DIR__ . '/templates/navbar.php');
 ?>
 
 		<div class="categories">
@@ -60,7 +60,7 @@ foreach ($api->getSuperCategories() as $supercat) {
 
 	if ($name != null && !$api->isSuperCategory($cid)) {
 		$TITLE = $name;
-		require_once (dirname(__FILE__) . '/templates/navbar_back.php');
+		require_once (__DIR__ . '/templates/navbar_back.php');
 
 		$checkMore = function(int $page, int $perPage) : bool {
 			global $api, $cid;
@@ -72,17 +72,17 @@ foreach ($api->getSuperCategories() as $supercat) {
 			return $api->getNewCategoryPosts($cid, $page, $perPage);
 		};
 
-		require_once (dirname(__FILE__) . '/templates/paged_post_array.php');
+		require_once (__DIR__ . '/templates/paged_post_array.php');
 	} else {
 		$TITLE = "Kategorie nicht gefunden!";
-		require_once (dirname(__FILE__) . '/templates/navbar_back.php');
+		require_once (__DIR__ . '/templates/navbar_back.php');
 
 		$ERROR = $TITLE;
-		require (dirname(__FILE__) . '/templates/error.php');
+		require (__DIR__ . '/templates/error.php');
 	}
 }
 
-require_once (dirname(__FILE__) . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.html');
 ?>
 	</body>
 </html>

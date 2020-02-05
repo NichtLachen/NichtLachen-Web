@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-$root = dirname(__FILE__);
+$root = __DIR__;
 
 require_once ($root . '/include/cli_only.php');
 

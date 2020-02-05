@@ -10,6 +10,6 @@ $getPosts = function(int $page, int $perPage) : array {
 	return $api->getUserPosts($uid, $page, $perPage);
 };
 
-require_once (dirname(__FILE__) . '/../templates/paged_post_array.php');
+require_once (__DIR__ . '/../templates/paged_post_array.php');
 
 ?>
