@@ -75,7 +75,7 @@ foreach ($api->getSuperCategories() as $supercat) {
 		require_once (dirname(__FILE__) . '/templates/navbar_back.php');
 
 		$ERROR = $TITLE;
-		include (dirname(__FILE__) . '/templates/error.php');
+		require (dirname(__FILE__) . '/templates/error.php');
 	}
 }
 

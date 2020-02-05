@@ -26,7 +26,7 @@ if(isset($_POST['login'])) {
 				if ($api->authenticate($user->getUID(), $_POST['password'])) {
 					$login = true;
 					$SUCCESS = "Erfolgreich angemeldet!";
-					include (dirname(__FILE__) . '/templates/success.php');
+					require (dirname(__FILE__) . '/templates/success.php');
 
 					// Session ID:
 					if(session_status() == PHP_SESSION_NONE) {
@@ -44,7 +44,7 @@ if(isset($_POST['login'])) {
 
 	if(!$login) {
 		$ERROR = "Benutzername oder Passwort falsch!";
-		include (dirname(__FILE__) . '/templates/error.php');
+		require (dirname(__FILE__) . '/templates/error.php');
 	}
 }
 ?>

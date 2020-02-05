@@ -32,7 +32,7 @@ if ($user != null) {
 	require_once (dirname(__FILE__) . '/templates/userinfo.php');
 } else {
 	$ERROR = $TITLE;
-	include (dirname(__FILE__) . '/templates/error.php');
+	require (dirname(__FILE__) . '/templates/error.php');
 }
 ?>
 		</center>

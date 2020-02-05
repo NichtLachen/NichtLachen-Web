@@ -43,36 +43,36 @@ if (isset($_POST['register'])) {
 						$vid = $api->verify($username, $email, $password);
 						sendVerifyMail($username, $email, $vid);
 						$SUCCESS = "Eine Bestätigungsemail wurde an die angegebene EMail-Adresse gesendet, klicken Sie auf den Link in der EMail um Ihren Account zu aktivieren!";
-						include (dirname(__FILE__) . '/templates/success.php');
+						require (dirname(__FILE__) . '/templates/success.php');
 					} else {
 						$ERROR = "Diese EMail-Adresse wird bereits verwendet!";
-						include (dirname(__FILE__) . '/templates/error.php');
+						require (dirname(__FILE__) . '/templates/error.php');
 					}
 				} else {
 					$ERROR = "Dieser Benutzername wird bereits verwendet!";
-					include (dirname(__FILE__) . '/templates/error.php');
+					require (dirname(__FILE__) . '/templates/error.php');
 				}
 			} else {
 				$ERROR = "Das Passwort muss mindestens 8 Zeichen lang sein!";
-				include (dirname(__FILE__) . '/templates/error.php');
+				require (dirname(__FILE__) . '/templates/error.php');
 			}
 		} else {
 			$ERROR = "EMail-Adresse darf nicht leer sein!";
-			include (dirname(__FILE__) . '/templates/error.php');
+			require (dirname(__FILE__) . '/templates/error.php');
 		}
 	} else {
 		$ERROR = "Benutzername darf nicht leer sein!";
-		include ($root . '/templates/error.php');
+		require ($root . '/templates/error.php');
 	}
 } else if(isset($_GET['key'])) {
 	$api = new DatabaseAPI();
 	
 	if($api->verifyEnable($_GET['key'])) {
 		$SUCCESS = 'Ihr Account wurde erfolgreich aktiviert! <div class="container"><a href="login.php" class="button">Anmelden</a></div>';
-		include (dirname(__FILE__) . '/templates/success.php');
+		require (dirname(__FILE__) . '/templates/success.php');
 	} else {
 		$ERROR = "Die angegebene Verifikations-ID existiert nicht! Ist Ihre Registrierung abgelaufen?";
-		include (dirname(__FILE__) . '/templates/error.php');
+		require (dirname(__FILE__) . '/templates/error.php');
 	}
 } ?>
 		<h1 style="margin-top: 0%;">

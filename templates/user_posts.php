@@ -9,7 +9,7 @@ $nextNum = !empty($next) ? '<a href="' . $_SERVER['PHP_SELF'] . '?uid=' . $uid .
 
 
 $posts = $api->getUserPosts($uid, $page, POSTS_PER_PAGE);
-include (dirname(__FILE__) . '/../templates/post_array.php');
+require (dirname(__FILE__) . '/../templates/post_array.php');
 
 require_once (dirname(__FILE__) . '/../templates/prevnext.php');
 
