@@ -55,21 +55,22 @@ foreach ($api->getSuperCategories() as $supercat) {
 } else {
 	$cid = $_GET['cid'];
 	$name = $api->getCategoryName($cid);
-	$page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
-
-	$prev = $page > 1 ? " href=\"" . $_SERVER['PHP_SELF'] . "?cid=" . $cid . "&page=" . ($page - 1) . "\"": "";
-	$prevNum = $page > 1 ? '<a href="' . $_SERVER['PHP_SELF'] . '?cid=' . $cid . '&page=' . ($page - 1) . '">' . ($page - 1) . '</a>' : "";
-	$next = $api->moreNewCategoryPosts($cid, $page, POSTS_PER_PAGE) ? " href=\"" . $_SERVER['PHP_SELF'] . "?cid=" . $cid . "&page=" . ($page + 1) . "\"" : "";
-	$nextNum = !empty($next) ? '<a href="' . $_SERVER['PHP_SELF'] . '?cid=' . $cid . '&page=' . ($page + 1) . '">' . ($page + 1) . '</a>' : "";
 
 	if ($name != null && !$api->isSuperCategory($cid)) {
 		$TITLE = $name;
 		require_once (dirname(__FILE__) . '/templates/navbar_back.php');
 
-		$posts = $api->getNewCategoryPosts($cid, $page, POSTS_PER_PAGE);
-		require (dirname(__FILE__) . '/templates/post_array.php');
+		$checkMore = function(int $page, int $perPage) : bool {
+			global $api, $cid;
+			return $api->moreNewCategoryPosts($cid, $page, $perPage);
+		};
 
-		require_once (dirname(__FILE__) . '/templates/prevnext.php');
+		$getPosts = function(int $page, int $perPage) : array {
+			global $api, $cid;
+			return $api->getNewCategoryPosts($cid, $page, $perPage);
+		};
+
+		require_once (dirname(__FILE__) . '/templates/paged_post_array.php');
 	} else {
 		$TITLE = "Kategorie nicht gefunden!";
 		require_once (dirname(__FILE__) . '/templates/navbar_back.php');
