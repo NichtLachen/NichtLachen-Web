@@ -5,12 +5,6 @@ require_once (dirname(__FILE__) . '/classes/db/DatabaseAPI.php');
 require_once (dirname(__FILE__) . '/config.php');
 
 $api = new DatabaseAPI();
-$page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
-
-$prev = $page > 1 ? " href=\"" . $_SERVER['PHP_SELF'] . "?page=" . ($page - 1) . "\"": "";
-$prevNum = $page > 1 ? '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . ($page - 1) . '">' . ($page - 1) . '</a>' : "";
-$next = $api->moreTopPosts($page, POSTS_PER_PAGE) ? " href=\"" . $_SERVER['PHP_SELF'] . "?page=" . ($page + 1) . "\"" : "";
-$nextNum = !empty($next) ? '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . ($page + 1) . '">' . ($page + 1) . '</a>' : "";
 
 ?>
 
@@ -26,8 +20,17 @@ $nextNum = !empty($next) ? '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . ($pag
 <?php
 require_once (dirname(__FILE__) . '/templates/navbar.php');
 
-$posts = $api->getTopPosts($page, POSTS_PER_PAGE);
-require (dirname(__FILE__) . '/templates/post_array.php');
+$checkMore = function(int $page, int $perPage) : bool {
+	global $api;
+	return $api->moreTopPosts($page, $perPage);
+};
+
+$getPosts = function(int $page, int $perPage) : array {
+	global $api;
+	return $api->getTopPosts($page, $perPage);
+};
+
+require_once (dirname(__FILE__) . '/templates/paged_post_array.php');
 
 require_once (dirname(__FILE__) . '/templates/prevnext.php');
 require_once (dirname(__FILE__) . '/templates/footer.html');
