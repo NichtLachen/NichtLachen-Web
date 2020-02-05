@@ -32,7 +32,6 @@ $getPosts = function(int $page, int $perPage) : array {
 
 require_once (dirname(__FILE__) . '/templates/paged_post_array.php');
 
-require_once (dirname(__FILE__) . '/templates/prevnext.php');
 require_once (dirname(__FILE__) . '/templates/footer.html');
 ?>
 	</body>

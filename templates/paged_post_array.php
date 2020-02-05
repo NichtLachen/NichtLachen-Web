@@ -13,4 +13,8 @@ $nextNum = !empty($next) ? '<a href="' . $_SERVER['PHP_SELF'] . hrefReplaceVar("
 $posts = $getPosts($page, POSTS_PER_PAGE);
 require (dirname(__FILE__) . '/../templates/post_array.php');
 
+if ($page > 1 || !empty($next)) {
+	require_once (dirname(__FILE__) . '/../templates/prevnext.php');
+}
+
 ?>
