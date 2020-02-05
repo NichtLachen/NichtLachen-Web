@@ -16,7 +16,7 @@ if($uid != null) {
 } else {
 	header("Status: 302 Found");
 	header("Location: ./");
-	return;
+	die();
 }
 
 ?>

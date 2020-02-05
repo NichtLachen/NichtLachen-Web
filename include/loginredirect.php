@@ -15,7 +15,7 @@ if($uid != null) {
 	$api->refreshSession($sid);
 	header("Status: 302 Found");
 	header("Location: top.php");
-	return;
+	die();
 }
 
 ?>
