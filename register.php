@@ -74,22 +74,21 @@ if (isset($_POST['register'])) {
 		$ERROR = "Die angegebene Verifikations-ID existiert nicht! Ist Ihre Registrierung abgelaufen?";
 		require (__DIR__ . '/templates/error.php');
 	}
-} ?>
-		<h1 style="margin-top: 0%;">
-			<center><br>Registrieren<br><br></center>
-		</h1>
-		<center>
-			<div class="container">
-				<form method="POST" action="">
-					<input type="text" name="username" placeholder="Benutzername"/><br>
-					<br>
-					<input type="email" name="email" placeholder="EMail-Adresse"/><br>
-					<br>
-					<input type="password" name="password" placeholder="Passwort"/><br>
-					<br>
-					<input class="button" type="submit" name="register" value="Registrieren"/>
-				</form>
-			</div>
+} 
+
+$TITLE = "Registrieren";
+require_once (__DIR__ . '/templates/navbar_back.php');
+?>
+		<center class="container">
+			<form method="POST" action="">
+				<input type="text" name="username" placeholder="Benutzername"/><br>
+				<br>
+				<input type="email" name="email" placeholder="EMail-Adresse"/><br>
+				<br>
+				<input type="password" name="password" placeholder="Passwort"/><br>
+				<br>
+				<input class="button" type="submit" name="register" value="Registrieren"/>
+			</form>
 		</center>
 <?php
 require_once (__DIR__ . '/templates/footer.html');

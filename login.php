@@ -47,11 +47,11 @@ if(isset($_POST['login'])) {
 		require (__DIR__ . '/templates/error.php');
 	}
 }
+
+$TITLE = "Anmelden";
+require_once (__DIR__ . '/templates/navbar_back.php');
 ?>
-		<h1 style="margin-top: 0%;">
-			<center><br>Anmelden<br><br></center>
-		</h1>
-		<center>
+		<center class="container">
 			<form method="POST" action="">
 				<input type="text" name="username" placeholder="Benutzername/EMail-Adresse"/><br>
 				<br>
