@@ -59,7 +59,7 @@ foreach ($api->getSuperCategories() as $supercat) {
 
 	if ($name != null && !$api->isSuperCategory($cid)) {
 		$TITLE = $name;
-		require_once (__DIR__ . '/templates/navbar_back.php');
+		require_once (__DIR__ . '/templates/navbar_back_category.php');
 
 		$checkMore = function(int $page, int $perPage) : bool {
 			global $api, $cid;

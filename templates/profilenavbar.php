@@ -5,7 +5,7 @@ $from = isset($_GET['from']) ? $_GET['from'] : "./";
 
 ?>
 		<div class="topnav">
-			<a href="<?php echo $from; ?>"><i class="fa fa-arrow-left" style="font-size: large; margin-left: 20px;"></i></a>
+			<a style="margin-left: 20px;" href="<?php echo $from; ?>"><i class="fa fa-arrow-left"></i></a>
 			<font class="header">Mein Profil</font>
 			<a style="float: right" href="logout.php">Ausloggen</a>
 			<br><br>
