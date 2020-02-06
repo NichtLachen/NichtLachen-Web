@@ -459,6 +459,36 @@ class DatabaseAPI {
 		$stmt = $this->database->conn->prepare("DELETE FROM favorites WHERE PID = :pid AND UID = :uid");
 		$stmt->execute(array("pid" => $pid, "uid" => $uid));
 	}
+
+
+	public function getNewFavPosts(int $uid, int $page, int $perPage) : array {
+		$res = [];
+		$start = ($page - 1) * $perPage;
+		$end = $perPage; // LIMIT offset,amount
+ 		$stmt = $this->database->conn->prepare("SELECT * FROM favorites,posts WHERE favorites.UID = :uid AND favorites.PID = posts.PID ORDER BY FID DESC LIMIT :start,:end");
+		$stmt->execute(array("uid" => $uid, "start" => $start, "end" => $end));
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $this->getPost($row);
+		}
+
+		return $res;
+	}
+
+	public function moreNewFavPosts(int $uid, int $page, int $perPage) : bool {
+		$start = ($page - 1) * $perPage;
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM favorites WHERE UID = :uid ORDER BY FID");
+		$stmt->execute(array("uid" => $uid));
+
+		foreach ($stmt as $row) {
+			if ($row['COUNT(posts.PID)'] > $end) {
+				return true;
+			}
+		}
+
+		return false;
+	}	
 }
 
 ?>
