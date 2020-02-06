@@ -54,18 +54,18 @@
 }
 
 .container {
-	padding-top: 50px;
-	margin: 0 auto;
-	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 1em;
 	text-align: center;
 }
 
-h1 {
+.h1 {
 	font-family: Arial;
 	background-color: orange;
 	color: white;
-	text-transform: uppercase;
-	margin-bottom: 2rem;
 }
 
 span {
@@ -137,11 +137,12 @@ body {
 /* Modal Content/Box */
 
 .modal-content {
+	border-radius: 0.5em;
 	text-align: center;
 	margin: 15% auto;
 	/* 15% from the top and centered */
-	padding: 20px;
-	border: 1px solid #888;
+	padding: 1em;
+	box-shadow: 0em 0.4em 0.8em 0em #888;
 	width: 80%;
 	/* Could be more or less, depending on screen size */
 }
@@ -163,10 +164,10 @@ body {
 }
 
 .topnav {
-	border-top: 20px solid orange;
+	border-top: 1em solid orange;
 	font-weight: bold;
 	color: white;
-	top: 0px;
+	top: 0em;
 	z-index: 1;
 	list-style-type: none;
 	margin: 0;
@@ -178,37 +179,38 @@ body {
 
 .topnav a {
 	font-size: 11pt;
-	border-bottom: 5px solid orange;
+	border-bottom: 0.5em solid orange;
 	text-transform: uppercase;
 	text-align: left;
 	display: inline-block;
 	color: white;
-	padding: 10px;
+	padding: 0.8em;
 	text-decoration: none;
 }
 
 .topnav a.active {
-	border-bottom: 5px solid white;
+	border-bottom: 0.5em solid white;
 }
 
 .topnav a:hover {
-	box-shadow:inset 0 0 0 99999px rgba(0,0,0,0.2);
-	border-bottom: 5px solid rgba(0,0,0,0.2);
+	box-shadow:inset 0 0 0 99999em rgba(0,0,0,0.2);
+	border-bottom: 0.5em solid rgba(0,0,0,0.2);
 }
 
 .topnav a.active:hover {
-	box-shadow:inset 0 0 0 99999px rgba(0,0,0,0.2);
-	border-bottom: 5px solid white;
+	box-shadow:inset 0 0 0 99999em rgba(0,0,0,0.2);
+	border-bottom: 0.5em solid rgba(255,255,255,0.99);
 }
 
 .topnav .header {
-	border-left: 20px solid orange;
+	border-left: 1em solid orange;
 }
 
 .dropbtn {
+	margin-right: 1em;
 	background-color: orange;
 	color: white;
-	padding: 16px;
+	padding: 0.5em;
 	border: none;
 	cursor: pointer;
 }
@@ -224,7 +226,7 @@ body {
 	right: 0;
 	background-color: orange;
 	color: white;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	box-shadow: 0em 0.4em 0.8em 0.4em rgba(0, 0, 0, 0.2);
 	z-index: 1;
 }
 
@@ -236,11 +238,11 @@ body {
 }
 
 .dropdown-content a:hover {
-	box-shadow:inset 0 0 0 99999px rgba(0,0,0,0.2);
+	box-shadow:inset 0 0 0 99999em rgba(0,0,0,0.2);
 }
 
 .dropdown-content a:hover .dropdown-content {
-	box-shadow:inset 0 0 0 99999px rgba(0,0,0,0.2);
+	box-shadow:inset 0 0 0 99999em rgba(0,0,0,0.2);
 }
 
 .dropdown:hover .dropdown-content {
@@ -248,18 +250,13 @@ body {
 }
 
 .dropdown:hover .dropbtn {
-	box-shadow:inset 0 0 0 99999px rgba(0,0,0,0.2);
+	box-shadow:inset 0 0 0 99999em rgba(0,0,0,0.2);
 }
-
-/* @media screen and (max-width: 600px){
-	ul.topnav li.right, ul.topnav li {float: none; width: 100%; position: absolute; top: 0;};
-}
-*/
 
 .profileimage {
 	width: 256px;
 	height: 256px;
-	border: 20px solid rgba(0,0,0,0);
+	border: 1em solid rgba(0,0,0,0);
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -269,7 +266,7 @@ table.userinfo {
 }
 
 table.userinfo tr {
-	min-height: 50px;
+	min-height: 2.5em;
 }
 
 table.userinfo td,th {
@@ -278,7 +275,7 @@ table.userinfo td,th {
 }
 
 table.userinfo tr.space {
-	height: 50px;
+	height: 2.5em;
 }
 
 table.userinfo a {
@@ -297,13 +294,13 @@ footer {
 }
 
 .post {
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	box-shadow: 0em 0.4em 0.8em 0em rgba(0, 0, 0, 0.2);
 	width: 90%;
 	margin: auto;
-	border: 10px solid white;
+	border: 0.5em solid white;
 	background-color: white;
-	margin-top: 10px;
-	border-radius: 5px;
+	margin-top: 1em;
+	border-radius: 0.5em;
 }
 
 .post-category {
@@ -323,7 +320,7 @@ footer {
 }
 
 .post-like {
-	margin-left: 5px;
+	margin-left: 0.5em;
 	display: inline;
 	color: green;
 }
@@ -334,7 +331,7 @@ footer {
 }
 
 .post-dislike {
-	margin-left: 5px;
+	margin-left: 0.5em;
 	display: inline;
 	color: red;
 }
@@ -346,7 +343,7 @@ footer {
 
 .post-fav {
 	display: inline;
-	margin-left: 15px;
+	margin-left: 1em;
 	color: grey;
 }
 
@@ -381,7 +378,7 @@ div.nextpage {
 	margin: 0 auto;
 	color: white;
 	font-size: x-large;
-	margin-top: 20px;
+	margin-top: 1em;
 	display: table;
 }
 
@@ -390,8 +387,8 @@ div.nextpage a {
 	text-decoration: none;
 	background-color: orange;
 	float: left;
-	padding: 8px 16px;
-	border: 1px solid rgba(0,0,0,0.2);
+	padding: 0.4em 0.8em;
+	border: 0.05em solid rgba(0,0,0,0.2);
 }
 
 div.nextpage a.active {
@@ -399,17 +396,17 @@ div.nextpage a.active {
 }
 
 div.nextpage a:hover:not(.active) {
-	box-shadow:inset 0 0 0 99999px rgba(0,0,0,0.2);
+	box-shadow:inset 0 0 0 99999em rgba(0,0,0,0.2);
 }
 
 div.nextpage a:first-child {
-	border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
+	border-top-left-radius: 0.2em;
+	border-bottom-left-radius: 0.2em;
 }
 
 div.nextpage a:last-child {
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
+	border-top-right-radius: 0.2em;
+	border-bottom-right-radius: 0.2em;
 }
 
 .categories hr {

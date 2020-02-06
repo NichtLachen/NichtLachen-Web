@@ -13,26 +13,24 @@ require_once (__DIR__ . '/include/loginredirect.php');
 		<meta name='viewport' content="width=device-width, initial-scale=1" />
 	</head>
 	<body>
-		<h1 style="margin-top: 0%;">
+		<h1 class="h1" style="margin-top: 0%;">
 			<center><br>Willkommen bei Nicht Lachen 2.0!<br><br></center>
 		</h1>
-		<center>
-			<table style="font-family: Arial; background-color: orange; color: white; border-radius: 8px;">
+		<center class="container" style="font-family: Arial; background-color: orange; color: white; border-radius: 8px;">
+			<table>
 				<tr>
 					<td style="font-size: x-large; text-align: center;">
 						Melden Sie sich an:<br>
-						<div class="container">
-							<a href="login.php" class="button">Anmelden</a>
-						</div>
+						<br>
+						<a href="login.php" class="button">Anmelden</a>
 						<br>
 					</td>
 				</tr>
 				<tr>
 					<td style="font-size: x-large; text-align: center">
 						Oder registrieren Sie sich:<br>
-						<div class="container">
-							<a href="register.php" class="button">Registrieren</a>
-						</div>
+						<br>
+						<a href="register.php" class="button">Registrieren</a>
 						<br>
 					</td>
 				</tr>
