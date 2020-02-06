@@ -62,7 +62,7 @@ if (isset($_POST['register'])) {
 		}
 	} else {
 		$ERROR = "Benutzername darf nicht leer sein!";
-		require ($root . '/templates/error.php');
+		require (__DIR__ . '/templates/error.php');
 	}
 } else if(isset($_GET['key'])) {
 	$api = new DatabaseAPI();
@@ -79,15 +79,17 @@ if (isset($_POST['register'])) {
 			<center><br>Registrieren<br><br></center>
 		</h1>
 		<center>
-			<form method="POST" action="">
-				<input type="text" name="username" placeholder="Benutzername"/><br>
-				<br>
-				<input type="email" name="email" placeholder="EMail-Adresse"/><br>
-				<br>
-				<input type="password" name="password" placeholder="Passwort"/><br>
-				<br>
-				<input type="submit" name="register" value="Registrieren"/>
-			</form>
+			<div class="container">
+				<form method="POST" action="">
+					<input type="text" name="username" placeholder="Benutzername"/><br>
+					<br>
+					<input type="email" name="email" placeholder="EMail-Adresse"/><br>
+					<br>
+					<input type="password" name="password" placeholder="Passwort"/><br>
+					<br>
+					<input class="button" type="submit" name="register" value="Registrieren"/>
+				</form>
+			</div>
 		</center>
 <?php
 require_once (__DIR__ . '/templates/footer.html');
