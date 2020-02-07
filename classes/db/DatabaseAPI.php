@@ -319,9 +319,22 @@ class DatabaseAPI {
 		return false;
 	}
 
-	public function post(int $cid, int $uid, string $content) {
-		$stmt = $this->database->conn->prepare("INSERT INTO posts(CID,UID,CreatedAt,Content) VALUES (:cid,:uid,NOW(),:content)");
+	public function postVerify(int $cid, int $uid, string $content) {
+		$stmt = $this->database->conn->prepare("INSERT INTO posts_verify(CID,UID,CreatedAt,Content) VALUES (:cid,:uid,NOW(),:content)");
 		$stmt->execute(array("cid" => $cid, "uid" => $uid, "content" => $content));
+	}
+
+	public function postVerifyEnable(int $pid) {
+		$stmt = $this->database->conn->prepare("SELECT * FROM posts_verify WHERE PID = :pid");
+		$stmt->execute(array("pid" => $pid));
+
+		foreach ($stmt as $row) {
+			$stmt = $this->database->conn->prepare("INSERT INTO posts(CID,UID,CreatedAt,Content) VALUES (:cid,:uid,:created,:content)");
+			$stmt->execute(array("cid" => $row['CID'], "uid" => $row['UID'], "created" => $row['CreatedAt'], "content" => $row['Content']));
+			$stmt = $this->database->conn->prepare("DELETE FROM posts_verify WHERE PID = :pid");
+			$stmt->execute(array("pid" => $pid));
+			return;
+		}
 	}
 
 	public function getNewPosts(int $page, int $perPage) : array {
