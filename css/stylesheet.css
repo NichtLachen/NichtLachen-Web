@@ -263,6 +263,7 @@ body {
 
 table.userinfo {
 	border: 0;
+	white-space: pre-wrap; /* For \n */
 }
 
 table.userinfo tr {
@@ -301,6 +302,10 @@ footer {
 	background-color: white;
 	margin-top: 1em;
 	border-radius: 0.5em;
+}
+
+.post-content {
+	white-space: pre-wrap; /* For \n */
 }
 
 .post-category {
