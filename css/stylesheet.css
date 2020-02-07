@@ -1,7 +1,7 @@
-@import url("fontawesome/css/fontawesome.min.css");
-@import url("fontawesome/css/brands.min.css");
-@import url("fontawesome/css/solid.min.css");
-@import url("fontawesome/css/regular.min.css");
+@import url("../fontawesome/css/fontawesome.min.css");
+@import url("../fontawesome/css/brands.min.css");
+@import url("../fontawesome/css/solid.min.css");
+@import url("../fontawesome/css/regular.min.css");
 
 .button {
 	border: none;
