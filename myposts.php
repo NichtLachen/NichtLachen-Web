@@ -15,7 +15,7 @@ $TITLE = $user != null ? "Beiträge von " . $user->getName() : "Benutzer nicht g
 	<head>
 		<meta charset="utf-8">
 		<title>Nicht Lachen! | <?php echo $TITLE; ?></title>
-		<link rel="stylesheet" href="/css/stylesheet.min.css"/>
+		<link rel="stylesheet" href="css/stylesheet.min.css"/>
 		<meta name='viewport' content="width=device-width, initial-scale=1" />
 	</head>
 	<body>
