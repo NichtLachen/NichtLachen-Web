@@ -50,7 +50,7 @@ if ($post != null) {
 		<form class="newcomment" method="POST" action="?pid=<?php echo $pid; ?>&from=<?php echo urlencode($_GET['from']); ?>" id="comment">
 			<div class="post-category">Kommentieren</div><br>
 			<input type="hidden" name="pid" value="<?php echo $pid; ?>">
-			<textarea form="comment" name="text" autofocus></textarea><br>
+			<textarea form="comment" name="text" autofocus><?php echo isset($_GET['to']) ? "@" . $_GET['to'] : ""; ?></textarea><br>
 			<br>
 			<input type="submit" class="button">
 		</form>

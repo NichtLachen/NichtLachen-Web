@@ -1,7 +1,7 @@
 <?php
 
 function hrefReplaceVar(string $repKey, string $repValue) : string {
-	$href = $_SERVER['PHP_SELF'];
+	$href = "";
 	
 	$i = 0;
 
@@ -9,15 +9,15 @@ function hrefReplaceVar(string $repKey, string $repValue) : string {
 		$q = $i == 0 ? "?" : "&";
 
 		if ($key != $repKey) {
-			$href .= $q . $key . "=" . $value;
+			$href .= $q . urlencode($key) . "=" . urlencode($value);
 			$i++;
 		}
 	}
 
 	$q = $i == 0 ? "?" : "&";
-	$href .= $q . $repKey . "=" . $repValue;
+	$href .= $q . urlencode($repKey) . "=" . urlencode($repValue);
 
-	return $href;
+	return $_SERVER['PHP_SELF'] . $href;
 }
 
 ?>

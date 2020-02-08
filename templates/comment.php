@@ -2,6 +2,7 @@
 require_once (__DIR__ . '/../classes/db/DatabaseAPI.php');
 require_once (__DIR__ . '/../classes/date/DateUtil.php');
 require_once (__DIR__ . '/../include/htmlutils.php');
+require_once (__DIR__ . '/../include/varutils.php');
 
 $api = new DatabaseAPI();
 $user = $api->getUserByUID($comment->getCreatorUID());
@@ -23,5 +24,6 @@ $color = $api->isCommentLikeSet($comment->getCMTID(), $uid, 1) ? "red" : "grey";
 			<br><br>
 			<div class="post-content"><?php echo $to; ?><?php echo escapeHTML($comment->getContent()); ?></div>
 			<br>
+			<a class="post-info" style="display: inline; text-decoration: none;" href="<?php echo hrefReplaceVar("to", $user->getName()); ?>">Antworten</a>
 			<div class="post-like"><a href="like.php?like=1&cmtid=<?php echo $comment->getCMTID();?>&from=<?php echo $from; ?>"><i style="color: <?php echo $color; ?>" class="fas fa-heart"></i></a> <?php echo $api->countCommentLikes($comment->getCMTID());?></div>
 		</div>
