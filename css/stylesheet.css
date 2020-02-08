@@ -442,10 +442,12 @@ form.newpost {
 	transform: translate(-50%, -50%);
 	padding: 1em;
 	text-align: center;
+	width: 95%;
+	height: 50%;
 }
 
 form.newpost textarea {
-	height: 50vh;
-	width: calc(95vw - 2em);
+	height: 100%;
+	width: 100%;
 }
 

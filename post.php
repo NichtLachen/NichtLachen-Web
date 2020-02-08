@@ -27,7 +27,6 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 	$name = $api->getCategoryName($_GET['cid']);
 
 	if ($name != null && !$api->isSuperCategory($_GET['cid'])) {
-		
 ?>
 		<form class="newpost" method="POST" action="" id="post">
 			<input type="hidden" name="cid" value="<?php echo $_GET['cid']; ?>">
@@ -46,7 +45,7 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 		$api->postQueue($_POST['cid'], $uid, $text);
 	}
 
-	header("302 Found");
+	header("Status: 302 Found");
 	header("Location: " . $from);
 } else {
 	$ERROR = "Ungültige Anfrage";
