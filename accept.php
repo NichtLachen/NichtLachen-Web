@@ -23,7 +23,7 @@ if(isset($_GET['accept']) && isset($_GET['pid'])) {
 		}
 	}
 
-	$url = isset($_GET['from']) ? urldecode($_GET['from']) : "top.php";
+	$url = isset($_GET['from']) ? $_GET['from'] : "top.php";
 
 	header("Status: 302 Found");
 	header("Location: " . $url);

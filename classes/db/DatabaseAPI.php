@@ -723,7 +723,32 @@ class DatabaseAPI {
 		}
 
 		return false;
-	}	
+	}
+
+	public function hasSubscribed(int $followeruid, int $uid) : bool {
+		$stmt = $this->database->conn->prepare("SELECT * FROM followers WHERE FollowerUID = :followeruid AND UID = :uid");
+		$stmt->execute(array("followeruid" => $followeruid, "uid" => $uid));
+
+		foreach ($stmt as $row) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public function subscribe(int $followeruid, int $uid) {
+		$stmt = $this->database->conn->prepare("INSERT INTO followers (FollowerUID, UID) VALUES (:followeruid, :uid)");
+		$stmt->execute(array("followeruid" => $followeruid, "uid" => $uid));
+	}
+
+	public function unsubscribe(int $followeruid, int $uid) {
+		$stmt = $this->database->conn->prepare("DELETE FROM followers WHERE FollowerUID = :followeruid AND UID = :uid");
+		$stmt->execute(array("followeruid" => $followeruid, "uid" => $uid));
+	}
+
+	public function canSubscribe(int $followeruid, int $uid) {
+		return $followeruid != $uid && !$this->hasSubscribed($followeruid, $uid);
+	}
 }
 
 ?>
