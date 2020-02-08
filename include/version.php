@@ -14,7 +14,7 @@ function getAppVersion() : ?string {
 }
 
 function getWebVersionTag() : ?string {
-	return trim(shell_exec("git describe --tags"));
+	return trim(shell_exec("git describe --tags --abbrev=0"));
 }
 
 function getWebVersion() : string {
