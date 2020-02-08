@@ -3,6 +3,7 @@
 require_once (__DIR__ . '/Database.php');
 require_once (__DIR__ . '/../user/User.php');
 require_once (__DIR__ . '/../post/Post.php');
+require_once (__DIR__ . '/../post/Comment.php');
 
 DatabaseAPI::$DB_INSTANCE = new Database();
 
@@ -153,7 +154,7 @@ class DatabaseAPI {
 		$stmt->execute(array("sid" => $sid));
 	}
 
-	public function countPostLikes(int $pid) : ?int {
+	public function countPostLikes(int $pid) : int {
 		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE PID = :pid AND Value = '1'");
 		$stmt->execute(array("pid" => $pid));
 
@@ -161,10 +162,10 @@ class DatabaseAPI {
 			return $row['COUNT(LID)'];
 		}
 
-		return null;
+		return 0;
 	}
 
-	public function countPostDislikes(int $pid) : ?int {
+	public function countPostDislikes(int $pid) : int {
 		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE PID = :pid AND Value = '-1'");
 		$stmt->execute(array("pid" => $pid));
 
@@ -172,10 +173,10 @@ class DatabaseAPI {
 			return $row['COUNT(LID)'];
 		}
 
-		return null;
+		return 0;
 	}
 
-	public function countCommentLikes(int $cmtid) : ?int {
+	public function countCommentLikes(int $cmtid) : int {
 		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE CMTID = :cmtid AND Value = '1'");
 		$stmt->execute(array("cmtid" => $cmtid));
 
@@ -183,10 +184,10 @@ class DatabaseAPI {
 			return $row['COUNT(LID)'];
 		}
 
-		return null;
+		return 0;
 	}
 
-	public function countCommentDislikes(int $cmtid) : ?int {
+	public function countCommentDislikes(int $cmtid) : int {
 		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE CMTID = :cmtid AND Value = '-1'");
 		$stmt->execute(array("cmtid" => $cmtid));
 
@@ -194,10 +195,10 @@ class DatabaseAPI {
 			return $row['COUNT(LID)'];
 		}
 
-		return null;
+		return 0;
 	}
 
-	public function countFollowers(int $uid) : ?int {
+	public function countFollowers(int $uid) : int {
 		$stmt = $this->database->conn->prepare("SELECT COUNT(FollowerUID) FROM followers WHERE UID = :uid");
 		$stmt->execute(array("uid" => $uid));
 
@@ -205,11 +206,11 @@ class DatabaseAPI {
 			return $row['COUNT(FollowerUID)'];
 		}
 
-		return null;
+		return 0;
 	}
 
 
-	public function countFollows(int $uid) : ?int {
+	public function countFollows(int $uid) : int {
 		$stmt = $this->database->conn->prepare("SELECT COUNT(UID) FROM followers WHERE FollowerUID = :uid");
 		$stmt->execute(array("uid" => $uid));
 
@@ -217,10 +218,10 @@ class DatabaseAPI {
 			return $row['COUNT(UID)'];
 		}
 
-		return null;
+		return 0;
 	}
 
-	public function countPosts(int $uid) : ?int {
+	public function countPosts(int $uid) : int {
 		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM posts WHERE UID = :uid");
 		$stmt->execute(array("uid" => $uid));
 
@@ -228,11 +229,66 @@ class DatabaseAPI {
 			return $row['COUNT(PID)'];
 		}
 
-		return null;
+		return 0;
+	}
+
+	public function countPostComments(int $pid) : int {
+		$stmt = $this->database->conn->prepare("SELECT COUNT(CMTID) FROM comments WHERE PID = :pid");
+		$stmt->execute(array("pid" => $pid));
+
+		foreach ($stmt as $row) {
+			return $row['COUNT(CMTID)'];
+		}
+
+		return 0;
+	}
+
+	private function getComment(array $row) : Comment {
+		return new Comment($row['CMTID'], $row['PID'], $row['UID'], $row['UID_F'], $row['Content'], $row['CreatedAt']);
+	}
+
+	public function getComments(int $pid, int $page, int $perPage) : array {
+		$res = [];
+		$start = ($page - 1) * $perPage;
+		$end = $perPage; // LIMIT offset,amount
+ 		$stmt = $this->database->conn->prepare("SELECT * FROM comments WHERE PID = :pid ORDER BY CMTID DESC LIMIT :start,:end");
+		$stmt->execute(array("pid" => $pid, "start" => $start, "end" => $end));
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $this->getComment($row);
+		}
+
+		return $res;
+	}
+
+	public function moreComments(int $pid, int $page, int $perPage) : bool {
+		$start = ($page - 1) * $perPage;
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT COUNT(CMTID) FROM comments WHERE PID = :pid ORDER BY CMTID");
+		$stmt->execute(array("pid" => $pid));
+
+		foreach ($stmt as $row) {
+			if ($row['COUNT(CMTID)'] > $end) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private function getPost(array $row) : Post {
 		return new Post($row['PID'], $row['CID'], $row['UID'], $row['Content'], $row['CreatedAt']);
+	}
+
+	public function getPostByPID(int $pid) : ?Post {
+		$stmt = $this->database->conn->prepare("SELECT * FROM posts WHERE PID = :pid");
+		$stmt->execute(array("pid" => $pid));
+
+		foreach ($stmt as $row) {
+			return $this->getPost($row);
+		}
+
+		return null;
 	}
 
 	public function getParentLessCategories() : array {
@@ -349,7 +405,7 @@ class DatabaseAPI {
 		return null;
 	}
 
-	public function getPostQueueAccepts(int $pid) : ?int {
+	public function getPostQueueAccepts(int $pid) : int {
 		$stmt = $this->database->conn->prepare("SELECT SUM(Value) FROM posts_verify_accept WHERE PID = :pid");
 		$stmt->execute(array("pid" => $pid));
 
@@ -357,7 +413,7 @@ class DatabaseAPI {
 			return $row['SUM(Value)'];
 		}
 
-		return null;
+		return 0;
 	}
 
 	public function postQueueAccept(int $uid, int $pid) {
@@ -589,6 +645,15 @@ class DatabaseAPI {
 		}
 
 		return false;
+	}
+
+	public function removeCommentLikes(int $cmtid, int $uid) {
+		$stmt = $this->database->conn->prepare("DELETE FROM likes WHERE CMTID = :cmtid AND UID = :uid");
+		$stmt->execute(array("cmtid" => $cmtid, "uid" => $uid));
+	}
+
+	public function likeComment(int $cmtid, int $uid) {
+		$this->removeCommentLikes($cmtid, $uid);
 	}
 
 	public function favPost(int $pid, int $uid) {
