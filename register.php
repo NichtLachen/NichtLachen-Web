@@ -37,15 +37,20 @@ if (isset($_POST['register'])) {
 				$api = new DatabaseAPI();
 
 				if(!$api->isNameInUse($username) && !$api->isNameInVerification($username)) {
-					$user = $api->getUserByEMail($email);
+					if (strpos($username, ' ') == false) {
+						$user = $api->getUserByEMail($email);
 
-					if($user == null && !$api->isEMailInVerification($email)) {
-						$vid = $api->verify($username, $email, $password);
-						sendVerifyMail($username, $email, $vid);
-						$SUCCESS = "Eine Bestätigungsemail wurde an die angegebene EMail-Adresse gesendet, klicken Sie auf den Link in der EMail um Ihren Account zu aktivieren!";
-						require (__DIR__ . '/templates/success.php');
+						if($user == null && !$api->isEMailInVerification($email)) {
+							$vid = $api->verify($username, $email, $password);
+							sendVerifyMail($username, $email, $vid);
+							$SUCCESS = "Eine Bestätigungsemail wurde an die angegebene EMail-Adresse gesendet, klicken Sie auf den Link in der EMail um Ihren Account zu aktivieren!";
+							require (__DIR__ . '/templates/success.php');
+						} else {
+							$ERROR = "Diese EMail-Adresse wird bereits verwendet!";
+							require (__DIR__ . '/templates/error.php');
+						}
 					} else {
-						$ERROR = "Diese EMail-Adresse wird bereits verwendet!";
+						$ERROR = "Benutzernamen dürfen keine Leerzeichen enthalten!";
 						require (__DIR__ . '/templates/error.php');
 					}
 				} else {
