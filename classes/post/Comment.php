@@ -4,11 +4,11 @@ class Comment {
 	private int $cmtid;
 	private int $pid;
 	private int $uid;
-	private int $uid_f;
+	private ?int $uid_f;
 	private string $content;
 	private string $createdAt;
 
-	public function __construct(int $cmtid, int $pid, int $uid, int $uid_f, string $content, string $createdAt) {
+	public function __construct(int $cmtid, int $pid, int $uid, ?int $uid_f, string $content, string $createdAt) {
 		$this->cmtid = $cmtid;
 		$this->pid = $pid;
 		$this->uid = $uid;
@@ -29,7 +29,7 @@ class Comment {
 		return $this->uid;
 	}
 
-	public function getReplyTo() : int {
+	public function getReplyTo() : ?int {
 		return $this->uid_f;
 	}
 

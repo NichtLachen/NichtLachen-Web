@@ -276,6 +276,11 @@ class DatabaseAPI {
 		return false;
 	}
 
+	public function postComment(int $pid, int $uid, ?int $uid_f, string $content) {
+		$stmt = $this->database->conn->prepare("INSERT INTO comments(PID,UID,UID_F,Content,CreatedAt) VALUES (:pid,:uid,:uid_f,:content,NOW())");
+		$stmt->execute(array("pid" => $pid, "uid" => $uid, "uid_f" => $uid_f, "content" => $content));
+	}
+
 	private function getPost(array $row) : Post {
 		return new Post($row['PID'], $row['CID'], $row['UID'], $row['Content'], $row['CreatedAt']);
 	}

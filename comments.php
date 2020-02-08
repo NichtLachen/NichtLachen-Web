@@ -6,6 +6,7 @@ require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
 $api = new DatabaseAPI();
 $pid = isset($_GET['pid']) && is_numeric($_GET['pid']) ? $_GET['pid'] : 0; // PID 0 does never exist
 $post = $api->getPostByPID($pid);
+$uid = $api->getUIDBySessionID(session_id());
 
 $TITLE = $post != null ? "Kommentare zu Post #" . $post->getPID() : "Post nicht gefunden!";
 
@@ -23,6 +24,37 @@ $TITLE = $post != null ? "Kommentare zu Post #" . $post->getPID() : "Post nicht 
 require_once (__DIR__ . '/templates/navbar_back.php');
 
 if ($post != null) {
+
+	if (isset($_POST['text'])) {
+		$text = $_POST['text'];
+		$broken = explode(" ", $text);
+
+		if($broken[0][0] == "@") {
+			$user_f = $api->getUserByName(substr($broken[0], 1));
+			$uid_f = $user_f != null ? $user_f->getUID() : null;
+		} else {
+			$uid_f = null;
+		}
+
+		if(isset($uid_f) && $uid_f != null) {
+			$text = substr($text, strlen($broken[0]));
+		}
+
+		if (!empty($text)) {
+			$api->postComment($pid, $uid, $uid_f, $text);
+		}
+	}
+
+?>
+
+		<form class="newcomment" method="POST" action="?pid=<?php echo $pid; ?>&from=<?php echo urlencode($_GET['from']); ?>" id="comment">
+			<div class="post-category">Kommentieren</div><br>
+			<input type="hidden" name="pid" value="<?php echo $pid; ?>">
+			<textarea form="comment" name="text" autofocus></textarea><br>
+			<br>
+			<input type="submit" class="button">
+		</form>
+<?php
 	$checkMore = function(int $page, int $perPage) : bool {
 		global $api, $pid;
 		return $api->moreComments($pid, $page, $perPage);
