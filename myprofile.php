@@ -2,6 +2,7 @@
 
 require_once (__DIR__ . '/include/guestredirect.php');
 require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
+require_once (__DIR__ . '/include/profileimageutils.php');
 
 $api = new DatabaseAPI();
 $uid = $api->getUIDBySessionID(session_id());
@@ -21,7 +22,7 @@ $user = $api->getUserByUID($uid);
 require_once (__DIR__ . '/templates/profilenavbar.php');
 ?>
 		<center>
-		<div class="profileimage" style="background-image: url('profileimages/<?php echo $uid; ?>.jpg');">
+		<div class="profileimage" style="background-image: url('profileimages/<?php echo findProfileImage($uid); ?>');">
 		</div>
 		<p style="font-size: x-large; font-weight: bold;"><?php echo $user->getName(); ?></p>
 		<br>
