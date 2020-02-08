@@ -385,6 +385,8 @@ class DatabaseAPI {
 	public function postQueueDelete(int $pid) {
 		$stmt = $this->database->conn->prepare("DELETE FROM posts_verify WHERE PID = :pid");
 		$stmt->execute(array("pid" => $pid));
+		$stmt = $this->database->conn->prepare("DELETE FROM posts_verify_accept WHERE PID = :pid");
+		$stmt->execute(array("pid" => $pid));
 	}
 
 	public function getNewPosts(int $page, int $perPage) : array {
