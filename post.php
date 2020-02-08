@@ -31,7 +31,7 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 ?>
 		<form class="newpost" method="POST" action="" id="post">
 			<input type="hidden" name="cid" value="<?php echo $_GET['cid']; ?>">
-			<textarea form="post" name="text"></textarea><br>
+			<textarea form="post" name="text" autofocus></textarea><br>
 			<br>
 			<input type="submit" class="button">
 		</form>
