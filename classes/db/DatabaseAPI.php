@@ -415,7 +415,7 @@ class DatabaseAPI {
 		$stmt->execute(array("pid" => $pid));
 
 		foreach ($stmt as $row) {
-			return $row['SUM(Value)'];
+			return $row['SUM(Value)'] != null ? $row['SUM(Value)'] : 0;
 		}
 
 		return 0;

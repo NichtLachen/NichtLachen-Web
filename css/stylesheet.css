@@ -348,10 +348,22 @@ footer {
 	color: red;
 }
 
+.post-comments {
+	font-size: 14pt;
+	display: inline;
+	color: grey;
+	margin-left: 2em;
+}
+
+.post-comments a {
+	text-decoration: none;
+	color: grey;
+}
+
 .post-fav {
 	font-size: 14pt;
 	display: inline;
-	margin-left: 1em;
+	margin-left: 0.5em;
 	color: grey;
 }
 
@@ -440,14 +452,23 @@ form.newpost {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	padding: 1em;
 	text-align: center;
-	width: 95%;
-	height: 50%;
 }
 
 form.newpost textarea {
-	height: 100%;
-	width: 100%;
+	width: 95vw;
+	height: 50vh;
+}
+
+form.newcomment {
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 2em;
+	margin-top: 2em;
+}
+
+form.newcomment textarea {
+	width: 50vw;
+	height: 8vh;
 }
 
