@@ -5,6 +5,8 @@ require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
 
 $api = new DatabaseAPI();
 
+$uid = $api->getUIDBySessionID(session_id());
+
 ?>
 
 <!DOCTYPE html>
@@ -21,13 +23,13 @@ $TITLE = "Warteschlange";
 require_once (__DIR__ . '/templates/navbar_back.php');
 
 $checkMore = function(int $page, int $perPage) : bool {
-	global $api;
-	return $api->moreQueuePosts($page, $perPage);
+	global $api, $uid;
+	return $api->moreQueuePosts($uid, $page, $perPage);
 };
 
 $getPosts = function(int $page, int $perPage) : array {
-	global $api;
-	return $api->getQueuePosts($page, $perPage);
+	global $api, $uid;
+	return $api->getQueuePosts($uid, $page, $perPage);
 };
 
 $queue = true;

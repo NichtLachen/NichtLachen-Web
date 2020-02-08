@@ -25,8 +25,8 @@ if (!isset($queue) || !$queue) {
 } else {
 ?>
 			<br>
-			<div class="post-like"><a href="accept.php?pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>"><i class="fas fa-check"></i></a></div>
-			<div class="post-dislike"><a href="reject.php?pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>"><i class="fas fa-times"></i></a></div>
+			<div class="post-like"><a href="accept.php?accept=1&pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>"><i class="fas fa-check"></i></a></div>
+			<div class="post-dislike"><a href="accept.php?accept=-1&pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>"><i class="fas fa-times"></i></a></div>
 <?php
 }
 ?>

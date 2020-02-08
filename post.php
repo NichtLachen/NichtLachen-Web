@@ -43,7 +43,7 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 } else if (isset($_POST['cid']) && isset($_POST['text'])) {
 	$text = $_POST['text'];
 	if (!empty($text)) {
-		$api->postVerify($_POST['cid'], $uid, $text);
+		$api->postQueue($_POST['cid'], $uid, $text);
 	}
 
 	header("302 Found");

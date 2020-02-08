@@ -1,6 +1,8 @@
 CREATE TABLE IF NOT EXISTS users (
   UID bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  JoinedAt DATETIME NOT NULL,
   Name varchar(255) NOT NULL,
+  NameChangedAt DATETIME NOT NULL,
   OldName varchar(255),
   Password varchar(255),
   EMail varchar(255) NOT NULL,

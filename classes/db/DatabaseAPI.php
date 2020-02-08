@@ -20,7 +20,7 @@ class DatabaseAPI {
 	}
 
 	public function addUser(string $name, string $email, string $password) {
-		$stmt = $this->database->conn->prepare("INSERT INTO users (Name, EMail, Password) VALUES (:name, :email, :password)");
+		$stmt = $this->database->conn->prepare("INSERT INTO users (JoinedAt, Name, NameChangedAt, EMail, Password) VALUES (NOW(), :name, NOW(), :email, :password)");
 		$stmt->execute(array("name" => $name, "email" => $email, "password" => $password));
 	}
 
@@ -322,22 +322,69 @@ class DatabaseAPI {
 		return false;
 	}
 
-	public function postVerify(int $cid, int $uid, string $content) {
+	public function postQueue(int $cid, int $uid, string $content) {
 		$stmt = $this->database->conn->prepare("INSERT INTO posts_verify(CID,UID,CreatedAt,Content) VALUES (:cid,:uid,NOW(),:content)");
 		$stmt->execute(array("cid" => $cid, "uid" => $uid, "content" => $content));
 	}
 
-	public function postVerifyEnable(int $pid) {
+	public function hasPostAcceptedOrRejected(int $uid, int $pid) : bool {
+		$stmt = $this->database->conn->prepare("SELECT APID FROM posts_verify_accept WHERE UID = :uid AND PID = :pid");
+		$stmt->execute(array("uid" => $uid, "pid" => $pid));
+
+		foreach ($stmt as $row) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public function getQueuedPostOwner(int $pid) : ?int {
+		$stmt = $this->database->conn->prepare("SELECT UID FROM posts_verify WHERE PID = :pid");
+		$stmt->execute(array("pid" => $pid));
+
+		foreach ($stmt as $row) {
+			return $row['UID'];
+		}
+
+		return null;
+	}
+
+	public function getPostQueueAccepts(int $pid) : ?int {
+		$stmt = $this->database->conn->prepare("SELECT SUM(Value) FROM posts_verify_accept WHERE PID = :pid");
+		$stmt->execute(array("pid" => $pid));
+
+		foreach ($stmt as $row) {
+			return $row['SUM(Value)'];
+		}
+
+		return null;
+	}
+
+	public function postQueueAccept(int $uid, int $pid) {
+		$stmt = $this->database->conn->prepare("INSERT INTO posts_verify_accept (UID,PID,Value) VALUES (:uid,:pid,1)");
+		$stmt->execute(array("uid" => $uid, "pid" => $pid));
+	}
+
+	public function postQueueReject(int $uid, int $pid) {
+		$stmt = $this->database->conn->prepare("INSERT INTO posts_verify_accept (UID,PID,Value) VALUES (:uid,:pid,-1)");
+		$stmt->execute(array("uid" => $uid, "pid" => $pid));
+	}
+
+	public function postDeQueue(int $pid) {
 		$stmt = $this->database->conn->prepare("SELECT * FROM posts_verify WHERE PID = :pid");
 		$stmt->execute(array("pid" => $pid));
 
 		foreach ($stmt as $row) {
 			$stmt = $this->database->conn->prepare("INSERT INTO posts(CID,UID,CreatedAt,Content) VALUES (:cid,:uid,:created,:content)");
 			$stmt->execute(array("cid" => $row['CID'], "uid" => $row['UID'], "created" => $row['CreatedAt'], "content" => $row['Content']));
-			$stmt = $this->database->conn->prepare("DELETE FROM posts_verify WHERE PID = :pid");
-			$stmt->execute(array("pid" => $pid));
+			$this->postQueueDelete($pid);
 			return;
 		}
+	}
+
+	public function postQueueDelete(int $pid) {
+		$stmt = $this->database->conn->prepare("DELETE FROM posts_verify WHERE PID = :pid");
+		$stmt->execute(array("pid" => $pid));
 	}
 
 	public function getNewPosts(int $page, int $perPage) : array {
@@ -427,12 +474,12 @@ class DatabaseAPI {
 		return false;
 	}
 
-	public function getQueuePosts(int $page, int $perPage) : array {
+	public function getQueuePosts(int $uid, int $page, int $perPage) : array {
 		$res = [];
 		$start = ($page - 1) * $perPage;
 		$end = $perPage; // LIMIT offset,amount
-		$stmt = $this->database->conn->prepare("SELECT * FROM posts_verify ORDER BY PID DESC LIMIT :start,:end");
-		$stmt->execute(array("start" => $start, "end" => $end));
+		$stmt = $this->database->conn->prepare("SELECT * FROM posts_verify WHERE UID != :uid AND NOT EXISTS (SELECT PID FROM posts_verify_accept WHERE posts_verify.PID = posts_verify_accept.PID AND posts_verify_accept.UID = :uidX) ORDER BY PID DESC LIMIT :start,:end");
+		$stmt->execute(array("uid" => $uid, "start" => $start, "end" => $end, "uidX" => $uid));
 
 		foreach ($stmt as $row) {
 			$res[sizeof($res)] = $this->getPost($row);
@@ -441,11 +488,11 @@ class DatabaseAPI {
 		return $res;
 	}
 
-	public function moreQueuePosts(int $page, int $perPage) : bool {
+	public function moreQueuePosts(int $uid, int $page, int $perPage) : bool {
 		$start = ($page - 1) * $perPage;
 		$end = $start + $perPage;
-		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM posts_verify ORDER BY PID");
-		$stmt->execute();
+		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM posts_verify WHERE UID != :uid AND NOT EXISTS (SELECT PID FROM posts_verify_accept WHERE posts_verify.PID = posts_verify_accept.PID AND posts_verify_accept.UID = :uidX) ORDER BY PID");
+		$stmt->execute(array("uid" => $uid, "uidX" => $uid));
 
 		foreach ($stmt as $row) {
 			if ($row['COUNT(PID)'] > $end) {
