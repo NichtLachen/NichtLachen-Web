@@ -24,7 +24,7 @@ require_once (__DIR__ . '/templates/profilenavbar.php');
 		<center>
 		<div class="profileimage" style="background-image: url('profileimages/<?php echo findProfileImage($uid); ?>');">
 		</div>
-		<p style="font-size: x-large; font-weight: bold;"><?php echo $user->getName(); ?></p>
+		<p style="font-size: x-large; font-weight: bold;"><?php echo $user->getName(); ?> <a class="edit" href="editprofile.php?from=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><i class="fas fa-edit"></i></a></p>
 		<br>
 <?php
 require_once (__DIR__ . '/templates/userinfo.php');

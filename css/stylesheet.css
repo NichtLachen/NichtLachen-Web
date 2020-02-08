@@ -257,6 +257,7 @@ body {
 	width: 256px;
 	height: 256px;
 	border: 1em solid rgba(0,0,0,0);
+	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -470,5 +471,19 @@ form.newcomment {
 form.newcomment textarea {
 	width: 50vw;
 	height: 8vh;
+}
+
+.edit {
+	font-size: 14pt;
+	display: inline;
+	text-decoration: none;
+	color: #0066ff;
+}
+
+form.editprofile {
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 2em;
+	margin-bottom: 2em;
 }
 

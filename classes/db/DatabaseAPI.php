@@ -17,7 +17,7 @@ class DatabaseAPI {
 	}
 
 	private function getUser(array $row) : User {
-		return new User($row['UID'], $row['Name'], $row['EMail'], $row['Description'], $row['Rank']);
+		return new User($row['UID'], $row['JoinedAt'], $row['Name'], $row['OldName'], $row['NameChangedAt'], $row['EMail'], $row['Description'], $row['Rank']);
 	}
 
 	public function addUser(string $name, string $email, string $password) {
@@ -49,6 +49,31 @@ class DatabaseAPI {
 
 	public function isNameInUse(string $name) : bool {
 		return $this->getUserByName($name) != null || $this->getUserByOldName($name) != null;
+	}
+
+	public function setUserName(int $uid, string $name) {
+		$user = $this->getUserByUID($uid);
+		$stmt = $this->database->conn->prepare("UPDATE users SET Name = :name WHERE UID = :uid");
+		$stmt->execute(array("uid" => $uid, "name" => $name));
+		$stmt = $this->database->conn->prepare("UPDATE users SET OldName = :oldname WHERE UID = :uid");
+		$stmt->execute(array("uid" => $uid, "oldname" => $user->getName()));
+		$stmt = $this->database->conn->prepare("UPDATE users SET NameChangedAt = NOW() WHERE UID = :uid");
+		$stmt->execute(array("uid" => $uid));
+	}
+
+	public function setUserEMail(int $uid, string $email) {
+		$stmt = $this->database->conn->prepare("UPDATE users SET EMail = :email WHERE UID = :uid");
+		$stmt->execute(array("uid" => $uid, "email" => $email));
+	}
+
+	public function setUserPassword(int $uid, string $password) {
+		$stmt = $this->database->conn->prepare("UPDATE users SET Password = :password WHERE UID = :uid");
+		$stmt->execute(array("uid" => $uid, "password" => $password));
+	}
+
+	public function setUserDescription(int $uid, ?string $description) {
+		$stmt = $this->database->conn->prepare("UPDATE users SET Description = :description WHERE UID = :uid");
+		$stmt->execute(array("uid" => $uid, "description" => $description));
 	}
 
 	public function getUserByEMail(string $email) : ?User {
