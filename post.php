@@ -29,6 +29,7 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 	if ($name != null && !$api->isSuperCategory($_GET['cid'])) {
 ?>
 		<form class="newpost" method="POST" action="" id="post">
+			<div class="post-category"><?php echo $name; ?></div><br>
 			<input type="hidden" name="cid" value="<?php echo $_GET['cid']; ?>">
 			<textarea form="post" name="text" autofocus></textarea><br>
 			<br>
@@ -40,9 +41,10 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 		require (__DIR__ . '/templates/error.php');
 	}
 } else if (isset($_POST['cid']) && isset($_POST['text'])) {
+	$cid = $_GET['cid'];
 	$text = $_POST['text'];
-	if (!empty($text)) {
-		$api->postQueue($_POST['cid'], $uid, $text);
+	if (!empty($text) && $api->getCategoryName($cid) != null && !$api->isSuperCategory($cid)) {
+		$api->postQueue($cid, $uid, $text);
 	}
 
 	header("Status: 302 Found");

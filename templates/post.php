@@ -23,10 +23,13 @@ if (!isset($queue) || !$queue) {
 			<div class="post-fav<?php echo $api->isFavSet($post->getPID(), $uid) ? " active" : "";?>"><a href="fav.php?pid=<?php echo $post->getPID();?>&from=<?php echo $from;?>"><i class="far fa-star"></i></a></div>
 <?php
 } else {
+
+$accepts = $api->getPostQueueAccepts($post->getPID());
 ?>
 			<br>
 			<div class="post-like"><a href="accept.php?accept=1&pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>"><i class="fas fa-check"></i></a></div>
 			<div class="post-dislike"><a href="accept.php?accept=-1&pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>"><i class="fas fa-times"></i></a></div>
+			<div class="<?php echo $accepts >= 0 ? 'post-like' : 'post-dislike'; ?>"><?php echo $accepts; ?></div>
 <?php
 }
 ?>
