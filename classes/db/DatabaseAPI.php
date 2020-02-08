@@ -534,6 +534,35 @@ class DatabaseAPI {
 		return false;
 	}
 
+	public function getUserSubscriptionPosts(int $uid, int $page, int $perPage) : array {
+		$res = [];
+		$start = ($page - 1) * $perPage;
+		$end = $perPage; // LIMIT offset,amount
+		$stmt = $this->database->conn->prepare("SELECT * FROM posts,followers WHERE posts.UID = followers.UID AND followers.FollowerUID = :uid ORDER BY PID DESC LIMIT :start,:end");
+		$stmt->execute(array("uid" => $uid, "start" => $start, "end" => $end));
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $this->getPost($row);
+		}
+
+		return $res;
+	}
+
+	public function moreUserSubscriptionPosts(int $uid, int $page, int $perPage) : bool {
+		$start = ($page - 1) * $perPage;
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT * FROM posts,followers WHERE posts.UID = followers.UID AND followers.FollowerUID = :uid ORDER BY PID");
+		$stmt->execute(array("uid" => $uid));
+
+		foreach ($stmt as $row) {
+			if ($row['COUNT(PID)'] > $end) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function removeLikes(int $pid, int $uid) {
 		$stmt = $this->database->conn->prepare("DELETE FROM likes WHERE PID = :pid AND UID = :uid");
 		$stmt->execute(array("pid" => $pid, "uid" => $uid));
