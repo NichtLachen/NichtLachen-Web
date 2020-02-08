@@ -13,14 +13,14 @@ if(isset($_GET['accept']) && isset($_GET['pid'])) {
 		} else {
 			$api->postQueueAccept($uid, $pid);
 		}
-	}
 
-	$accepts = $api->getPostQueueAccepts($pid);
+		$accepts = $api->getPostQueueAccepts($pid);
 
-	if ($accepts >= 5) { // post accepted!
-		$api->postDeQueue($pid);
-	} else if ($accepts <= -5) {
-		$api->postQueueDelete($pid);
+		if ($accepts >= 5) { // post accepted!
+			$api->postDeQueue($pid);
+		} else if ($accepts <= -5) {
+			$api->postQueueDelete($pid);
+		}
 	}
 
 	$url = isset($_GET['from']) ? urldecode($_GET['from']) : "top.php";
