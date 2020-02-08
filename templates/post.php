@@ -12,6 +12,7 @@ $from = urlencode($_SERVER['REQUEST_URI'] . "#" . $post->getPID());
 ?>
 		<div class="post" id="<?php echo $post->getPID();?>">
 			<a class="post-category" href="categories.php?cid=<?php echo $post->getCID();?>&from=<?php echo $from; ?>"><?php echo $category; ?></a>
+			<br><br>
 			<div class="post-content"><?php echo escapeHTML($post->getContent()); ?></div>
 <?php
 if (!isset($queue) || !$queue) {

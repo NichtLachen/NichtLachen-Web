@@ -654,6 +654,19 @@ class DatabaseAPI {
 
 	public function likeComment(int $cmtid, int $uid) {
 		$this->removeCommentLikes($cmtid, $uid);
+		$stmt = $this->database->conn->prepare("INSERT INTO likes (CMTID,UID,Value) VALUES (:cmtid,:uid,1)");
+		$stmt->execute(array("cmtid" => $cmtid, "uid" => $uid));
+	}
+
+	public function isCommentLikeSet(int $cmtid, int $uid, int $val) : bool {
+		$stmt = $this->database->conn->prepare("SELECT LID FROM likes WHERE CMTID = :cmtid AND UID = :uid AND Value = :val");
+		$stmt->execute(array("cmtid" => $cmtid, "uid" => $uid, "val" => $val));
+
+		foreach ($stmt as $row) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public function favPost(int $pid, int $uid) {
