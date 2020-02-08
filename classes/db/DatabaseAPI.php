@@ -4,12 +4,15 @@ require_once (__DIR__ . '/Database.php');
 require_once (__DIR__ . '/../user/User.php');
 require_once (__DIR__ . '/../post/Post.php');
 
+DatabaseAPI::$DB_INSTANCE = new Database();
+
 class DatabaseAPI {
 
+	public static Database $DB_INSTANCE;
 	private Database $database;
 
 	public function __construct() {
-		$this->database = new Database();
+		$this->database = self::$DB_INSTANCE;
 	}
 
 	private function getUser(array $row) : User {
