@@ -21,12 +21,10 @@ class DateUtil {
 		} else if ($since_start->i != 0) {
 			$minutes = $since_start->i;
 			return DateUtil::multi($minutes, "Minute", "n");
-		} else if ($since_start->s != 0) {
+		} else {
 			$seconds = $since_start->s;
 			return DateUtil::multi($seconds, "Sekunde", "n");
 		}
-
-		return null;
 	}
 
 	private static function multi(int $amount, string $name, string $multi = "en") {
