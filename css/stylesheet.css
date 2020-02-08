@@ -325,6 +325,7 @@ footer {
 }
 
 .post-like {
+	font-size: 14pt;
 	margin-left: 0.5em;
 	display: inline;
 	color: green;
@@ -336,6 +337,7 @@ footer {
 }
 
 .post-dislike {
+	font-size: 14pt;
 	margin-left: 0.5em;
 	display: inline;
 	color: red;
@@ -347,6 +349,7 @@ footer {
 }
 
 .post-fav {
+	font-size: 14pt;
 	display: inline;
 	margin-left: 1em;
 	color: grey;
@@ -432,4 +435,17 @@ div.nextpage a:last-child {
 	margin-left: 7%;
 }
 
+form.newpost {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 1em;
+	text-align: center;
+}
+
+form.newpost textarea {
+	height: 50vh;
+	width: calc(95vw - 2em);
+}
 
