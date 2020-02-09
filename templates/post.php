@@ -8,6 +8,9 @@ $category = $api->getCategoryName($post->getCID());
 $user = $api->getUserByUID($post->getCreatorUID());
 $uid = $api->getUIDBySessionID(session_id());
 
+$dislike = $api->isLikeSet($post->getPID(), $uid, -1) ? "fas" : "far";
+$like = $api->isLikeSet($post->getPID(), $uid, 1) ? "fas" : "far";
+
 $from = urlencode($_SERVER['REQUEST_URI'] . "#" . $post->getPID());
 ?>
 		<div class="post" id="<?php echo $post->getPID();?>">
@@ -19,8 +22,8 @@ if (!isset($queue) || !$queue) {
 ?>
 
 			<p class="post-info">Eingereicht von <a href="users.php?uid=<?php echo $user->getUID();?>&from=<?php echo $from; ?>"><?php echo $user->getName();?></a> vor <?php echo DateUtil::diff($post->getCreatedAt()); ?></p>
-			<div class="post-like"><a href="like.php?like=1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="far fa-thumbs-up"></i></a> <?php echo $api->countPostLikes($post->getPID());?></div>
-			<div class="post-dislike"><a href="like.php?like=-1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="far fa-thumbs-down"></i></a> <?php echo $api->countPostDislikes($post->getPID());?></div>
+			<div class="post-like"><a href="like.php?like=1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $like; ?> fa-thumbs-up"></i></a> <?php echo $api->countPostLikes($post->getPID());?></div>
+			<div class="post-dislike"><a href="like.php?like=-1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $dislike; ?> fa-thumbs-down"></i></a> <?php echo $api->countPostDislikes($post->getPID());?></div>
 			<div class="post-comments"><a href="comments.php?pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>"><i class="fas fa-comments"></i></a> <?php echo $api->countPostComments($post->getPID());?></div>
 			<div class="post-fav<?php echo $api->isFavSet($post->getPID(), $uid) ? " active" : "";?>"><a href="fav.php?pid=<?php echo $post->getPID();?>&from=<?php echo $from;?>"><i class="far fa-star"></i></a></div>
 <?php
