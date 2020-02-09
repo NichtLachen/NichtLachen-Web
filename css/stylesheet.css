@@ -490,3 +490,28 @@ form.editprofile {
 	margin-bottom: 2em;
 }
 
+.showMore {
+	display: none;
+}
+
+.showMore + label {
+	color: #0066ff;
+	margin: auto;
+	cursor: pointer;
+}
+
+.showMore + label + div {
+	display: none;
+}
+
+.showMore:checked + label + div {
+	display: inline;
+}
+
+.showMore:checked + label {
+	display: none;
+}
+
+.showMore:checked {
+	display: none;
+}
