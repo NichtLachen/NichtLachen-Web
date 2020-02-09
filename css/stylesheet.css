@@ -381,6 +381,18 @@ footer {
 	color: gold;
 }
 
+.post-delete {
+	font-size: 14pt;
+	display: inline;
+	margin-left: 0.5em;
+	color: red;
+}
+
+.post-delete a {
+	text-decoration: none;
+	color: red;
+}
+
 .about h1 {
 	background-color: transparent;
 	color: orange; 
