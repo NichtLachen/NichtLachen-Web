@@ -1,4 +1,4 @@
-profileimages/*.jpg
+profileimages/*
 static/*
 
 *.min.css
