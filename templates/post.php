@@ -42,5 +42,10 @@ $accepts = $api->getPostQueueAccepts($post->getPID());
 			<div class="<?php echo $accepts >= 0 ? 'post-like' : 'post-dislike'; ?>"><?php echo $accepts; ?></div>
 <?php
 }
+
+if ($post->getCreatorUID() == $uid) {
+?>			<div class="post-delete"><a href="delete.php?pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>&queue=<?php echo $queue ? "1" : "0";?>"><i class="fas fa-trash-alt"></i></a></div>
+<?php
+}
 ?>
 		</div>

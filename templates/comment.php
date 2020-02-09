@@ -30,4 +30,11 @@ $color = $api->isCommentLikeSet($comment->getCMTID(), $uid, 1) ? "red" : "grey";
 			<br>
 			<a id="<?php echo $comment->getCMTID(); ?>_end" class="post-info" style="display: inline; text-decoration: none;" href="<?php echo hrefReplaceVar("to", $user->getName()); ?>">Antworten</a>
 			<div class="post-like"><a href="like.php?like=1&cmtid=<?php echo $comment->getCMTID();?>&from=<?php echo $from; ?>"><i style="color: <?php echo $color; ?>" class="fas fa-heart"></i></a> <?php echo $api->countCommentLikes($comment->getCMTID());?></div>
+
+<?php
+if ($comment->getCreatorUID() == $uid) {
+?>			<div class="post-delete"><a href="delete.php?cmtid=<?php echo $comment->getCMTID(); ?>&from=<?php echo $from; ?>"><i class="fas fa-trash-alt"></i></a></div>
+<?php
+}
+?>
 		</div>

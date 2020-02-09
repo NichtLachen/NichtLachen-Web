@@ -286,6 +286,17 @@ class DatabaseAPI {
 		return $res;
 	}
 
+	public function getCommentByCMTID(int $cmtid) : ?Comment {
+		$stmt = $this->database->conn->prepare("SELECT * FROM comments WHERE CMTID = :cmtid");
+		$stmt->execute(array("cmtid" => $cmtid));
+
+		foreach ($stmt as $row) {
+			return $this->getComment($row);
+		}
+
+		return null;
+	}
+
 	public function moreComments(int $pid, int $page, int $perPage) : bool {
 		$start = ($page - 1) * $perPage;
 		$end = $start + $perPage;
@@ -472,6 +483,29 @@ class DatabaseAPI {
 		$stmt = $this->database->conn->prepare("DELETE FROM posts_verify_accept WHERE PID = :pid");
 		$stmt->execute(array("pid" => $pid));
 		$stmt = $this->database->conn->prepare("DELETE FROM posts_verify WHERE PID = :pid");
+		$stmt->execute(array("pid" => $pid));
+	}
+
+	public function commentDelete(int $cmtid) {
+		$stmt = $this->database->conn->prepare("DELETE FROM likes WHERE CMTID = :cmtid");
+		$stmt->execute(array("cmtid" => $cmtid));
+		$stmt = $this->database->conn->prepare("DELETE FROM comments WHERE CMTID = :cmtid");
+		$stmt->execute(array("cmtid" => $cmtid));
+	}
+
+	public function postDelete(int $pid) {
+		$stmt = $this->database->conn->prepare("SELECT CMTID FROM comments WHERE PID = :pid");
+		$stmt->execute(array("pid" => $pid));
+
+		foreach ($stmt as $row) {
+			$this->commentDelete($row['CMTID']);
+		}
+
+		$stmt = $this->database->conn->prepare("DELETE FROM favorites WHERE PID = :pid");
+		$stmt->execute(array("pid" => $pid));
+		$stmt = $this->database->conn->prepare("DELETE FROM likes WHERE PID = :pid");
+		$stmt->execute(array("pid" => $pid));
+		$stmt = $this->database->conn->prepare("DELETE FROM posts WHERE PID = :pid");
 		$stmt->execute(array("pid" => $pid));
 	}
 
