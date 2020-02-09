@@ -11,17 +11,18 @@ $uid = $api->getUIDBySessionID(session_id());
 $dislike = $api->isLikeSet($post->getPID(), $uid, -1) ? "fas" : "far";
 $like = $api->isLikeSet($post->getPID(), $uid, 1) ? "fas" : "far";
 
-$from = urlencode($_SERVER['REQUEST_URI'] . "#" . $post->getPID());
+$from = urlencode($_SERVER['REQUEST_URI'] . "#" . $post->getPID() . "_end");
+$from_before = urlencode($_SERVER['REQUEST_URI'] . '#' . $post->getPID());
 ?>
 		<div class="post" id="<?php echo $post->getPID();?>">
-			<a class="post-category" href="categories.php?cid=<?php echo $post->getCID();?>&from=<?php echo $from; ?>"><?php echo $category; ?></a>
+			<a class="post-category" href="categories.php?cid=<?php echo $post->getCID();?>&from=<?php echo $from_before; ?>"><?php echo $category; ?></a>
 			<br><br>
 			<div class="post-content"><?php echo escapeHTML($post->getContent()); ?></div>
 <?php
 if (!isset($queue) || !$queue) {
 ?>
 
-			<p class="post-info">Eingereicht von <a href="users.php?uid=<?php echo $user->getUID();?>&from=<?php echo $from; ?>"><?php echo $user->getName();?></a> vor <?php echo DateUtil::diff($post->getCreatedAt()); ?></p>
+			<p id="<?php echo $post->getPID(); ?>_end" class="post-info">Eingereicht von <a href="users.php?uid=<?php echo $user->getUID();?>&from=<?php echo $from; ?>"><?php echo $user->getName();?></a> vor <?php echo DateUtil::diff($post->getCreatedAt()); ?></p>
 			<div class="post-like"><a href="like.php?like=1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $like; ?> fa-thumbs-up"></i></a> <?php echo $api->countPostLikes($post->getPID());?></div>
 			<div class="post-dislike"><a href="like.php?like=-1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $dislike; ?> fa-thumbs-down"></i></a> <?php echo $api->countPostDislikes($post->getPID());?></div>
 			<div class="post-comments"><a href="comments.php?pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>"><i class="fas fa-comments"></i></a> <?php echo $api->countPostComments($post->getPID());?></div>
