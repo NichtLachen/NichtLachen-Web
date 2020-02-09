@@ -15,7 +15,7 @@ $like = $api->isLikeSet($post->getPID(), $uid, 1) ? "fas" : "far";
 $from = urlencode($_SERVER['REQUEST_URI'] . "#" . $post->getPID() . "_end");
 $from_before = urlencode($_SERVER['REQUEST_URI'] . '#' . $post->getPID());
 
-$content = splitTextAtLength(escapeHTML($post->getContent()), 500);
+$content = splitTextAtLength(escapeHTML($post->getContent()), 800);
 
 ?>
 		<div class="post" id="<?php echo $post->getPID();?>">

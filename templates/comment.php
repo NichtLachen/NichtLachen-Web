@@ -12,7 +12,7 @@ $uid = $api->getUIDBySessionID(session_id());
 $from = urlencode($_SERVER['REQUEST_URI'] . "#" . $comment->getCMTID() . "_end");
 $from_before = urlencode($_SERVER['REQUEST_URI'] . '#' . $comment->getCMTID());
 
-$content = splitTextAtLength(escapeHTML($comment->getContent()), 500);
+$content = splitTextAtLength(escapeHTML($comment->getContent()), 800);
 
 $to = "";
 if ($comment->getReplyTo() != null) {
