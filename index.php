@@ -2,17 +2,10 @@
 
 require_once (__DIR__ . '/include/loginredirect.php');
 
-?>
+$TITLE = "Willkommen";
 
-<!DOCTYPE html>
-<html lang="de" dir="ltr">
-	<head>
-		<meta charset="utf-8">
-		<title>Nicht Lachen! | Willkommen</title>
-		<link rel="stylesheet" href="css/stylesheet.min.css"/>
-		<meta name='viewport' content="width=device-width, initial-scale=1" />
-	</head>
-	<body>
+require_once (__DIR__ . '/templates/header.php');
+?>
 		<h1 class="h1" style="margin-top: 0%;">
 			<center><br>Willkommen bei Nicht Lachen 2.0!<br><br></center>
 		</h1>
@@ -39,7 +32,5 @@ require_once (__DIR__ . '/include/loginredirect.php');
 <?php
 require_once (__DIR__ . '/templates/footer.html');
 ?>
-	</body>
-</html>
 
 

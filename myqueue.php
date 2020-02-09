@@ -6,18 +6,9 @@ require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
 $api = new DatabaseAPI();
 $uid = $api->getUIDBySessionID(session_id());
 
-?>
+$TITLE = "Eingereicht";
 
-<!DOCTYPE html>
-<html lang="de" dir="ltr">
-	<head>
-		<meta charset="utf-8">
-		<title>Nicht Lachen! | Eingereicht</title>
-		<link rel="stylesheet" href="css/stylesheet.min.css"/>
-		<meta name='viewport' content="width=device-width, initial-scale=1" />
-	</head>
-	<body>
-<?php
+require_once (__DIR__ . '/templates/header.php');
 require_once (__DIR__ . '/templates/profilenavbar.php');
 
 $checkMore = function(int $page, int $perPage) : bool {
@@ -36,7 +27,5 @@ require_once (__DIR__ . '/templates/paged_post_array.php');
 
 require_once (__DIR__ . '/templates/footer.html');
 ?>
-	</body>
-</html>
 
 

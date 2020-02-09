@@ -8,19 +8,9 @@ $uid = $api->getUIDBySessionID(session_id());
 
 $from = isset($_GET['from']) ? $_GET['from'] : "./";
 
-?>
-
-<!DOCTYPE html>
-<html lang="de" dir="ltr">
-	<head>
-		<meta charset="utf-8">
-		<title>Nicht Lachen! | Witz hinzufügen</title>
-		<link rel="stylesheet" href="css/stylesheet.min.css"/>
-		<meta name='viewport' content="width=device-width, initial-scale=1" />
-	</head>
-	<body>
-<?php
 $TITLE = "Witz hinzufügen";
+
+require_once (__DIR__ . '/templates/header.php');
 require_once (__DIR__ . '/templates/navbar_back.php');
 
 if (isset($_GET['cid']) && !isset($_POST['cid'])) {
@@ -57,7 +47,5 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 
 require_once (__DIR__ . '/templates/footer.html');
 ?>
-	</body>
-</html>
 
 

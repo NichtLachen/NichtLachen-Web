@@ -14,17 +14,10 @@ function sendVerifyMail(string $username, string $email, string $key) {
 	mail($email, "=?utf-8?B?" . base64_encode($subject) . "?=", $content, $headers, "-f verify@nichtlachen.nl -F NichtLachen.nl");
 }
 
-?>
-<!DOCTYPE html>
-<html lang="de" dir="ltr">
-	<head>
-		<meta charset="utf-8">
-		<title>Nicht Lachen! | Registrieren</title>
-		<link rel="stylesheet" href="css/stylesheet.min.css"/>
-		<meta name='viewport' content="width=device-width, initial-scale=1" />
-	</head>
-	<body>
-<?php
+$TITLE = "Registrieren";
+
+require_once (__DIR__ . '/templates/header.php');
+
 if (ALLOW_REGISTRATION) {
 	if (isset($_POST['register'])) {
 		if(isset ($_POST['username']) && !empty($_POST['username'])) {
@@ -104,5 +97,3 @@ require_once (__DIR__ . '/templates/navbar_back.php');
 <?php
 require_once (__DIR__ . '/templates/footer.html');
 ?>
-	</body>
-</html>

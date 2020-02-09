@@ -3,17 +3,10 @@
 require_once (__DIR__ . '/include/loginredirect.php');
 require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
 
-?>
-<!DOCTYPE html>
-<html lang="de" dir="ltr">
-	<head>
-		<meta charset="utf-8">
-		<title>Nicht Lachen! | Anmelden</title>
-		<link rel="stylesheet" href="css/stylesheet.min.css"/>
-		<meta name='viewport' content="width=device-width, initial-scale=1" />
-	</head>
-	<body>
-<?php
+$TITLE = "Anmelden";
+
+require_once (__DIR__ . '/templates/header.php');
+
 if(isset($_POST['login'])) {
 	$login = false;
 	if(isset($_POST['username'])) {
@@ -48,7 +41,6 @@ if(isset($_POST['login'])) {
 	}
 }
 
-$TITLE = "Anmelden";
 require_once (__DIR__ . '/templates/navbar_back.php');
 ?>
 		<center class="container">
@@ -63,5 +55,3 @@ require_once (__DIR__ . '/templates/navbar_back.php');
 <?php
 require_once (__DIR__ . '/templates/footer.html');
 ?>
-	</body>
-</html>

@@ -21,19 +21,9 @@ function deleteProfileImage() {
 	}
 }
 
-?>
-
-<!DOCTYPE html>
-<html lang="de" dir="ltr">
-	<head>
-		<meta charset="utf-8">
-		<title>Nicht Lachen! | Profil bearbeiten</title>
-		<link rel="stylesheet" href="css/stylesheet.min.css"/>
-		<meta name='viewport' content="width=device-width, initial-scale=1" />
-	</head>
-	<body>
-<?php
 $TITLE = "Profil bearbeiten";
+
+require_once (__DIR__ . '/templates/header.php');
 require_once (__DIR__ . '/templates/navbar_back.php');
 
 if(isset($_FILES['profileimage']) && !empty($_FILES['profileimage']['name'])) {
@@ -120,7 +110,5 @@ if(isset($_POST['delete_description']) && $_POST['delete_description'] == "on") 
 
 require_once (__DIR__ . '/templates/footer.html');
 ?>
-	</body>
-</html>
 
 
