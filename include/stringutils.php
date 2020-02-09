@@ -8,7 +8,7 @@ function splitTextAtLength(string $text, int $length) : array {
 	$res = ["", ""];
 
 	if (countCharacters($text) > $length) {
-		foreach(preg_split("//", $text) as $char) { // PERFORMANCE intensive!
+		foreach(mb_str_split($text) as $char) { // PERFORMANCE intensive!
 			$res[0] .= $char;
 
 			if (countCharacters($res[0]) >= $length) {
