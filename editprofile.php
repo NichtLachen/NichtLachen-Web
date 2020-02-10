@@ -103,7 +103,7 @@ if(isset($_POST['delete_description']) && $_POST['delete_description'] == "on") 
 			<br><br>
 			<input type="password" name="password" placeholder="Neues Passwort"/>
 			<br><br>
-			<textarea name="description" form="editprofile" placeholder="Neue Beschreibung"></textarea>
+			<textarea name="description" form="editprofile" placeholder="Neue Beschreibung"><?php echo $user->getDescription(); ?></textarea>
 			<br><br>
 			<input type="checkbox" name="delete_description"/> Beschreibung löschen
 			<br><br>
