@@ -12,7 +12,7 @@ $uid = $api->getUIDBySessionID(session_id());
 $from = urlencode($_SERVER['REQUEST_URI'] . "#" . $comment->getCMTID() . "end");
 $from_before = urlencode($_SERVER['REQUEST_URI'] . '#' . $comment->getCMTID());
 
-$content = escapeHTML($comment->getContent());
+$content = $comment->getContent();
 
 foreach($comment->getReplyTo() as $replyTo) {
 	$userTo = $api->getUserByUID($replyTo->getReplyTo());
@@ -20,6 +20,8 @@ foreach($comment->getReplyTo() as $replyTo) {
 
 	$content = str_replace($replyTo->getReplaceValue(), $to, $content);
 }
+
+$content = formatText(escapeHTML($content));
 
 $content = splitTextAtLength($content, 800);
 

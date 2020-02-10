@@ -7,7 +7,7 @@ function countCharacters(string $text) : int {
 function splitTextAtLength(?string $text, int $length) : array {
 	$res = ["", ""];
 
-	if ($text == null || countCharacters($text) > $length) {
+	if ($text != null && countCharacters($text) > $length) {
 		foreach(mb_str_split($text) as $char) { // PERFORMANCE intensive!
 			$res[0] .= $char;
 
@@ -21,6 +21,17 @@ function splitTextAtLength(?string $text, int $length) : array {
 		$res[0] = $text;
 	}
 
+	return $res;
+}
+
+function formatText(?string $text) : ?string {
+	if ($text == null) {
+		return null;
+	}
+
+	$res = preg_replace('/\*(.*?)\*/', '<b>${1}</b>', $text); // bold
+	$res = preg_replace('/\_(.*?)\_/', '<i>${1}</i>', $res); // italic
+	$res = preg_replace('/\~(.*?)\~/', '<strike>${1}</strike>', $res); // striketrough
 	return $res;
 }
 
