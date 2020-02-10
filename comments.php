@@ -16,7 +16,7 @@ require_once (__DIR__ . '/templates/navbar_back.php');
 
 if ($post != null) {
 
-	if (isset($_POST['text'])) {
+	if (isset($_POST['text']) && !empty($_POST['text'])) {
 		$text = $_POST['text'];
 		$replyTo = [];
 		$broken = explode(" ", $text);
