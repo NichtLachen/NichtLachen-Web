@@ -105,7 +105,7 @@ body {
 	display: none;
 }
 
-.btnControl:checked + label > div {
+.btnControl:checked + div {
 	visibility: hidden;
 }
 

@@ -1,9 +1,7 @@
 <input type="checkbox" class="btnControl" id="btnControl"/>
-<label class="btn" for="btnControl">
-	<div class="modal">
-		<div class="modal-content success">
-			<span class="close">&times;</span>
-			<p><?php echo $SUCCESS ?></p>
-		</div>
+<div class="modal">
+	<div class="modal-content success">
+		<label class="close" for="btnControl">&times;</label>
+		<p>Fehler: <?php echo $ERROR ?></p>
 	</div>
-</label>
+</div>
