@@ -2,6 +2,7 @@
 
 require_once (__DIR__ . '/include/guestredirect.php');
 require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
+require_once (__DIR__ . '/classes/post/Comment.php');
 
 $api = new DatabaseAPI();
 $pid = isset($_GET['pid']) && is_numeric($_GET['pid']) ? $_GET['pid'] : 0; // PID 0 does never exist
@@ -17,22 +18,20 @@ if ($post != null) {
 
 	if (isset($_POST['text'])) {
 		$text = $_POST['text'];
+		$replyTo = [];
 		$broken = explode(" ", $text);
 
-		if($broken[0][0] == "@") {
-			$user_f = $api->getUserByName(substr($broken[0], 1));
-			$uid_f = $user_f != null ? $user_f->getUID() : null;
-		} else {
-			$uid_f = null;
+		foreach ($broken as $part) {
+			if ($part[0] == "@") {
+				$user_f = $api->getUserByName(substr($part, 1));
+
+				if ($user_f != null) {
+					$replyTo[sizeof($replyTo)] = new CommentReply($user_f->getUID(), $part);
+				}
+			}
 		}
 
-		if(isset($uid_f) && $uid_f != null) {
-			$text = substr($text, strlen($broken[0]));
-		}
-
-		if (!empty($text)) {
-			$api->postComment($pid, $uid, $uid_f, $text);
-		}
+		$api->postComment($pid, $uid, $replyTo, $text);
 	}
 
 ?>

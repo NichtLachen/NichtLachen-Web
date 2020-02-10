@@ -4,15 +4,15 @@ class Comment {
 	private int $cmtid;
 	private int $pid;
 	private int $uid;
-	private ?int $uid_f;
+	private array $replyTo;
 	private string $content;
 	private string $createdAt;
 
-	public function __construct(int $cmtid, int $pid, int $uid, ?int $uid_f, string $content, string $createdAt) {
+	public function __construct(int $cmtid, int $pid, int $uid, array $replyTo, string $content, string $createdAt) {
 		$this->cmtid = $cmtid;
 		$this->pid = $pid;
 		$this->uid = $uid;
-		$this->uid_f = $uid_f;
+		$this->replyTo = $replyTo;
 		$this->content = $content;
 		$this->createdAt = $createdAt;
 	}
@@ -29,8 +29,8 @@ class Comment {
 		return $this->uid;
 	}
 
-	public function getReplyTo() : ?int {
-		return $this->uid_f;
+	public function getReplyTo() : array {
+		return $this->replyTo;
 	}
 
 	public function getContent() : string {
@@ -41,5 +41,24 @@ class Comment {
 		return $this->createdAt;
 	}
 
+}
+
+class CommentReply {
+
+	private int $uid_f;
+	private string $replace;
+
+	public function __construct(int $uid_f, string $replace) {
+		$this->uid_f = $uid_f;
+		$this->replace = $replace;
+	}
+
+	public function getReplyTo() : int {
+		return $this->uid_f;
+	}
+
+	public function getReplaceValue() : string {
+		return $this->replace;
+	}
 }
 ?>

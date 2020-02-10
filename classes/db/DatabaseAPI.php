@@ -269,7 +269,15 @@ class DatabaseAPI {
 	}
 
 	private function getComment(array $row) : Comment {
-		return new Comment($row['CMTID'], $row['PID'], $row['UID'], $row['UID_F'], $row['Content'], $row['CreatedAt']);
+		$replyTo = [];
+		$stmt = $this->database->conn->prepare("SELECT * FROM comment_reply WHERE CMTID = :cmtid");
+		$stmt->execute(array("cmtid" => $row['CMTID']));
+
+		foreach ($stmt as $tmp) {
+			$replyTo[sizeof($replyTo)] = new CommentReply($tmp['UID_F'], $tmp['ReplaceValue']);
+		}
+
+		return new Comment($row['CMTID'], $row['PID'], $row['UID'], $replyTo, $row['Content'], $row['CreatedAt']);
 	}
 
 	public function getComments(int $pid, int $page, int $perPage) : array {
@@ -312,9 +320,22 @@ class DatabaseAPI {
 		return false;
 	}
 
-	public function postComment(int $pid, int $uid, ?int $uid_f, string $content) {
-		$stmt = $this->database->conn->prepare("INSERT INTO comments(PID,UID,UID_F,Content,CreatedAt) VALUES (:pid,:uid,:uid_f,:content,NOW())");
-		$stmt->execute(array("pid" => $pid, "uid" => $uid, "uid_f" => $uid_f, "content" => $content));
+	public function postComment(int $pid, int $uid, array $replyTo, string $content) {
+		$stmt = $this->database->conn->prepare("INSERT INTO comments(PID,UID,Content,CreatedAt) VALUES (:pid,:uid,:content,NOW())");
+		$stmt->execute(array("pid" => $pid, "uid" => $uid, "content" => $content));
+
+		$cmtid = 0;
+		$stmt = $this->database->conn->prepare("SELECT LAST_INSERT_ID()");
+		$stmt->execute();
+
+		foreach ($stmt as $row) {
+			$cmtid = $row['LAST_INSERT_ID()'];
+		}
+
+		foreach ($replyTo as $reply) {
+			$stmt = $this->database->conn->prepare("INSERT INTO comment_reply(CMTID,UID_F,ReplaceValue) VALUES (:cmtid,:uid_f,:replacevalue)");
+			$stmt->execute(array("cmtid" => $cmtid, "uid_f" => $reply->getReplyTo(), "replacevalue" => $reply->getReplaceValue()));
+		}
 	}
 
 	private function getPost(array $row) : Post {
@@ -487,6 +508,8 @@ class DatabaseAPI {
 	}
 
 	public function commentDelete(int $cmtid) {
+		$stmt = $this->database->conn->prepare("DELETE FROM comment_reply WHERE CMTID = :cmtid");
+		$stmt->execute(array("cmtid" => $cmtid));
 		$stmt = $this->database->conn->prepare("DELETE FROM likes WHERE CMTID = :cmtid");
 		$stmt->execute(array("cmtid" => $cmtid));
 		$stmt = $this->database->conn->prepare("DELETE FROM comments WHERE CMTID = :cmtid");

@@ -12,13 +12,16 @@ $uid = $api->getUIDBySessionID(session_id());
 $from = urlencode($_SERVER['REQUEST_URI'] . "#" . $comment->getCMTID() . "_end");
 $from_before = urlencode($_SERVER['REQUEST_URI'] . '#' . $comment->getCMTID());
 
-$content = splitTextAtLength(escapeHTML($comment->getContent()), 800);
+$content = escapeHTML($comment->getContent());
 
-$to = "";
-if ($comment->getReplyTo() != null) {
-	$replyTo = $api->getUserByUID($comment->getReplyTo());
-	$to = "<a class=\"post-category\" href=\"users.php?uid=" . $replyTo->getUID() . "&from=" . $from . "\">@" . $replyTo->getName() . " </a>";
+foreach($comment->getReplyTo() as $replyTo) {
+	$userTo = $api->getUserByUID($replyTo->getReplyTo());
+	$to = "<a class=\"post-category\" href=\"users.php?uid=" . $replyTo->getReplyTo() . "&from=" . $from . "\">@" . $userTo->getName() . " </a>";
+
+	$content = str_replace($replyTo->getReplaceValue(), $to, $content);
 }
+
+$content = splitTextAtLength($content, 800);
 
 $color = $api->isCommentLikeSet($comment->getCMTID(), $uid, 1) ? "red" : "grey";
 ?>
@@ -26,7 +29,7 @@ $color = $api->isCommentLikeSet($comment->getCMTID(), $uid, 1) ? "red" : "grey";
 			<a class="post-category" href="users.php?uid=<?php echo $user->getUID();?>&from=<?php echo $from_before; ?>"><?php echo $user->getName(); ?></a>
 			<div class="post-info" style="display: inline;">vor <?php echo DateUtil::diff($comment->getCreatedAt()); ?></div>
 			<br><br>
-			<div class="post-content"><?php echo $to . " " . $content[0]; if (!empty($content[1])) { ?><input type="checkbox" class="showMore" id="showMore_<?php echo $comment->getCMTID(); ?>"><label for="showMore_<?php echo $comment->getCMTID();?>" id="showMoreL_<?php echo $comment->getCMTID(); ?>">Mehr anzeigen <i class="fa fa-arrow-down" aria-hidden="true"></i></label><div for="showMoreL_<?php echo $comment->getCMTID(); ?>"><?php echo $content[1]; ?></div><?php } ?></div>
+			<div class="post-content"><?php echo $content[0]; if (!empty($content[1])) { ?><input type="checkbox" class="showMore" id="showMore_<?php echo $comment->getCMTID(); ?>"><label for="showMore_<?php echo $comment->getCMTID();?>" id="showMoreL_<?php echo $comment->getCMTID(); ?>">Mehr anzeigen <i class="fa fa-arrow-down" aria-hidden="true"></i></label><div for="showMoreL_<?php echo $comment->getCMTID(); ?>"><?php echo $content[1]; ?></div><?php } ?></div>
 			<br>
 			<a id="<?php echo $comment->getCMTID(); ?>_end" class="post-info" style="display: inline; text-decoration: none;" href="<?php echo hrefReplaceVar("to", $user->getName()); ?>">Antworten</a>
 			<div class="post-like"><a href="like.php?like=1&cmtid=<?php echo $comment->getCMTID();?>&from=<?php echo $from; ?>"><i style="color: <?php echo $color; ?>" class="fas fa-heart"></i></a> <?php echo $api->countCommentLikes($comment->getCMTID());?></div>
