@@ -31,7 +31,7 @@ function formatText(?string $text) : ?string {
 
 	$res = preg_replace('/\*(.*?)\*/', '<b>${1}</b>', $text); // bold
 	$res = preg_replace('/\_(.*?)\_/', '<i>${1}</i>', $res); // italic
-	$res = preg_replace('/\~(.*?)\~/', '<strike>${1}</strike>', $res); // striketrough
+	$res = preg_replace('/\~(.*?)\~/', '<s>${1}</s>', $res); // striketrough
 	return $res;
 }
 
