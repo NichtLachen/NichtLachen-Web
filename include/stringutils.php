@@ -4,10 +4,10 @@ function countCharacters(string $text) : int {
 	return strlen($text) + substr_count($text, "\n") * 20;
 }
 
-function splitTextAtLength(string $text, int $length) : array {
+function splitTextAtLength(?string $text, int $length) : array {
 	$res = ["", ""];
 
-	if (countCharacters($text) > $length) {
+	if ($text == null || countCharacters($text) > $length) {
 		foreach(mb_str_split($text) as $char) { // PERFORMANCE intensive!
 			$res[0] .= $char;
 
