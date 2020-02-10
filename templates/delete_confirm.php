@@ -2,7 +2,6 @@
 	<script language="javascript">
 		function reset<?php echo $delid; ?>() {
 			document.getElementById('delete<?php echo $delid; ?>').checked = false;
-			document.getElementById('btnControl<?php echo $delid; ?>').checked = false;
 			return false;
 		}
 	</script>
