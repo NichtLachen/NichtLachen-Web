@@ -91,6 +91,7 @@ body {
 	position: relative;
 	min-height: calc(100% - 6em);
 	padding-bottom: 6em;
+	overflow-wrap: break-word;
 }
 
 .error {
