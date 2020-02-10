@@ -50,10 +50,15 @@ if(isset($_POST['username']) && !empty($_POST['username'])) {
 		$username = $_POST['username'];
 
 		if(strpos($username, " ") == false) {
-			$api->setUserName($uid, $username);
+			if(!$api->isNameInUse($username) && !$api->isNameInVerification($username)) {
+				$api->setUserName($uid, $username);
+			} else {
+				$ERROR = "Benutzername wird bereits verwendet";
+				require (__DIR__ . '/templates/error.php');
+			}
 		} else {
 			$ERROR = "Benutzernamen dürfen keine Leerzeichen enthalten";
-			include (__DIR__ . '/templates/error.php');
+			require (__DIR__ . '/templates/error.php');
 		}
 	} else {
 		$ERROR = "Der Benutzername kann nur alle 7 Tage geändert werden";
