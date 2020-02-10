@@ -9,8 +9,12 @@ $api = new DatabaseAPI();
 $user = $api->getUserByUID($comment->getCreatorUID());
 $uid = $api->getUIDBySessionID(session_id());
 
+$lastid = isset($last_comment) ? $last_comment->getCMTID() : 0; // 0 does never exist
+$last_comment = $comment;
+
 $from = urlencode($_SERVER['REQUEST_URI'] . "#" . $comment->getCMTID() . "end");
 $from_before = urlencode($_SERVER['REQUEST_URI'] . '#' . $comment->getCMTID());
+$from_delete = urlencode($_SERVER['REQUEST_URI'] . '#' . $lastid . "end");
 
 $content = escapeHTML($comment->getContent());
 
@@ -39,7 +43,7 @@ $color = $api->isCommentLikeSet($comment->getCMTID(), $uid, 1) ? "red" : "grey";
 <?php
 if ($comment->getCreatorUID() == $uid) {
 	$delid = $comment->getCMTID();
-	$delete = "delete.php?cmtid=" . $comment->getCMTID() . "&from=" . $from;
+	$delete = "delete.php?cmtid=" . $comment->getCMTID() . "&from=" . $from_delete;
 ?>
 			<input type="checkbox" class="showMore" id="delete<?php echo $comment->getCMTID(); ?>">
 			<label class="post-delete" for="delete<?php echo $comment->getCMTID(); ?>" style="display: visible; color: red;"><i class="fas fa-trash-alt"></i></label>
