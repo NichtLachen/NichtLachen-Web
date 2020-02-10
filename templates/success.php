@@ -2,6 +2,6 @@
 <div class="modal">
 	<div class="modal-content success">
 		<label class="close" for="btnControl">&times;</label>
-		<p>Fehler: <?php echo $ERROR ?></p>
+		<p><?php echo $SUCCESS ?></p>
 	</div>
 </div>

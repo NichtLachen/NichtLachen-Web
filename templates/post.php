@@ -44,8 +44,13 @@ $accepts = $api->getPostQueueAccepts($post->getPID());
 }
 
 if ($post->getCreatorUID() == $uid) {
-?>			<div class="post-delete"><a href="delete.php?pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>&queue=<?php echo $queue ? "1" : "0";?>"><i class="fas fa-trash-alt"></i></a></div>
+	$delid = $post->getPID();
+	$delete = "delete.php?cmtid=" . $post->getPID() . "&from=" . $from;
+?>
+			<input type="checkbox" class="showMore" id="delete<?php echo $post->getPID(); ?>">
+			<label class="post-delete" for="delete<?php echo $post->getPID(); ?>" style="display: visible; color: red;"><i class="fas fa-trash-alt"></i></label>
 <?php
+	require (__DIR__ . '/../templates/delete_confirm.php');
 }
 ?>
 		</div>

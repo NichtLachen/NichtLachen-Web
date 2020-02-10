@@ -1,0 +1,1 @@
+templates/delete_confirm.php
