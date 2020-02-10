@@ -25,6 +25,8 @@ function splitTextAtLength(?string $text, int $length) : array {
 }
 
 function formatText(?string $text) : ?string {
+	return $text; // currently disabled
+
 	if ($text == null) {
 		return null;
 	}
