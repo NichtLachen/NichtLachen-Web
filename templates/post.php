@@ -47,7 +47,8 @@ $accepts = $api->getPostQueueAccepts($post->getPID());
 
 if ($post->getCreatorUID() == $uid) {
 	$delid = $post->getPID();
-	$delete = "delete.php?pid=" . $post->getPID() . "&from=" . $from . "&queue=" . ($queue ? : "1" : "0");
+	$q = isset($queue) && $queue ? "1" : "0";
+	$delete = "delete.php?pid=" . $post->getPID() . "&from=" . $from . "&queue=" . $q;
 ?>
 			<input type="checkbox" class="showMore" id="delete<?php echo $post->getPID(); ?>">
 			<label class="post-delete" for="delete<?php echo $post->getPID(); ?>" style="display: visible; color: red;"><i class="fas fa-trash-alt"></i></label>
