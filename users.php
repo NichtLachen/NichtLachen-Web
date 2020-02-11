@@ -15,7 +15,7 @@ require_once (__DIR__ . '/templates/header.php');
 require_once (__DIR__ . '/templates/navbar_back.php');
 
 $profileimage = findProfileImage($uid);
-$bgImage = $profileImage != null ? "url('profileimages/" . $profileimage . "')" : "none"; 
+$bgImage = $profileimage != null ? "url('profileimages/" . $profileimage . "')" : "none"; 
 ?>
 		<center>
 		<div class="profileimage" style="background-image: <?php echo $bgImage; ?>;">
