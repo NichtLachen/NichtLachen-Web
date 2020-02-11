@@ -91,7 +91,7 @@ if(isset($_POST['delete_description']) && $_POST['delete_description'] == "on") 
 }
 
 ?>
-		<form class="container" method="POST" action="?from=<?php echo urlencode($_GET['from']); ?>" id="editprofile" enctype="multipart/form-data">
+		<form onsubmit="return sendForm('editprofile', function() { reload(); });" class="container" method="POST" action="?from=<?php echo urlencode($_GET['from']); ?>" id="editprofile" enctype="multipart/form-data">
 			Neues Profilbild: <br><br>
 			<input type="file" name="profileimage"/>
 			<br><br>
