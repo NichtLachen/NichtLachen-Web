@@ -51,6 +51,12 @@ function sendForm(id, callback) {
 	const XHR = new XMLHttpRequest();
 	const data = new FormData(form);
 
+	var elements = form.elements;
+	for (element in elements) {
+		element.disabled = true;
+		element.readOnly = true;
+	}
+
 	data.append('javascript', 'true');
 
 	XHR.onreadystatechange = function() {
