@@ -45,9 +45,10 @@ function goto(url) {
 	window.location.href = url;
 }
 
-function sendForm(id, callback) {
+function sendForm(id, callback, disable) {
 	console.log('Sending form id:' + id);
 	const form = document.getElementById(id);
+	form.onsubmit = function() { return false; };
 	const XHR = new XMLHttpRequest();
 	const data = new FormData(form);
 
