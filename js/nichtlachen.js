@@ -1,15 +1,27 @@
+function onLoad() {
+	var scrollpos = localStorage.getItem('scrollpos');
+	if (scrollpos) {
+		console.log('Restoring scroll position...');
+		localStorage.removeItem('scrollpos');
+		window.scrollTo(0, scrollpos);
+	}
+}
+
 function deleteConfirmClose(id) {
 	document.getElementById('delete' + id).checked = false;
 	return false;
 }
 
-function deleteConfirmed(id, url) {
+function callURLWithReload(url) {
+	console.log('Calling URL ' + url + '...');
 	const XHR = new XMLHttpRequest();
 
 	XHR.onreadystatechange = function() {
 		if (XHR.readyState = XMLHttpRequest.DONE) {
-			document.getElementById(id).style.display = 'none';
-			document.getElementById('delete' + id).checked = false;
+			setTimeout(function() {
+				console.log('Reloading page...');
+				reload();
+			}, 5);
 		}
 	}
 
@@ -20,7 +32,8 @@ function deleteConfirmed(id, url) {
 }
 
 function reload() {
-	window.location.reload(true);
+	localStorage.setItem('scrollpos', window.pageYOffset);
+	location.reload(true);
 }
 
 function back() {
@@ -29,6 +42,7 @@ function back() {
 }
 
 function sendForm(id, callback) {
+	console.log('Sending form id:' + id);
 	const form = document.getElementById(id);
 	const XHR = new XMLHttpRequest();
 	const data = new FormData(form);
@@ -37,7 +51,7 @@ function sendForm(id, callback) {
 		if (XHR.readyState = XMLHttpRequest.DONE) {
 			setTimeout(function() {
 				callback();
-			}, 100);
+			}, 5);
 		}
 	}
 

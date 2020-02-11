@@ -385,7 +385,7 @@ footer {
 .post-delete {
 	font-size: 14pt;
 	display: inline;
-	margin-left: 0.5em;
+	margin-left: 1.5em;
 	color: red;
 }
 
@@ -509,7 +509,6 @@ form.editprofile {
 
 .showMore + label {
 	color: #0066ff;
-	margin: auto;
 	cursor: pointer;
 }
 

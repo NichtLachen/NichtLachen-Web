@@ -21,7 +21,7 @@ require_once (__DIR__ . '/templates/navbar_back.php');
 <?php
 if ($uid != $myuid) {
 ?>
-		<a class="button" href="subscribe.php?uid=<?php echo $uid; ?>&from=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $api->hasSubscribed($myuid, $uid) ? "Abonniert" : "Abonnieren"; ?></a>
+		<a class="button" onclick="return callURLWithReload('subscribe.php?uid=<?php echo $uid; ?>');" href="subscribe.php?uid=<?php echo $uid; ?>&from=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $api->hasSubscribed($myuid, $uid) ? "Abonniert" : "Abonnieren"; ?></a>
 		<br>
 <?php
 }
