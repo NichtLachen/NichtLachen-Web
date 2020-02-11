@@ -698,7 +698,7 @@ class DatabaseAPI {
 		$stmt->execute(array("uid" => $uid));
 
 		foreach ($stmt as $row) {
-			if ($row['COUNT(PID)'] > $end) {
+			if ($row['COUNT(posts.PID)'] > $end) {
 				return true;
 			}
 		}
