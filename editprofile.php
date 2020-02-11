@@ -8,6 +8,7 @@ require_once (__DIR__ . '/include/stringutils.php');
 
 $api = new DatabaseAPI();
 $uid = $api->getUIDBySessionID(session_id());
+$user = $api->getUserByUID($uid);
 
 $from = isset($_GET['from']) ? $_GET['from'] : "./";
 
