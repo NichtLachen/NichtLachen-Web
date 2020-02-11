@@ -16,26 +16,32 @@ if (!isset($_GET['cid'])) {
 
 		<div class="categories">
 			<br><br>
-			<hr>
+			<div class="categories-wrapper">
 <?php
 
 foreach ($api->getParentLessCategories() as $cat) {
-	echo "<a id=\"" . $cat . "\" href=\"?cid=" . $cat . "&from=" . $from . urlencode("#" . $cat) . "\">" . $api->getCategoryName($cat) . "</a><br>";
-	echo "<hr>";
+	$url = "?cid=" . $cat . "&from=" . $from . urlencode("#" . $cat);
+	echo "<div class=\"border\" onclick=\"goto('" . $url . "');\">";
+	echo "<a id=\"" . $cat . "\" href=\"" . $url . "\">" . $api->getCategoryName($cat) . "</a><br>";
+	echo "</div>";
 }
 
 ?>
+			</div>
 			<br><br>
 <?php
 
 foreach ($api->getSuperCategories() as $supercat) {
 	echo "<div class=\"super\">" . $api->getCategoryName($supercat) . "</div><br>";
-	echo "<hr>";
 
+	echo "<div class=\"categories-wrapper\">";
 	foreach ($api->getSubCategories($supercat) as $cat) {
-		echo "<a id=\"" . $cat . "\" href=\"?cid=" . $cat . "&from=" . $from . urlencode("#" . $cat) . "\">" . $api->getCategoryName($cat) . "</a><br>";
-		echo "<hr>";
+		$url = "?cid=" . $cat . "&from=" . $from . urlencode("#" . $cat);
+		echo "<div class=\"border\" onclick=\"goto('" . $url . "');\">";
+		echo "<a id=\"" . $cat . "\" href=\"" . $url . "\">" . $api->getCategoryName($cat) . "</a><br>";
+		echo "</div>";
 	}
+	echo "</div>";
 	echo "<br><br>";
 }
 

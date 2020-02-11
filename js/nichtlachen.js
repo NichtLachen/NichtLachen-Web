@@ -41,6 +41,10 @@ function back() {
 	return false;
 }
 
+function goto(url) {
+	window.location.href = url;
+}
+
 function sendForm(id, callback) {
 	console.log('Sending form id:' + id);
 	const form = document.getElementById(id);
