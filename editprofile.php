@@ -8,7 +8,6 @@ require_once (__DIR__ . '/include/stringutils.php');
 
 $api = new DatabaseAPI();
 $uid = $api->getUIDBySessionID(session_id());
-$user = $api->getUserByUID($uid);
 
 $from = isset($_GET['from']) ? $_GET['from'] : "./";
 
@@ -91,8 +90,10 @@ if(isset($_POST['delete_description']) && $_POST['delete_description'] == "on") 
 	$api->setUserDescription($uid, null);
 }
 
+$user = $api->getUserByUID($uid);
+
 ?>
-		<form onsubmit="return sendForm('editprofile', function() { reload(); }, true);" class="container" method="POST" action="?from=<?php echo urlencode($_GET['from']); ?>" id="editprofile" enctype="multipart/form-data">
+		<form onsubmit="return sendForm('editprofile', function() {}, true, true);" class="container" method="POST" action="?from=<?php echo urlencode($_GET['from']); ?>" id="editprofile" enctype="multipart/form-data">
 			Neues Profilbild: <br><br>
 			<input type="file" name="profileimage"/>
 			<br><br>

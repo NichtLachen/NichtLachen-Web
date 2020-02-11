@@ -48,7 +48,7 @@ function goto(url) {
 	window.location.href = url;
 }
 
-function sendForm(id, callback, disable) {
+function sendForm(id, callback, disable, replaceContent) {
 	console.log('Sending form id:' + id);
 	const form = document.getElementById(id);
 
@@ -65,6 +65,12 @@ function sendForm(id, callback, disable) {
 		if (XHR.readyState = XMLHttpRequest.DONE) {
 			setTimeout(function() {
 				callback();
+
+				if(replaceContent) {
+					document.open();
+					document.write(XHR.responseText);
+					document.close();
+				}
 			}, 5);
 		}
 	}
