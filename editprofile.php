@@ -4,6 +4,7 @@ require_once (__DIR__ . '/include/guestredirect.php');
 require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
 require_once (__DIR__ . '/include/profileimageutils.php');
 require_once (__DIR__ . '/config.php');
+require_once (__DIR__ . '/include/stringutils.php');
 
 $api = new DatabaseAPI();
 $uid = $api->getUIDBySessionID(session_id());
