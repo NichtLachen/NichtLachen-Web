@@ -22,7 +22,7 @@ foreach($comment->getReplyTo() as $replyTo) {
 	$userTo = $api->getUserByUID($replyTo->getReplyTo());
 	$to = "<a class=\"post-category\" href=\"users.php?uid=" . $replyTo->getReplyTo() . "&from=" . $from . "\">@" . $userTo->getName() . "</a>";
 
-	$content = preg_replace($replyTo->getReplaceValue(), $to, $content, 1);
+	$content = str_replace_first($replyTo->getReplaceValue(), $to, $content, 1);
 }
 
 $content = formatText($content);

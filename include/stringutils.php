@@ -37,4 +37,9 @@ function formatText(?string $text) : ?string {
 	return $res;
 }
 
+function str_replace_first($from, $to, $content, $count) {
+	$from = '/'.preg_quote($from, '/').'/';
+	return preg_replace($from, $to, $content, $count);
+}
+
 ?>
