@@ -30,9 +30,11 @@ if(isset($_GET['like']) && (isset($_GET['pid']) || isset($_GET['cmtid']))) {
 		}
 	}
 
-	$url = isset($_GET['from']) ? $_GET['from'] : "top.php";
-
-	header("Status: 302 Found");
-	header("Location: " . $url);
+	if(isset($_GET['from'])) {
+		header("Status: 302 Found");
+		header("Location: " . $_GET['from']);
+	} else {
+		header("Status: 204 No Content");
+	}
 }
 ?>

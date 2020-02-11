@@ -43,6 +43,7 @@ $color = $api->isCommentLikeSet($comment->getCMTID(), $uid, 1) ? "red" : "grey";
 <?php
 if ($comment->getCreatorUID() == $uid) {
 	$delid = $comment->getCMTID();
+	$delete_js = "delete.php?cmtid=" . $comment->getCMTID();
 	$delete = "delete.php?cmtid=" . $comment->getCMTID() . "&from=" . $from_delete;
 ?>
 			<input type="checkbox" class="showMore" id="delete<?php echo $comment->getCMTID(); ?>">

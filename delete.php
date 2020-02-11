@@ -25,8 +25,10 @@ if (isset($_GET['pid'])) {
 	}
 }
 
-$url = isset($_GET['from']) ? $_GET['from'] : "top.php";
-
-header("Status: 302 Found");
-header("Location: " . $url);
+if(isset($_GET['from'])) {
+	header("Status: 302 Found");
+	header("Location: " . $_GET['from']);
+} else {
+	header("Status: 204 No Content");
+}
 ?>

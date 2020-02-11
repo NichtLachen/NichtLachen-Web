@@ -32,6 +32,11 @@ if ($post != null) {
 		}
 
 		$api->postComment($pid, $uid, $replyTo, $text);
+
+		if (isset($_POST['javascript']) && $_POST['javascript']) {
+			header("Status: 204 No Content");
+			die();
+		}
 	}
 
 ?>

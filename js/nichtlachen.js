@@ -47,6 +47,8 @@ function sendForm(id, callback) {
 	const XHR = new XMLHttpRequest();
 	const data = new FormData(form);
 
+	data.append('javascript', 'true');
+
 	XHR.onreadystatechange = function() {
 		if (XHR.readyState = XMLHttpRequest.DONE) {
 			setTimeout(function() {
