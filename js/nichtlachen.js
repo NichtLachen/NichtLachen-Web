@@ -48,7 +48,11 @@ function goto(url) {
 function sendForm(id, callback, disable) {
 	console.log('Sending form id:' + id);
 	const form = document.getElementById(id);
-	form.onsubmit = function() { return false; };
+
+	if (disable) {
+		form.onsubmit = function() { return false; };
+	}
+
 	const XHR = new XMLHttpRequest();
 	const data = new FormData(form);
 
