@@ -21,7 +21,7 @@ require_once (__DIR__ . '/templates/header.php');
 if (ALLOW_REGISTRATION) {
 	if (isset($_POST['register'])) {
 		if(isset ($_POST['username']) && !empty($_POST['username'])) {
-			$username = $_POST['username'];
+			$username = trim($_POST['username']);
 
 			if(isset($_POST['email']) && !empty($_POST['email'])) {
 				$email = $_POST['email'];

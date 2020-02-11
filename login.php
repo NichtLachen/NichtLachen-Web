@@ -12,8 +12,8 @@ if(isset($_POST['login'])) {
 	if(isset($_POST['username'])) {
 		if(isset($_POST['password'])) {
 			$api = new DatabaseAPI();
-			$user = $api->getUserByName($_POST['username']);
-			$user = $user != null ? $user : $api->getUserByEMail($_POST['username']);
+			$user = $api->getUserByName(trim($_POST['username']));
+			$user = $user != null ? $user : $api->getUserByEMail(trim($_POST['username']));
 			
 			if($user != null) {
 				if ($api->authenticate($user->getUID(), $_POST['password'])) {
