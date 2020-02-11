@@ -694,7 +694,7 @@ class DatabaseAPI {
 	public function moreUserSubscriptionPosts(int $uid, int $page, int $perPage) : bool {
 		$start = ($page - 1) * $perPage;
 		$end = $start + $perPage;
-		$stmt = $this->database->conn->prepare("SELECT * FROM posts,followers WHERE posts.UID = followers.UID AND followers.FollowerUID = :uid ORDER BY PID");
+		$stmt = $this->database->conn->prepare("SELECT COUNT(posts.PID) FROM posts,followers WHERE posts.UID = followers.UID AND followers.FollowerUID = :uid ORDER BY PID");
 		$stmt->execute(array("uid" => $uid));
 
 		foreach ($stmt as $row) {
