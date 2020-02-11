@@ -48,7 +48,7 @@ if(isset($_POST['username']) && !empty($_POST['username'])) {
 	$changedAt = new DateTime($user->getNameChangedAt());
 
 	if ($changedAt->diff(new Datetime())->days >= 7) {
-		$username = $_POST['username'];
+		$username = trim($_POST['username']);
 
 		if(validate_username($username)) {
 			if(!$api->isNameInUse($username) && !$api->isNameInVerification($username)) {
