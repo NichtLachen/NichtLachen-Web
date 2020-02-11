@@ -21,7 +21,7 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 			<input type="hidden" name="cid" value="<?php echo $_GET['cid']; ?>">
 			<textarea form="post" name="text" autofocus></textarea><br>
 			<br>
-			<input type="submit" class="button">
+			<input type="submit" onclick="this.disabled = true;" class="button">
 		</form>
 <?php
 	} else {

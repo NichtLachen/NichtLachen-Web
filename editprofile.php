@@ -108,7 +108,7 @@ if(isset($_POST['delete_description']) && $_POST['delete_description'] == "on") 
 			<br><br>
 			<input type="checkbox" name="delete_description"/> Beschreibung löschen
 			<br><br>
-			<input type="submit" name="submit" class="button">
+			<input type="submit" name="submit" onclick="this.disabled = true;" class="button">
 			<br><br><br>
 			<div class="post-info">Hinweis: Es müssen nicht alle Felder ausgefüllt sein</div>
 		</form>

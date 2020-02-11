@@ -46,7 +46,7 @@ if ($post != null) {
 			<input type="hidden" name="pid" value="<?php echo $pid; ?>">
 			<textarea form="comment" name="text" autofocus><?php echo isset($_GET['to']) ? "@" . $_GET['to'] : ""; ?></textarea><br>
 			<br>
-			<input type="submit" class="button">
+			<input type="submit" onclick="this.disabled = true;" class="button">
 		</form>
 <?php
 	$checkMore = function(int $page, int $perPage) : bool {
