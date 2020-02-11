@@ -3,7 +3,10 @@ function onLoad() {
 	if (scrollpos) {
 		console.log('Restoring scroll position...');
 		localStorage.removeItem('scrollpos');
-		window.scrollTo(0, scrollpos);
+
+		setTimeout(function() {		
+			window.scrollTo(0, scrollpos);
+		}, 1);
 	}
 }
 
