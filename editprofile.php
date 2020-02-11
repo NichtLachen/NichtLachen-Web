@@ -49,7 +49,7 @@ if(isset($_POST['username']) && !empty($_POST['username'])) {
 	if ($changedAt->diff(new Datetime())->days >= 7) {
 		$username = $_POST['username'];
 
-		if(strpos($username, " ") == false) {
+		if(validate_username($username)) {
 			if(!$api->isNameInUse($username) && !$api->isNameInVerification($username)) {
 				$api->setUserName($uid, $username);
 			} else {
@@ -57,7 +57,7 @@ if(isset($_POST['username']) && !empty($_POST['username'])) {
 				require (__DIR__ . '/templates/error.php');
 			}
 		} else {
-			$ERROR = "Benutzernamen dürfen keine Leerzeichen enthalten";
+			$ERROR = "Der Benutzername enthält ein ungültiges Zeichen";
 			require (__DIR__ . '/templates/error.php');
 		}
 	} else {

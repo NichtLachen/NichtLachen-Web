@@ -3,6 +3,7 @@
 require_once (__DIR__ . '/include/loginredirect.php');
 require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
 require_once (__DIR__ . '/config.php');
+require_once (__DIR__ . '/include/stringutils.php');
 
 function sendVerifyMail(string $username, string $email, string $key) {
 	$headers = array("Content-Type: text/plain; charset=UTF-8");
@@ -32,7 +33,7 @@ if (ALLOW_REGISTRATION) {
 					$api = new DatabaseAPI();
 
 					if(!$api->isNameInUse($username) && !$api->isNameInVerification($username)) {
-						if (strpos($username, ' ') == false) {
+						if (validate_username($username)) {
 							$user = $api->getUserByEMail($email);
 
 							if($user == null && !$api->isEMailInVerification($email)) {
@@ -45,7 +46,7 @@ if (ALLOW_REGISTRATION) {
 								require (__DIR__ . '/templates/error.php');
 							}
 						} else {
-							$ERROR = "Benutzernamen dürfen keine Leerzeichen enthalten!";
+							$ERROR = "Der Benutzername enthält ein ungültiges Zeichen!";
 							require (__DIR__ . '/templates/error.php');
 						}
 					} else {
