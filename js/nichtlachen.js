@@ -38,11 +38,7 @@ function reload() {
 }
 
 function back() {
-	const urlParams = new URLSearchParams(window.location.search);
-	const fromUrl = urlParams.get('from');
-	var fallback = fromUrl != null ? fromUrl : "./";
 	history.back();
-	window.location.href = fallback;
 	return false;
 }
 
