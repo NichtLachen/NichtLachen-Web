@@ -1,4 +1,19 @@
 function onLoad() {
+	var showMore = localStorage.getItem('showMore');
+	if (showMore) {
+		localStorage.removeItem('showMore');
+
+		more = JSON.parse(showMore);
+
+		for (var i = 0; i < more.length; i++) {
+			var checkbox = document.getElementById(more[i]);
+
+			if (checkbox != null) {
+				checkbox.checked = true;
+			}
+		}
+	}
+
 	var scrollpos = localStorage.getItem('scrollpos');
 	if (scrollpos) {
 		console.log('Restoring scroll position...');
@@ -34,6 +49,22 @@ function callURLWithReload(url) {
 function reload() {
 	console.log('Reloading page...');
 	localStorage.setItem('scrollpos', window.pageYOffset);
+
+	var checkboxes = document.getElementsByClassName("showMore");
+
+	if (checkboxes.length > 0) {
+		var checkedCheckboxes = [];
+
+		for (var i = 0; i < checkboxes.length; i++) {
+			if (checkboxes[i].checked) {
+				console.log('Saving showMore:' + checkboxes[i].id);
+				checkedCheckboxes.push(checkboxes[i].id);
+			}
+		}
+
+		localStorage.setItem('showMore', JSON.stringify(checkedCheckboxes));
+	}
+
 	location.reload(true);
 }
 
