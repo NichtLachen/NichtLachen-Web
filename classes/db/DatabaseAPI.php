@@ -246,6 +246,35 @@ class DatabaseAPI {
 		return 0;
 	}
 
+	public function getFollows(int $uid, int $page, int $perPage) : array {
+		$res = [];
+		$start = ($page - 1) * $perPage;
+		$end = $perPage; // LIMIT offset,amount
+		$stmt = $this->database->conn->prepare("SELECT * FROM users,followers WHERE FollowerUID = :uid AND users.UID = followers.UID LIMIT :start,:end");
+		$stmt->execute(array("uid" => $uid, "start" => $start, "end" => $end));
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $this->getUser($row);
+		}
+
+		return $res;
+	}
+
+	public function moreFollows(int $uid, int $page, int $perPage) : bool {
+		$start = ($page - 1) * $perPage;
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT COUNT(UID) FROM followers WHERE FollowerUID = :uid");
+		$stmt->execute(array("uid" => $uid));
+
+		foreach ($stmt as $row) {
+			if ($row['COUNT(UID)'] > $end) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function countPosts(int $uid) : int {
 		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM posts WHERE UID = :uid");
 		$stmt->execute(array("uid" => $uid));

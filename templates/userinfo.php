@@ -8,6 +8,8 @@ $myuid = $api->getUIDBySessionID(session_id());
 
 $from = urlencode($_SERVER['REQUEST_URI']);
 
+$follows = $uid == $myuid ? "<a href=\"mysubscriptions.php?from=" . $from . "\">" . $api->countFollows($myuid) . "</a>" : $api->countFollows($uid);
+
 $profileimage = findProfileImage($uid);
 $bgImage = $profileimage != null ? "url('profileimages/" . $profileimage . "')" : "none"; 
 ?>
@@ -28,7 +30,7 @@ if ($uid != $myuid) {
 				<tr>
 					<th><a href="user_posts.php?uid=<?php echo $uid;?>&from=<?php echo $from; ?>"><?php echo $api->countPosts($uid); ?></a></th>
 					<th><?php echo $api->countFollowers($uid); ?></th>
-					<th><?php echo $api->countFollows($uid); ?></th>
+					<th><?php echo $follows; ?></th>
 				</tr>
 				<tr>
 					<td>Beiträge</td>
