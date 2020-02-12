@@ -24,8 +24,10 @@ function deleteProfileImage() {
 
 $TITLE = "Profil bearbeiten";
 
-require_once (__DIR__ . '/templates/header.php');
-require_once (__DIR__ . '/templates/navbar_back.php');
+if(!isset($_POST['javascript']) || !$_POST['javascript']) {
+	require_once (__DIR__ . '/templates/header.php');
+	require_once (__DIR__ . '/templates/navbar_back.php');
+}
 
 if(isset($_FILES['profileimage']) && !empty($_FILES['profileimage']['name'])) {
 	$image = $_FILES['profileimage'];
@@ -89,6 +91,10 @@ if(isset($_POST['description']) && !empty($_POST['description'])) {
 
 if(isset($_POST['delete_description']) && $_POST['delete_description'] == "on") {
 	$api->setUserDescription($uid, null);
+}
+
+if(isset($_POST['javascript']) && $_POST['javascript']) {
+	die();
 }
 
 $user = $api->getUserByUID($uid);

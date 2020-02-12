@@ -3,10 +3,10 @@ function onLoad() {
 	if (scrollpos) {
 		console.log('Restoring scroll position...');
 		localStorage.removeItem('scrollpos');
-
-		setTimeout(function() {		
+	
+		setTimeout(function() {
 			window.scrollTo(0, scrollpos);
-		}, 1);
+		}, 0);
 	}
 }
 
@@ -19,14 +19,11 @@ function callURLWithReload(url) {
 	console.log('Calling URL ' + url + '...');
 	const XHR = new XMLHttpRequest();
 
-	XHR.onreadystatechange = function() {
-		if (XHR.readyState = XMLHttpRequest.DONE) {
-			setTimeout(function() {
-				console.log('Reloading page...');
-				reload();
-			}, 5);
-		}
-	}
+	XHR.addEventListener('loadend', function() {
+		setTimeout(function() {
+			reload();
+		}, 0);
+	});
 
 	XHR.open('GET', url, true);
 	XHR.send(null);
@@ -35,6 +32,7 @@ function callURLWithReload(url) {
 }
 
 function reload() {
+	console.log('Reloading page...');
 	localStorage.setItem('scrollpos', window.pageYOffset);
 	location.reload(true);
 }
@@ -48,7 +46,7 @@ function goto(url) {
 	window.location.href = url;
 }
 
-function sendForm(id, callback, disable, replaceContent) {
+function sendForm(id, callback, disable, addContent) {
 	console.log('Sending form id:' + id);
 	const form = document.getElementById(id);
 
@@ -61,19 +59,16 @@ function sendForm(id, callback, disable, replaceContent) {
 
 	data.append('javascript', 'true');
 
-	XHR.onreadystatechange = function() {
-		if (XHR.readyState = XMLHttpRequest.DONE) {
-			setTimeout(function() {
-				callback();
+	XHR.addEventListener('loadend', function() {
+		setTimeout(function() {
+			callback();
 
-				if(replaceContent) {
-					document.open();
-					document.write(XHR.responseText);
-					document.close();
-				}
-			}, 5);
-		}
-	}
+			if(addContent) {
+				var body = document.getElementsByTagName("BODY")[0];
+				body.innerHTML += XHR.responseText;
+			}
+		}, 0);
+	});
 
 	XHR.open(form.method, form.action);
 	XHR.send(data);
