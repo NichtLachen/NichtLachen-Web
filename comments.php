@@ -22,11 +22,13 @@ if ($post != null) {
 		$broken = explode(" ", $text);
 
 		foreach ($broken as $part) {
-			if ($part[0] == "@") {
-				$user_f = $api->getUserByName(substr($part, 1));
+			if (strlen($part) > 1) {
+				if ($part[0] == "@") {
+					$user_f = $api->getUserByName(substr($part, 1));
 
-				if ($user_f != null) {
-					$replyTo[sizeof($replyTo)] = new CommentReply($user_f->getUID(), $part);
+					if ($user_f != null) {
+						$replyTo[sizeof($replyTo)] = new CommentReply($user_f->getUID(), $part);
+					}
 				}
 			}
 		}
