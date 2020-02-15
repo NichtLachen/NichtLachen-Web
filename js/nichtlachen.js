@@ -1,11 +1,12 @@
 function onLoad() {
 	var lasturl = localStorage.getItem('lastUrl');
-	if (window.location.href == lasturl) {
+
+	if (removeParam('errors', window.location.href) == lasturl) {
 		console.log('back() did not work, retrying');
 		back();
+	} else {
+		localStorage.removeItem('lastUrl');
 	}
-
-	localStorage.removeItem('lastUrl');
 
 	var showMore = localStorage.getItem('showMore');
 	if (showMore) {
@@ -30,6 +31,19 @@ function onLoad() {
 		setTimeout(function() {
 			window.scrollTo(0, scrollpos);
 		}, 0);
+	}
+
+	var parts = window.location.href.split("#");
+	window.history.replaceState({}, window.title, parts[0]);
+
+	if (parts.length > 1) {
+		var element = document.getElementById(parts[1]);
+
+		if (element) {
+			setTimeout(function() {
+				element.scrollIntoView();
+			}, 0);
+		}
 	}
 }
 
@@ -73,6 +87,18 @@ function removeParam(key, sourceURL) {
 	return rtn;
 }
 
+function getParam(paramName) {
+	var result = null,
+		tmp = [];
+	var items = location.search.substr(1).split("&");
+	for (var index = 0; index < items.length; index++) {
+		tmp = items[index].split("=");
+		if (tmp[0] === paramName) result = decodeURIComponent(tmp[1]);
+	}
+
+	return result;
+}
+
 function reload() {
 	console.log('Reloading page...');
 	localStorage.setItem('scrollpos', window.pageYOffset);
@@ -96,8 +122,16 @@ function reload() {
 }
 
 function back() {
-	localStorage.setItem('lastUrl', removeParam('errors', window.location.href)); // needed for editprofile.php
+	var lasturl = window.location.href;
+	localStorage.setItem('lastUrl', removeParam('errors', lasturl)); // needed for editprofile.php
 	history.back();
+
+	setTimeout(function() {
+		if (window.location.href == lasturl) {
+			window.location.href = getParam('from');
+		}
+	}, 100);
+
 	return false;
 }
 
