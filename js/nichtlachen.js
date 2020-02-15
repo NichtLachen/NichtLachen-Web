@@ -1,7 +1,7 @@
 function onLoad() {
 	var lasturl = localStorage.getItem('lastUrl');
 
-	if (removeParam('errors', window.location.href) == lasturl) {
+	if (window.location.href == lasturl) {
 		console.log('back() did not work, retrying');
 		back();
 	} else {
@@ -68,25 +68,6 @@ function callURLWithReload(url) {
 	return false;
 }
 
-function removeParam(key, sourceURL) {
-	var rtn = sourceURL.split("?")[0],
-		param,
-		params_arr = [],
-		queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
-	if (queryString !== "") {
-		params_arr = queryString.split("&");
-		for (var i = params_arr.length - 1; i >= 0; i -= 1) {
-			param = params_arr[i].split("=")[0];
-			if (param === key) {
-				params_arr.splice(i, 1);
-			}
-		}
-		rtn = rtn + "?" + params_arr.join("&");
-	}
-
-	return rtn;
-}
-
 function getParam(paramName) {
 	var result = null,
 		tmp = [];
@@ -123,7 +104,7 @@ function reload() {
 
 function back() {
 	var lasturl = window.location.href;
-	localStorage.setItem('lastUrl', removeParam('errors', lasturl)); // needed for editprofile.php
+	localStorage.setItem('lastUrl', lasturl);
 	history.back();
 
 	setTimeout(function() {

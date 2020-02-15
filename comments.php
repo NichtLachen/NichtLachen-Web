@@ -34,9 +34,6 @@ if ($post != null) {
 		}
 
 		$api->postComment($pid, $uid, $replyTo, $text);
-
-		header("Status: 303 See Other");
-		header("Location: " . $_SERVER['REQUEST_URI']);
 	}
 
 ?>
