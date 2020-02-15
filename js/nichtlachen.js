@@ -1,4 +1,12 @@
 function onLoad() {
+	var lasturl = localStorage.getItem('lastUrl');
+	if (window.location.href == lasturl) {
+		console.log('back() did not work, retrying');
+		back();
+	}
+
+	localStorage.removeItem('lastUrl');
+
 	var showMore = localStorage.getItem('showMore');
 	if (showMore) {
 		localStorage.removeItem('showMore');
@@ -46,6 +54,25 @@ function callURLWithReload(url) {
 	return false;
 }
 
+function removeParam(key, sourceURL) {
+	var rtn = sourceURL.split("?")[0],
+		param,
+		params_arr = [],
+		queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+	if (queryString !== "") {
+		params_arr = queryString.split("&");
+		for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+			param = params_arr[i].split("=")[0];
+			if (param === key) {
+				params_arr.splice(i, 1);
+			}
+		}
+		rtn = rtn + "?" + params_arr.join("&");
+	}
+
+	return rtn;
+}
+
 function reload() {
 	console.log('Reloading page...');
 	localStorage.setItem('scrollpos', window.pageYOffset);
@@ -69,40 +96,11 @@ function reload() {
 }
 
 function back() {
+	localStorage.setItem('lastUrl', removeParam('errors', window.location.href)); // needed for editprofile.php
 	history.back();
 	return false;
 }
 
 function goto(url) {
 	window.location.href = url;
-}
-
-function sendForm(id, callback, disable, addContent) {
-	console.log('Sending form id:' + id);
-	const form = document.getElementById(id);
-
-	if (disable) {
-		form.onsubmit = function() { return false; };
-	}
-
-	const XHR = new XMLHttpRequest();
-	const data = new FormData(form);
-
-	data.append('javascript', 'true');
-
-	XHR.addEventListener('loadend', function() {
-		setTimeout(function() {
-			callback();
-
-			if(addContent) {
-				var body = document.getElementsByTagName("BODY")[0];
-				body.innerHTML += XHR.responseText;
-			}
-		}, 0);
-	});
-
-	XHR.open(form.method, form.action);
-	XHR.send(data);
-
-	return false;
 }

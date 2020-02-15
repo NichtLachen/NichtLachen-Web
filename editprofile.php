@@ -5,6 +5,7 @@ require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
 require_once (__DIR__ . '/include/profileimageutils.php');
 require_once (__DIR__ . '/config.php');
 require_once (__DIR__ . '/include/stringutils.php');
+require_once (__DIR__ . '/include/varutils.php');
 
 $api = new DatabaseAPI();
 $uid = $api->getUIDBySessionID(session_id());
@@ -23,11 +24,10 @@ function deleteProfileImage() {
 }
 
 $TITLE = "Profil bearbeiten";
+require_once (__DIR__ . '/templates/header.php');
+require_once (__DIR__ . '/templates/navbar_back.php');
 
-if(!isset($_POST['javascript']) || !$_POST['javascript']) {
-	require_once (__DIR__ . '/templates/header.php');
-	require_once (__DIR__ . '/templates/navbar_back.php');
-}
+$errors = [];
 
 if(isset($_FILES['profileimage']) && !empty($_FILES['profileimage']['name'])) {
 	$image = $_FILES['profileimage'];
@@ -37,8 +37,7 @@ if(isset($_FILES['profileimage']) && !empty($_FILES['profileimage']['name'])) {
 		deleteProfileImage();
 		move_uploaded_file($image['tmp_name'], __DIR__ . '/profileimages/' . $uid . "." . $ext);
 	} else {
-		$ERROR = "Das angegebene Bild besitzt eine unerlaubte Dateiendung";
-		require (__DIR__ . '/templates/error.php');
+		$errors[sizeof($errors)] = "Das angegebene Bild besitzt eine unerlaubte Dateiendung";
 	}
 }
 
@@ -56,16 +55,13 @@ if(isset($_POST['username']) && !empty($_POST['username'])) {
 			if(!$api->isNameInUse($username) && !$api->isNameInVerification($username)) {
 				$api->setUserName($uid, $username);
 			} else {
-				$ERROR = "Benutzername wird bereits verwendet";
-				require (__DIR__ . '/templates/error.php');
+				$errors[sizeof($errors)] = "Benutzername wird bereits verwendet";
 			}
 		} else {
-			$ERROR = "Der Benutzername enthält ein ungültiges Zeichen";
-			require (__DIR__ . '/templates/error.php');
+			$errors[sizeof($errors)] = "Der Benutzername enthält ein ungültiges Zeichen";
 		}
 	} else {
-		$ERROR = "Der Benutzername kann nur alle 7 Tage geändert werden";
-		require (__DIR__ . '/templates/error.php');
+		$errors[sizeof($errors)] = "Der Benutzername kann nur alle 7 Tage geändert werden";
 	}
 }
 
@@ -80,8 +76,7 @@ if(isset($_POST['password']) && !empty($_POST['password'])) {
 		$password = password_hash($password, PASSWORD_DEFAULT);
 		$api->setUserPassword($uid, $password);
 	} else {
-		$ERROR = "Das Passwort muss mindestens 8 Zeichen lang sein!";
-		require (__DIR__ . '/templates/error.php');
+		$errors[sizeof($errors)] = "Das Passwort muss mindestens 8 Zeichen lang sein!";
 	}
 }
 
@@ -93,14 +88,24 @@ if(isset($_POST['delete_description']) && $_POST['delete_description'] == "on") 
 	$api->setUserDescription($uid, null);
 }
 
-if(isset($_POST['javascript']) && $_POST['javascript']) {
+if(isset($_POST['submit'])) {
+	header("Status: 303 See Other");
+	header("Location: " . hrefReplaceVar("errors", json_encode($errors)));
 	die();
 }
 
 $user = $api->getUserByUID($uid);
 
+if (isset($_GET['errors'])) {
+	$errors = json_decode($_GET['errors']);
+
+	foreach ($errors as $ERROR) {
+		require (__DIR__ . '/templates/error.php');
+	}
+}
+
 ?>
-		<form onsubmit="return sendForm('editprofile', function() {}, true, true);" class="container" method="POST" action="?from=<?php echo urlencode($_GET['from']); ?>" id="editprofile" enctype="multipart/form-data">
+		<form class="container" method="POST" action="?from=<?php echo urlencode($_GET['from']); ?>" id="editprofile" enctype="multipart/form-data">
 			Neues Profilbild: <br><br>
 			<input type="file" name="profileimage"/>
 			<br><br>

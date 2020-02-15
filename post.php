@@ -16,7 +16,7 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 
 	if ($name != null && !$api->isSuperCategory($_GET['cid'])) {
 ?>
-		<form onsubmit="return sendForm('post', function() { back(); }, true, false);" class="newpost" method="POST" action="" id="post">
+		<form class="newpost" method="POST" action="" id="post">
 			<div class="post-category"><?php echo $name; ?></div><br>
 			<input type="hidden" name="cid" value="<?php echo $_GET['cid']; ?>">
 			<textarea form="post" name="text" autofocus></textarea><br>
@@ -35,12 +35,8 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 		$api->postQueue($cid, $uid, $text);
 	}
 
-	if(isset($_GET['from'])) {
-		header("Status: 302 Found");
-		header("Location: " . $_GET['from']);
-	} else {
-		header("Status: 204 No Content");
-	}
+	header("Status: 303 See Other");
+	header("Location: " . $_GET['from']);
 } else {
 	$ERROR = "Ungültige Anfrage";
 	require (__DIR__ . '/templates/error.php');
