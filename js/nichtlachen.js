@@ -107,12 +107,6 @@ function back() {
 	localStorage.setItem('lastUrl', lasturl);
 	history.back();
 
-	setTimeout(function() {
-		if (window.location.href == lasturl) {
-			window.location.href = getParam('from');
-		}
-	}, 100);
-
 	return false;
 }
 
