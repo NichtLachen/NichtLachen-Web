@@ -95,7 +95,7 @@ $user = $api->getUserByUID($uid);
 
 ?>
 		<div class="center">
-			<form method="POST" action="?from=<?php echo urlencode($_GET['from']); ?>" id="editprofile" enctype="multipart/form-data">
+			<form class="default-form" method="POST" action="?from=<?php echo urlencode($_GET['from']); ?>" id="editprofile" enctype="multipart/form-data">
 				Neues Profilbild: <br><br>
 				<input type="file" name="profileimage"/>
 				<br><br>

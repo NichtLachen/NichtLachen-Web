@@ -437,32 +437,13 @@ div.nextpage a:last-child {
 	margin-left: 7%;
 }
 
-form.newpost {
-	margin: 0 auto;
-	text-align: center;
+input {
+	font-size: inherit;
+}
+
+form.default-form {
 	margin-top: 2em;
-	margin-bottom: 8em;
-	height: 15em;
-	width: 95%;
-}
-
-form.newpost textarea {
-	width: 100%;
-	height: 100%;
-}
-
-form.newcomment {
-	margin: 0 auto;
-	text-align: center;
-	margin-bottom: 8em;
-	margin-top: 2em;
-	height: 8em;
-	width: 95%;
-}
-
-form.newcomment textarea {
-	width: 100%;
-	height: 100%;
+	margin-bottom: 6em;
 }
 
 .edit {
@@ -470,13 +451,6 @@ form.newcomment textarea {
 	display: inline;
 	text-decoration: none;
 	color: #0066ff;
-}
-
-form.editprofile {
-	margin: 0 auto;
-	text-align: center;
-	margin-top: 2em;
-	margin-bottom: 2em;
 }
 
 .showMore {

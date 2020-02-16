@@ -37,14 +37,15 @@ if ($post != null) {
 	}
 
 ?>
-
-		<form class="newcomment" method="POST" action="?pid=<?php echo $pid; ?>&from=<?php echo urlencode($_GET['from']); ?>" id="comment">
-			<div class="post-category">Kommentieren</div><br>
-			<input type="hidden" name="pid" value="<?php echo $pid; ?>">
-			<textarea form="comment" name="text" autofocus><?php echo isset($_GET['to']) ? "@" . $_GET['to'] : ""; ?></textarea><br>
-			<br>
-			<input type="submit" class="button">
-		</form>
+		<div class="center">
+			<form class="default-form" method="POST" action="?pid=<?php echo $pid; ?>&from=<?php echo urlencode($_GET['from']); ?>" id="comment">
+				<div class="post-category">Kommentieren</div><br>
+				<input type="hidden" name="pid" value="<?php echo $pid; ?>">
+				<textarea style="width: 90%; height: 8em;" form="comment" name="text" autofocus><?php echo isset($_GET['to']) ? "@" . $_GET['to'] : ""; ?></textarea><br>
+				<br>
+				<input type="submit" class="button">
+			</form>
+		</div>
 <?php
 	$checkMore = function(int $page, int $perPage) : bool {
 		global $api, $pid;

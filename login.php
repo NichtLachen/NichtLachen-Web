@@ -44,7 +44,7 @@ if(isset($_POST['login'])) {
 require_once (__DIR__ . '/templates/navbar_back.php');
 ?>
 		<div class="center">
-			<form method="POST">
+			<form class="default-form" style="margin-top: 6em;" method="POST">
 				<input type="text" name="username" placeholder="Benutzername/EMail-Adresse"/><br>
 				<br>
 				<input type="password" name="password" placeholder="Passwort"/><br>

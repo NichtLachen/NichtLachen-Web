@@ -16,13 +16,15 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 
 	if ($name != null && !$api->isSuperCategory($_GET['cid'])) {
 ?>
-		<form class="newpost" method="POST" id="post">
-			<div class="post-category"><?php echo $name; ?></div><br>
-			<input type="hidden" name="cid" value="<?php echo $_GET['cid']; ?>">
-			<textarea form="post" name="text" autofocus></textarea><br>
-			<br>
-			<input type="submit" class="button">
-		</form>
+		<div class="center">
+			<form class="default-form" method="POST" id="post">
+				<div class="post-category"><?php echo $name; ?></div><br>
+				<input type="hidden" name="cid" value="<?php echo $_GET['cid']; ?>">
+				<textarea style="width: 95%; height: 15em;" form="post" name="text" autofocus></textarea><br>
+				<br>
+				<input type="submit" class="button">
+			</form>
+		</div>
 <?php
 	} else {
 		$ERROR = "Kategorie nicht gefunden!";
