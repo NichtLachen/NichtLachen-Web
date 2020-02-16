@@ -37,7 +37,9 @@ if ($uid != $myuid) {
 					<td>Folgen mir</td>
 					<td>Folge ich</td>
 				</tr>
-				<tr class="space"><td></td></tr>
+				<tr class="space">
+					<td colspan="3"></td>
+				</tr>
 				<tr>
 					<td colspan="3"><?php echo escapeHTML($user->getDescription()); ?></td>
 				</tr>

@@ -5,7 +5,7 @@ $from = urlencode($_SERVER['REQUEST_URI']);
 
 ?>
 		<div class="topnav">
-			<font class="header">Nicht lachen!</font>
+			<div class="header">Nicht lachen!</div>
 			<div class="dropdown" style="float: right;">
 				<button class="dropbtn" style="border-radius: 50%;"><i class="fas fa-cog" style="font-size: xx-large;"></i></button>
 				<div class="dropdown-content">

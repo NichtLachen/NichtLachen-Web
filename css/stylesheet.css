@@ -199,6 +199,7 @@ body {
 }
 
 .topnav .header {
+	display: inline;
 	border-left: 1em solid orange;
 }
 

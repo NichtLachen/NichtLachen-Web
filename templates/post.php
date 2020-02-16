@@ -56,7 +56,7 @@ if ($post->getCreatorUID() == $uid) {
 	$delete = "delete.php?pid=" . $post->getPID() . "&from=" . $from_delete . "&queue=" . $q;
 ?>
 			<input type="checkbox" class="showMore" id="delete<?php echo $post->getPID(); ?>">
-			<label class="post-control post-delete" for="delete<?php echo $post->getPID(); ?>" style="display: visible; color: red;"><i class="fas fa-trash-alt"></i></label>
+			<label class="post-control post-delete" for="delete<?php echo $post->getPID(); ?>" style="color: red;"><i class="fas fa-trash-alt"></i></label>
 <?php
 	require (__DIR__ . '/../templates/delete_confirm.php');
 }

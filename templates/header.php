@@ -7,8 +7,8 @@
 		<link rel="preload" href="js/nichtlachen.js" as="script"/>
 		<link rel="stylesheet" href="css/stylesheet.css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
-		<script language="javascript" src="js/nichtlachen.js"></script>
-		<script language="javascript">
+		<script src="js/nichtlachen.js"></script>
+		<script>
 			document.addEventListener("DOMContentLoaded", function() {
 				onLoad();
 			});
