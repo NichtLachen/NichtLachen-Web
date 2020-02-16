@@ -9,7 +9,7 @@ require_once (__DIR__ . '/templates/header.php');
 		<h1 class="h1" style="margin-top: 0%;">
 			<center><br>Willkommen bei Nicht Lachen 2.0!<br><br></center>
 		</h1>
-		<center class="container" style="font-family: Arial; background-color: orange; color: white; border-radius: 8px;">
+		<div class="center" style="font-family: Arial; background-color: orange; color: white; border-radius: 8px;">
 			<table>
 				<tr>
 					<td style="font-size: x-large; text-align: center;">
@@ -28,7 +28,7 @@ require_once (__DIR__ . '/templates/header.php');
 					</td>
 				</tr>
 			</table>
-		</center>
+		</div>
 <?php
 require_once (__DIR__ . '/templates/footer.html');
 ?>

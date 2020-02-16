@@ -94,26 +94,28 @@ if(isset($_POST['delete_description']) && $_POST['delete_description'] == "on") 
 $user = $api->getUserByUID($uid);
 
 ?>
-		<form class="container" method="POST" action="?from=<?php echo urlencode($_GET['from']); ?>" id="editprofile" enctype="multipart/form-data">
-			Neues Profilbild: <br><br>
-			<input type="file" name="profileimage"/>
-			<br><br>
-			<input type="checkbox" name="delete_profileimage"/> Profilbild löschen
-			<br><br>
-			<input type="text" name="username" placeholder="<?php echo $user->getName(); ?>"/>
-			<br><br>
-			<input type="email" name="email" placeholder="<?php echo $user->getEMail(); ?>"/>
-			<br><br>
-			<input type="password" name="password" placeholder="Neues Passwort"/>
-			<br><br>
-			<textarea name="description" form="editprofile" placeholder="Neue Beschreibung"><?php echo $user->getDescription(); ?></textarea>
-			<br><br>
-			<input type="checkbox" name="delete_description"/> Beschreibung löschen
-			<br><br>
-			<input type="submit" name="submit" class="button">
-			<br><br><br>
-			<div class="post-info">Hinweis: Es müssen nicht alle Felder ausgefüllt sein</div>
-		</form>
+		<div class="center">
+			<form method="POST" action="?from=<?php echo urlencode($_GET['from']); ?>" id="editprofile" enctype="multipart/form-data">
+				Neues Profilbild: <br><br>
+				<input type="file" name="profileimage"/>
+				<br><br>
+				<input type="checkbox" name="delete_profileimage"/> Profilbild löschen
+				<br><br>
+				<input type="text" name="username" placeholder="<?php echo $user->getName(); ?>"/>
+				<br><br>
+				<input type="email" name="email" placeholder="<?php echo $user->getEMail(); ?>"/>
+				<br><br>
+				<input type="password" name="password" placeholder="Neues Passwort"/>
+				<br><br>
+				<textarea name="description" form="editprofile" placeholder="Neue Beschreibung"><?php echo $user->getDescription(); ?></textarea>
+				<br><br>
+				<input type="checkbox" name="delete_description"/> Beschreibung löschen
+				<br><br>
+				<input type="submit" name="submit" class="button">
+				<br><br><br>
+				<div class="post-info">Hinweis: Es müssen nicht alle Felder ausgefüllt sein</div>
+			</form>
+		</div>
 <?php
 
 require_once (__DIR__ . '/templates/footer.html');

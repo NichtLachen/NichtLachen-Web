@@ -16,7 +16,7 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 
 	if ($name != null && !$api->isSuperCategory($_GET['cid'])) {
 ?>
-		<form class="newpost" method="POST" action="" id="post">
+		<form class="newpost" method="POST" id="post">
 			<div class="post-category"><?php echo $name; ?></div><br>
 			<input type="hidden" name="cid" value="<?php echo $_GET['cid']; ?>">
 			<textarea form="post" name="text" autofocus></textarea><br>

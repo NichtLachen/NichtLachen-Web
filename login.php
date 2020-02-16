@@ -43,15 +43,15 @@ if(isset($_POST['login'])) {
 
 require_once (__DIR__ . '/templates/navbar_back.php');
 ?>
-		<center class="container">
-			<form method="POST" action="">
+		<div class="center">
+			<form method="POST">
 				<input type="text" name="username" placeholder="Benutzername/EMail-Adresse"/><br>
 				<br>
 				<input type="password" name="password" placeholder="Passwort"/><br>
 				<br>
 				<input class="button" type="submit" name="login" value="Anmelden"/>
 			</form>
-		</center>
+		</div>
 <?php
 require_once (__DIR__ . '/templates/footer.html');
 ?>

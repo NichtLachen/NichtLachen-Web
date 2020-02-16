@@ -84,8 +84,8 @@ if (ALLOW_REGISTRATION) {
 $TITLE = "Registrieren";
 require_once (__DIR__ . '/templates/navbar_back.php');
 ?>
-		<center class="container">
-			<form method="POST" action="">
+		<div class="center">
+			<form method="POST">
 				<input type="text" name="username" placeholder="Benutzername"/><br>
 				<br>
 				<input type="email" name="email" placeholder="EMail-Adresse"/><br>
@@ -94,7 +94,7 @@ require_once (__DIR__ . '/templates/navbar_back.php');
 				<br>
 				<input class="button" type="submit" name="register" value="Registrieren"/>
 			</form>
-		</center>
+		</div>
 <?php
 require_once (__DIR__ . '/templates/footer.html');
 ?>
