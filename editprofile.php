@@ -107,7 +107,7 @@ $user = $api->getUserByUID($uid);
 				<br><br>
 				<input type="password" name="password" placeholder="Neues Passwort"/>
 				<br><br>
-				<textarea name="description" form="editprofile" placeholder="Neue Beschreibung"><?php echo $user->getDescription(); ?></textarea>
+				<textarea style="width: 80%; height: 15em;" name="description" form="editprofile" placeholder="Neue Beschreibung"><?php echo $user->getDescription(); ?></textarea>
 				<br><br>
 				<input type="checkbox" name="delete_description"/> Beschreibung löschen
 				<br><br>
