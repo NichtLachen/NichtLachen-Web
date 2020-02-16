@@ -34,9 +34,10 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 	if (!empty($text) && $api->getCategoryName($cid) != null && !$api->isSuperCategory($cid)) {
 		$api->postQueue($cid, $uid, $text);
 	}
-
-	header("Status: 303 See Other");
-	header("Location: " . $_GET['from']);
+?>
+	<script language="javascript">back();</script>
+	<noscript><meta http-equiv="refresh" content="0; url=<?php echo $_GET['from']; ?>" /></noscript>
+<?php
 } else {
 	$ERROR = "Ungültige Anfrage";
 	require (__DIR__ . '/templates/error.php');
