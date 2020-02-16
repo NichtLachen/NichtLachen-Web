@@ -321,46 +321,31 @@ footer {
 	font-weight: bold;
 }
 
-.post-like {
+.post-control {
 	font-size: 14pt;
 	margin-left: 0.5em;
 	display: inline;
-	color: green;
 }
 
-.post-like a {
+.post-control a {
 	text-decoration: none;
+	color: inherit;
+}
+
+.post-like {
 	color: green;
 }
 
 .post-dislike {
-	font-size: 14pt;
-	margin-left: 0.5em;
-	display: inline;
-	color: red;
-}
-
-.post-dislike a {
-	text-decoration: none;
 	color: red;
 }
 
 .post-comments {
-	font-size: 14pt;
-	display: inline;
 	color: grey;
 	margin-left: 2em;
 }
 
-.post-comments a {
-	text-decoration: none;
-	color: grey;
-}
-
 .post-fav {
-	font-size: 14pt;
-	display: inline;
-	margin-left: 0.5em;
 	color: grey;
 }
 
@@ -368,24 +353,12 @@ footer {
 	color: gold;
 }
 
-.post-fav a {
-	text-decoration: none;
-	color: grey;
-}
-
 .post-fav.active a {
 	color: gold;
 }
 
 .post-delete {
-	font-size: 14pt;
-	display: inline;
 	margin-left: 1.5em;
-	color: red;
-}
-
-.post-delete a {
-	text-decoration: none;
 	color: red;
 }
 

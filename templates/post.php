@@ -33,19 +33,19 @@ if (!isset($queue) || !$queue) {
 ?>
 
 			<p id="<?php echo $post->getPID(); ?>end" class="post-info">Eingereicht von <a href="users.php?uid=<?php echo $user->getUID();?>&from=<?php echo $from; ?>"><?php echo $user->getName();?></a> vor <?php echo DateUtil::diff($post->getCreatedAt()); ?></p>
-			<div class="post-like"><a onclick="return callURLWithReload('like.php?like=1&pid=<?php echo $post->getPID();?>');" href="like.php?like=1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $like; ?> fa-thumbs-up"></i></a> <?php echo $api->countPostLikes($post->getPID());?></div>
-			<div class="post-dislike"><a onclick="return callURLWithReload('like.php?like=-1&pid=<?php echo $post->getPID();?>');" href="like.php?like=-1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $dislike; ?> fa-thumbs-down"></i></a> <?php echo $api->countPostDislikes($post->getPID());?></div>
-			<div class="post-comments"><a href="comments.php?pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>"><i class="fas fa-comments"></i></a> <?php echo $api->countPostComments($post->getPID());?></div>
-			<div class="post-fav<?php echo $api->isFavSet($post->getPID(), $uid) ? " active" : "";?>"><a onclick="return callURLWithReload('fav.php?pid=<?php echo $post->getPID();?>');" href="fav.php?pid=<?php echo $post->getPID();?>&from=<?php echo $from;?>"><i class="fas fa-star"></i></a></div>
+			<div class="post-control post-like"><a onclick="return callURLWithReload('like.php?like=1&pid=<?php echo $post->getPID();?>');" href="like.php?like=1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $like; ?> fa-thumbs-up"></i></a> <?php echo $api->countPostLikes($post->getPID());?></div>
+			<div class="post-control post-dislike"><a onclick="return callURLWithReload('like.php?like=-1&pid=<?php echo $post->getPID();?>');" href="like.php?like=-1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $dislike; ?> fa-thumbs-down"></i></a> <?php echo $api->countPostDislikes($post->getPID());?></div>
+			<div class="post-control post-comments"><a href="comments.php?pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>"><i class="fas fa-comments"></i></a> <?php echo $api->countPostComments($post->getPID());?></div>
+			<div class="post-control post-fav<?php echo $api->isFavSet($post->getPID(), $uid) ? " active" : "";?>"><a onclick="return callURLWithReload('fav.php?pid=<?php echo $post->getPID();?>');" href="fav.php?pid=<?php echo $post->getPID();?>&from=<?php echo $from;?>"><i class="fas fa-star"></i></a></div>
 <?php
 } else {
 
 $accepts = $api->getPostQueueAccepts($post->getPID());
 ?>
 			<br>
-			<div class="post-like"><a onclick="return callURLWithReload('accept.php?accept=1&pid=<?php echo $post->getPID(); ?>');" href="accept.php?accept=1&pid=<?php echo $post->getPID(); ?>&from=<?php echo $from_delete; ?>"><i class="fas fa-check"></i></a></div>
-			<div class="post-dislike"><a onclick="return callURLWithReload('accept.php?accept=-1&pid=<?php echo $post->getPID(); ?>');" href="accept.php?accept=-1&pid=<?php echo $post->getPID(); ?>&from=<?php echo $from_delete; ?>"><i class="fas fa-times"></i></a></div>
-			<div class="<?php echo $accepts >= 0 ? 'post-like' : 'post-dislike'; ?>"><?php echo $accepts; ?></div>
+			<div class="post-control post-like"><a onclick="return callURLWithReload('accept.php?accept=1&pid=<?php echo $post->getPID(); ?>');" href="accept.php?accept=1&pid=<?php echo $post->getPID(); ?>&from=<?php echo $from_delete; ?>"><i class="fas fa-check"></i></a></div>
+			<div class="post-control post-dislike"><a onclick="return callURLWithReload('accept.php?accept=-1&pid=<?php echo $post->getPID(); ?>');" href="accept.php?accept=-1&pid=<?php echo $post->getPID(); ?>&from=<?php echo $from_delete; ?>"><i class="fas fa-times"></i></a></div>
+			<div class="post-control <?php echo $accepts >= 0 ? 'post-like' : 'post-dislike'; ?>"><?php echo $accepts; ?></div>
 <?php
 }
 
@@ -56,7 +56,7 @@ if ($post->getCreatorUID() == $uid) {
 	$delete = "delete.php?pid=" . $post->getPID() . "&from=" . $from_delete . "&queue=" . $q;
 ?>
 			<input type="checkbox" class="showMore" id="delete<?php echo $post->getPID(); ?>">
-			<label class="post-delete" for="delete<?php echo $post->getPID(); ?>" style="display: visible; color: red;"><i class="fas fa-trash-alt"></i></label>
+			<label class="post-control post-delete" for="delete<?php echo $post->getPID(); ?>" style="display: visible; color: red;"><i class="fas fa-trash-alt"></i></label>
 <?php
 	require (__DIR__ . '/../templates/delete_confirm.php');
 }

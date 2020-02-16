@@ -38,7 +38,7 @@ $color = $api->isCommentLikeSet($comment->getCMTID(), $uid, 1) ? "red" : "grey";
 			<div class="post-content"><?php echo $content[0]; if (!empty($content[1])) { ?><input type="checkbox" class="showMore" id="showMore<?php echo $comment->getCMTID(); ?>"><label for="showMore<?php echo $comment->getCMTID();?>" id="showMoreL<?php echo $comment->getCMTID(); ?>">Mehr anzeigen <i class="fa fa-arrow-down" aria-hidden="true"></i></label><div for="showMoreL<?php echo $comment->getCMTID(); ?>"><?php echo $content[1]; ?></div><?php } ?></div>
 			<br>
 			<a id="<?php echo $comment->getCMTID(); ?>end" class="post-info" style="display: inline; text-decoration: none;" href="<?php echo hrefReplaceVar("to", $user->getName()); ?>">Antworten</a>
-			<div class="post-like"><a onclick="return callURLWithReload('like.php?like=1&cmtid=<?php echo $comment->getCMTID();?>');" href="like.php?like=1&cmtid=<?php echo $comment->getCMTID();?>&from=<?php echo $from; ?>"><i style="color: <?php echo $color; ?>" class="fas fa-heart"></i></a> <?php echo $api->countCommentLikes($comment->getCMTID());?></div>
+			<div class="post-control post-like"><a onclick="return callURLWithReload('like.php?like=1&cmtid=<?php echo $comment->getCMTID();?>');" href="like.php?like=1&cmtid=<?php echo $comment->getCMTID();?>&from=<?php echo $from; ?>"><i style="color: <?php echo $color; ?>" class="fas fa-heart"></i></a> <?php echo $api->countCommentLikes($comment->getCMTID());?></div>
 
 <?php
 if ($comment->getCreatorUID() == $uid) {
@@ -47,7 +47,7 @@ if ($comment->getCreatorUID() == $uid) {
 	$delete = "delete.php?cmtid=" . $comment->getCMTID() . "&from=" . $from_delete;
 ?>
 			<input type="checkbox" class="showMore" id="delete<?php echo $comment->getCMTID(); ?>">
-			<label class="post-delete" for="delete<?php echo $comment->getCMTID(); ?>" style="display: visible; color: red;"><i class="fas fa-trash-alt"></i></label>
+			<label class="post-control post-delete" for="delete<?php echo $comment->getCMTID(); ?>" style="display: visible; color: red;"><i class="fas fa-trash-alt"></i></label>
 <?php
 	require (__DIR__ . '/../templates/delete_confirm.php');
 }
