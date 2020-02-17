@@ -739,7 +739,7 @@ class DatabaseAPI {
 		$res = [];
 		$start = ($page - 1) * $perPage;
 		$end = $perPage; // LIMIT offset,amount
-		$stmt = $this->database->conn->prepare("SELECT * FROM posts WHERE Content LIKE :query LIMIT :start,:end");
+		$stmt = $this->database->conn->prepare("SELECT * FROM posts WHERE Content LIKE :query ORDER BY PID DESC LIMIT :start,:end");
 		$stmt->execute(array("query" => "%" . $query . "%", "start" => $start, "end" => $end));
 
 		foreach ($stmt as $row) {
