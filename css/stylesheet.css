@@ -196,6 +196,7 @@ body {
 }
 
 .topnav .header {
+	line-height: 1.5em;
 	display: inline;
 	border-left: 1em solid orange;
 }
