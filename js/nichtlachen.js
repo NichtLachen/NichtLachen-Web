@@ -47,6 +47,15 @@ function onLoad() {
 			}, 0);
 		}
 	}
+
+	// clear last search queries
+	var elements = document.getElementsByClassName("search");
+
+	if(elements) {
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].value = "";
+		}
+	}
 }
 
 function deleteConfirmClose(id) {
