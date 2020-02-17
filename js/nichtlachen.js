@@ -28,7 +28,8 @@ function onLoad() {
 		console.log('Restoring scroll position...');
 		localStorage.removeItem('scrollpos');
 	
-		setTimeout(function() {
+		window.scrollTo(0, scrollpos);
+		setTimeout(function() { // for Android
 			window.scrollTo(0, scrollpos);
 		}, 0);
 	}
@@ -40,7 +41,8 @@ function onLoad() {
 		var element = document.getElementById(parts[1]);
 
 		if (element) {
-			setTimeout(function() {
+			element.scrollIntoView();
+			setTimeout(function() { // for Android
 				element.scrollIntoView();
 			}, 0);
 		}
