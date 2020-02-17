@@ -20,6 +20,20 @@ $from = urlencode($_SERVER['REQUEST_URI']);
 					<a href="about.php?from=<?php echo $from; ?>">Über</a>
 				</div>
 			</div>
+			<div class="dropdown" style="float: right;">
+				<button class="dropbtn" style="border-radius: 50%;"><i class="fas fa-search" style="font-size: xx-large;"></i></button>
+				<div class="dropdown-content">
+					<form method="GET" action="search_user.php">
+						<input type="hidden" name="from" value="<?php echo urldecode($from); ?>">
+						<input class="search" type="text" name="q" placeholder="Benutzer suchen">
+					</form>
+
+					<form method="GET" action="search_post.php">
+						<input type="hidden" name="from" value="<?php echo urldecode($from); ?>">
+						<input class="search" type="text" name="q" placeholder="Beitrag suchen">
+					</form>
+				</div>
+			</div>
 			<br><br>
 
 			<a<?php echo active("top.php"); ?> href="top.php">Top</a>

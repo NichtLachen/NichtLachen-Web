@@ -275,6 +275,35 @@ class DatabaseAPI {
 		return false;
 	}
 
+	public function searchUsers(string $query, int $page, int $perPage) : array {
+		$res = [];
+		$start = ($page - 1) * $perPage;
+		$end = $perPage; // LIMIT offset,amount
+		$stmt = $this->database->conn->prepare("SELECT * FROM users WHERE Name LIKE :query LIMIT :start,:end");
+		$stmt->execute(array("query" => "%" . $query . "%", "start" => $start, "end" => $end));
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $this->getUser($row);
+		}
+
+		return $res;
+	}
+
+	public function moreSearchUsers(string $query, int $page, int $perPage) : bool {
+		$start = ($page - 1) * $perPage;
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT COUNT(UID) FROM users WHERE Name LIKE :query");
+		$stmt->execute(array("query" => "%" . $query . "%"));
+
+		foreach ($stmt as $row) {
+			if ($row['COUNT(UID)'] > $end) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function countPosts(int $uid) : int {
 		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM posts WHERE UID = :uid");
 		$stmt->execute(array("uid" => $uid));
@@ -696,6 +725,35 @@ class DatabaseAPI {
 		$end = $start + $perPage;
 		$stmt = $this->database->conn->prepare("SELECT COUNT(posts.PID) FROM likes,posts WHERE likes.PID IS NOT NULL AND posts.PID = likes.PID GROUP BY likes.PID HAVING SUM(likes.Value) > 0 ORDER BY CreatedAt DESC, SUM(likes.Value) DESC");
 		$stmt->execute();
+
+		foreach ($stmt as $row) {
+			if ($row['COUNT(posts.PID)'] > $end) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public function searchPosts(string $query, int $page, int $perPage) : array {
+		$res = [];
+		$start = ($page - 1) * $perPage;
+		$end = $perPage; // LIMIT offset,amount
+		$stmt = $this->database->conn->prepare("SELECT * FROM posts WHERE Content LIKE :query LIMIT :start,:end");
+		$stmt->execute(array("query" => "%" . $query . "%", "start" => $start, "end" => $end));
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $this->getPost($row);
+		}
+
+		return $res;
+	}
+
+	public function moreSearchPosts(string $query, int $page, int $perPage) : bool {
+		$start = ($page - 1) * $perPage;
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT COUNT(posts.PID) FROM posts WHERE Content LIKE :query");
+		$stmt->execute(array("query" => "%" . $query . "%"));
 
 		foreach ($stmt as $row) {
 			if ($row['COUNT(posts.PID)'] > $end) {

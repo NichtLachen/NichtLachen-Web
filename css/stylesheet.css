@@ -477,3 +477,12 @@ form.default-form {
 .showMore:checked {
 	display: none;
 }
+
+input.search {
+	background-color: orange;
+	color: white;
+	border: 0.1em solid white;
+	border-radius: 0.5em;
+	padding: 0.5em;
+	margin: 0.5em;
+}
