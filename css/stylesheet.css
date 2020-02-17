@@ -157,6 +157,8 @@ body {
 }
 
 .topnav {
+	transition: top 0.3s;
+	position: sticky;
 	border-top: 1em solid orange;
 	font-weight: bold;
 	color: white;
