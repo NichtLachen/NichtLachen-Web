@@ -10,7 +10,7 @@ $user = $api->getUserByUID($uid);
 $TITLE = $user != null ? "Beiträge von " . $user->getName() : "Benutzer nicht gefunden!";
 
 require_once (__DIR__ . '/templates/header.php');
-require_once (__DIR__ . '/templates/navbar_back.php');
+require_once (__DIR__ . '/templates/profilenavbar.php');
 
 if ($user != null) {
 	require_once (__DIR__ . '/templates/user_posts.php');
