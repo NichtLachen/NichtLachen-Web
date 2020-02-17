@@ -23,7 +23,7 @@ $content = splitTextAtLength(escapeHTML($user->getDescription()), 800);
 <?php
 if ($user->getUID() != $myuid) {
 ?>
-			<a class="button" onclick="return callURLWithReload('subscribe.php?uid=<?php echo $user->getUID();?>');" href="subscribe.php?uid=<?php echo $user->getUID();?>&from=<?php echo $from_delete; ?>">Abonniert</a>
+			<a class="button" onclick="return callURLWithReload('subscribe.php?uid=<?php echo $user->getUID();?>');" href="subscribe.php?uid=<?php echo $user->getUID();?>&from=<?php echo $from_delete; ?>"><?php echo $api->hasSubscribed($myuid, $user->getUID()) ? "Abonniert" : "Abonnieren"; ?></a>
 <?php
 }
 ?>
