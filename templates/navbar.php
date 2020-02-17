@@ -25,12 +25,12 @@ $from = urlencode($_SERVER['REQUEST_URI']);
 				<div class="dropdown-content">
 					<form method="GET" action="search_user.php">
 						<input type="hidden" name="from" value="<?php echo urldecode($from); ?>">
-						<input class="search" type="text" name="q" placeholder="Benutzer suchen">
+						<input class="search" type="text" name="q" placeholder="Benutzer suchen" autocomplete="off">
 					</form>
 
 					<form method="GET" action="search_post.php">
 						<input type="hidden" name="from" value="<?php echo urldecode($from); ?>">
-						<input class="search" type="text" name="q" placeholder="Beitrag suchen">
+						<input class="search" type="text" name="q" placeholder="Beitrag suchen" autocomplete="off">
 					</form>
 				</div>
 			</div>
