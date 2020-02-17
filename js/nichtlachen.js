@@ -48,14 +48,17 @@ function onLoad() {
 		}
 	}
 
-	// clear last search queries
-	var elements = document.getElementsByClassName("search");
 
-	if(elements) {
-		for (var i = 0; i < elements.length; i++) {
-			elements[i].value = "";
+	setTimeout(function() { // for Android
+		// clear last search queries
+		var elements = document.getElementsByClassName("search");
+
+		if(elements) {
+			for (var i = 0; i < elements.length; i++) {
+				elements[i].value = "";
+			}
 		}
-	}
+	}, 0);
 }
 
 function deleteConfirmClose(id) {
