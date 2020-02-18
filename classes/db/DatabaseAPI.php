@@ -16,8 +16,20 @@ class DatabaseAPI {
 		$this->database = self::$DB_INSTANCE;
 	}
 
+	public function getUserRanks(int $uid) : array {
+		$res = [];
+		$stmt = $this->database->conn->prepare("SELECT Rank FROM ranks WHERE UID = :uid");
+		$stmt->execute(array("uid" => $uid));
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $row['Rank'];
+		}
+
+		return $res;
+	}
+
 	private function getUser(array $row) : User {
-		return new User($row['UID'], $row['JoinedAt'], $row['Name'], $row['OldName'], $row['NameChangedAt'], $row['EMail'], $row['Description'], $row['Rank']);
+		return new User($row['UID'], $row['JoinedAt'], $row['Name'], $row['OldName'], $row['NameChangedAt'], $row['EMail'], $row['Description'], $this->getUserRanks($row['UID']));
 	}
 
 	public function addUser(string $name, string $email, string $password) {

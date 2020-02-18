@@ -2,8 +2,8 @@
 
 abstract class Rank {
 	const User = 0;
-	const Moderator = 1;
-	const Administrator = 2;
+	const Moderator = 128;
+	const Administrator = 256;
 }
 
 ?>

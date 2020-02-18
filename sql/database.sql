@@ -7,8 +7,13 @@ CREATE TABLE IF NOT EXISTS users (
   Password varchar(255),
   EMail varchar(255) NOT NULL,
   Description LONGTEXT,
-  Rank int UNSIGNED,
   PRIMARY KEY (UID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS ranks (
+  UID bigint UNSIGNED NOT NULL,
+  Rank int UNSIGNED,
+  FOREIGN KEY (UID) REFERENCES users(UID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS followers (

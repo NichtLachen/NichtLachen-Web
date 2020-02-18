@@ -1,6 +1,7 @@
 <?php
 require_once (__DIR__ . '/../classes/db/DatabaseAPI.php');
 require_once (__DIR__ . '/../include/htmlutils.php');
+require_once (__DIR__ . '/../classes/user/Rank.php');
 
 $api = new DatabaseAPI();
 $uid = $user->getUID();
@@ -17,6 +18,21 @@ $bgImage = $profileimage != null ? "url('profileimages/" . $profileimage . "')" 
 			<div class="profileimage" style="background-image: <?php echo $bgImage; ?>;">
 			</div>
 			<p style="font-size: x-large; font-weight: bold;"><?php echo $user != null ? $user->getName() : ""; ?> <?php if ($uid == $myuid) { ?><a class="edit" href="editprofile.php?from=<?php echo $from; ?>"><i class="fas fa-edit"></i></a><?php } ?></p>
+			<div>
+<?php
+if ($user->hasRank(Rank::Administrator)) {
+?>
+				<div class="rank administrator">Administrator</div>
+<?php
+}
+
+if ($user->hasRank(Rank::Moderator)) {
+?>
+				<div class="rank moderator">Moderator</div>
+<?php
+}
+?>
+			</div>
 <?php
 if ($uid != $myuid) {
 ?>
