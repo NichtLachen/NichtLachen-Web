@@ -27,7 +27,7 @@ function onLoad() {
 	if (scrollpos) {
 		console.log('Restoring scroll position...');
 		localStorage.removeItem('scrollpos');
-	
+
 		window.scrollTo(0, scrollpos);
 		setTimeout(function() { // for Android
 			window.scrollTo(0, scrollpos);
@@ -48,6 +48,13 @@ function onLoad() {
 		}
 	}
 
+	if (window.pageYOffset > 0) {
+		document.getElementsByClassName("topnav")[0].style.visibility = "hidden"; // hide navbar if not at top of page
+
+		setTimeout(function() {
+			document.getElementsByClassName("topnav")[0].style.visibility = "visible"; // show navbar
+		}, 300);
+	}
 
 	setTimeout(function() { // for Android
 		// clear last search queries

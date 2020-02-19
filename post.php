@@ -20,7 +20,7 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 			<form class="default-form" method="POST" id="post">
 				<div class="post-category"><?php echo $name; ?></div><br>
 				<input type="hidden" name="cid" value="<?php echo $_GET['cid']; ?>">
-				<textarea style="width: 95%; height: 15em;" form="post" name="text" autofocus></textarea><br>
+				<textarea style="width: 95%; height: 15em;" form="post" name="text"></textarea><br>
 				<br>
 				<input type="submit" class="button">
 			</form>
