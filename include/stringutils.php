@@ -17,9 +17,11 @@ function splitTextAtLength(?string $text, int $length) : array {
 		}
 
 		$res[1] = substr($text, strlen($res[0]));
-	} else {
-		$res[0] = $text;
+
+		return $res;
 	}
+
+	$res[0] = $text;
 
 	return $res;
 }

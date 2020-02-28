@@ -1,9 +1,9 @@
 <?php
 
 abstract class Rank {
-	const User = 0;
-	const Moderator = 128;
-	const Administrator = 256;
+	const USER = 0;
+	const MODERATOR = 128;
+	const ADMINISTRATOR = 256;
 }
 
 ?>

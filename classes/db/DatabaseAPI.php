@@ -136,22 +136,14 @@ class DatabaseAPI {
 		$stmt = $this->database->conn->prepare("SELECT * FROM verify WHERE Name LIKE :name");
 		$stmt->execute(array("name" => $name));
 
-		foreach ($stmt as $row) {
-			return true;
-		}
-
-		return false;
+		return $stmt->rowCount() > 0;
 	}
 
 	public function isEMailInVerification(string $email) : bool {
 		$stmt = $this->database->conn->prepare("SELECT * FROM verify WHERE EMail LIKE :email");
 		$stmt->execute(array("email" => $email));
 
-		foreach ($stmt as $row) {
-			return true;
-		}
-
-		return false;
+		return $stmt->rowCount() > 0;
 	}
 
 	public function authenticate(int $uid, string $password) : bool {
@@ -474,11 +466,7 @@ class DatabaseAPI {
 		$stmt = $this->database->conn->prepare("SELECT Name FROM categories WHERE CID = :cid AND Super = '1'");
 		$stmt->execute(array("cid" => $cid));
 
-		foreach ($stmt as $row) {
-			return true;
-		}
-
-		return false;
+		return $stmt->rowCount() > 0;
 	}
 
 	public function getNewCategoryPosts(int $cid, int $page, int $perPage) : array {
@@ -519,11 +507,7 @@ class DatabaseAPI {
 		$stmt = $this->database->conn->prepare("SELECT APID FROM posts_verify_accept WHERE UID = :uid AND PID = :pid");
 		$stmt->execute(array("uid" => $uid, "pid" => $pid));
 
-		foreach ($stmt as $row) {
-			return true;
-		}
-
-		return false;
+		return $stmt->rowCount() > 0;
 	}
 
 	public function getQueuedPostOwner(int $pid) : ?int {
@@ -826,11 +810,7 @@ class DatabaseAPI {
 		$stmt = $this->database->conn->prepare("SELECT LID FROM likes WHERE PID = :pid AND UID = :uid AND Value = :val");
 		$stmt->execute(array("pid" => $pid, "uid" => $uid, "val" => $val));
 
-		foreach ($stmt as $row) {
-			return true;
-		}
-
-		return false;
+		return $stmt->rowCount() > 0;
 	}
 
 	public function removeCommentLikes(int $cmtid, int $uid) {
@@ -848,11 +828,7 @@ class DatabaseAPI {
 		$stmt = $this->database->conn->prepare("SELECT LID FROM likes WHERE CMTID = :cmtid AND UID = :uid AND Value = :val");
 		$stmt->execute(array("cmtid" => $cmtid, "uid" => $uid, "val" => $val));
 
-		foreach ($stmt as $row) {
-			return true;
-		}
-
-		return false;
+		return $stmt->rowCount() > 0;
 	}
 
 	public function favPost(int $pid, int $uid) {
@@ -864,11 +840,7 @@ class DatabaseAPI {
 		$stmt = $this->database->conn->prepare("SELECT FID FROM favorites WHERE PID = :pid AND UID = :uid");
 		$stmt->execute(array("pid" => $pid, "uid" => $uid));
 
-		foreach ($stmt as $row) {
-			return true;
-		}
-
-		return false;
+		return $stmt->rowCount() > 0;
 	}
 
 	public function removeFav(int $pid, int $uid) {
@@ -910,11 +882,7 @@ class DatabaseAPI {
 		$stmt = $this->database->conn->prepare("SELECT * FROM followers WHERE FollowerUID = :followeruid AND UID = :uid");
 		$stmt->execute(array("followeruid" => $followeruid, "uid" => $uid));
 
-		foreach ($stmt as $row) {
-			return true;
-		}
-
-		return false;
+		return $stmt->rowCount() > 0;
 	}
 
 	public function subscribe(int $followeruid, int $uid) {

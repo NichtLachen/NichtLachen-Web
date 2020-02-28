@@ -20,13 +20,13 @@ $bgImage = $profileimage != null ? "url('profileimages/" . $profileimage . "')" 
 			<p style="font-size: x-large; font-weight: bold;"><?php echo $user != null ? $user->getName() : ""; ?> <?php if ($uid == $myuid) { ?><a class="edit" href="editprofile.php?from=<?php echo $from; ?>"><i class="fas fa-edit"></i></a><?php } else { ?><!-- TODO: REPORT --><?php } ?></p>
 			<div>
 <?php
-if ($user->hasRank(Rank::Administrator)) {
+if ($user->hasRank(Rank::ADMINISTRATOR)) {
 ?>
 				<div class="rank administrator">Administrator</div>
 <?php
 }
 
-if ($user->hasRank(Rank::Moderator)) {
+if ($user->hasRank(Rank::MODERATOR)) {
 ?>
 				<div class="rank moderator">Moderator</div>
 <?php
