@@ -52,13 +52,21 @@ $accepts = $api->getPostQueueAccepts($post->getPID());
 if ($post->getCreatorUID() == $uid) {
 	$delid = $post->getPID();
 	$q = isset($queue) && $queue ? "1" : "0";
-	$delete_js = "delete.php?pid=" . $post->getPID() . "&queue=" . $q;
-	$delete = "delete.php?pid=" . $post->getPID() . "&from=" . $from_delete . "&queue=" . $q;
+	$delete_js = "delete.php?pid=" . $delid . "&queue=" . $q;
+	$delete = $delete_js . "&from=" . $from_delete;
 ?>
-			<input type="checkbox" class="showMore" id="delete<?php echo $post->getPID(); ?>">
-			<label class="post-control post-delete" for="delete<?php echo $post->getPID(); ?>" style="color: red;"><i class="fas fa-trash-alt"></i></label>
+			<input type="checkbox" class="showMore" id="delete<?php echo $delid; ?>">
+			<label class="post-control post-delete" for="delete<?php echo $delid; ?>" style="color: red;"><i class="fas fa-trash-alt"></i></label>
 <?php
 	require (__DIR__ . '/../templates/delete_confirm.php');
+} else {
+	$repid = $post->getPID();
+	$q = isset($queue) && $queue ? "1" : "0";
+	$rep_js = "report.php?pid=" . $repid . "&queue=" . $q;
+	$rep = $rep_js . "&from=" . $from;
+?>
+<!-- TODO: REPORT -->
+<?php
 }
 ?>
 		</div>

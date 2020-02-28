@@ -507,3 +507,12 @@ input.search {
 .administrator {
 	background-color: red;
 }
+
+.report {
+	text-decoration: none;
+	color: grey;
+}
+
+.report:hover {
+	color: red;
+}

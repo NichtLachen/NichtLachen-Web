@@ -50,6 +50,13 @@ if ($comment->getCreatorUID() == $uid) {
 			<label class="post-control post-delete" for="delete<?php echo $comment->getCMTID(); ?>" style="color: red;"><i class="fas fa-trash-alt"></i></label>
 <?php
 	require (__DIR__ . '/../templates/delete_confirm.php');
+} else {
+	$repid = $comment->getCMTID();
+	$rep_js = "report.php?cmtid=" . $repid;
+	$rep = $rep_js . "&from=" . $from;
+?>
+	<!-- TODO: REPORT -->
+<?php
 }
 ?>
 		</div>
