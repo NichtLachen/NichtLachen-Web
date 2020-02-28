@@ -1,7 +1,5 @@
 <?php
 
-use DateTime;
-
 class DateUtil {
 
 	public static function diff(string $timestamp) : ?string {
