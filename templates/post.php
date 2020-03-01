@@ -27,7 +27,13 @@ $content = splitTextAtLength($content, 800);
 		<div class="post" id="<?php echo $post->getPID();?>">
 			<a class="post-category" href="categories.php?cid=<?php echo $post->getCID();?>&from=<?php echo $from_before; ?>"><?php echo $category; ?></a>
 			<br><br>
-			<div class="post-content"><?php echo $content[0]; if (!empty($content[1])) { ?><input type="checkbox" class="showMore" id="showMore_<?php echo $post->getPID(); ?>"><label for="showMore_<?php echo $post->getPID();?>" id="showMoreL_<?php echo $post->getPID(); ?>">Mehr anzeigen <i class="fa fa-arrow-down" aria-hidden="true"></i></label><div for="showMoreL_<?php echo $post->getPID(); ?>"><?php echo $content[1]; ?></div><?php } ?></div>
+			<div class="post-content"><?php
+				echo $content[0];
+
+				if (!empty($content[1])) {
+					?><input type="checkbox" class="showMore" id="showMore_<?php echo $post->getPID(); ?>"><label for="showMore_<?php echo $post->getPID();?>" id="showMoreL_<?php echo $post->getPID(); ?>">Mehr anzeigen <i class="fa fa-arrow-down" aria-hidden="true"></i></label><div for="showMoreL_<?php echo $post->getPID(); ?>"><?php
+					echo $content[1]; ?></div><?php
+				} ?></div>
 <?php
 if (!isset($queue) || !$queue) {
 ?>

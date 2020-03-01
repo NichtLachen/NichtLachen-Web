@@ -35,7 +35,14 @@ $color = $api->isCommentLikeSet($comment->getCMTID(), $uid, 1) ? "red" : "grey";
 			<a class="post-category" href="users.php?uid=<?php echo $user->getUID();?>&from=<?php echo $from_before; ?>"><?php echo $user->getName(); ?></a>
 			<div class="post-info" style="display: inline;">vor <?php echo DateUtil::diff($comment->getCreatedAt()); ?></div>
 			<br><br>
-			<div class="post-content"><?php echo $content[0]; if (!empty($content[1])) { ?><input type="checkbox" class="showMore" id="showMore<?php echo $comment->getCMTID(); ?>"><label for="showMore<?php echo $comment->getCMTID();?>">Mehr anzeigen <i class="fa fa-arrow-down" aria-hidden="true"></i></label><div><?php echo $content[1]; ?></div><?php } ?></div>
+			<div class="post-content"><?php
+				echo $content[0];
+
+				if (!empty($content[1])) {
+					?><input type="checkbox" class="showMore" id="showMore<?php echo $comment->getCMTID(); ?>"><label for="showMore<?php echo $comment->getCMTID();?>">Mehr anzeigen <i class="fa fa-arrow-down" aria-hidden="true"></i></label><div><?php
+					echo $content[1];
+					?></div><?php
+				} ?></div>
 			<br>
 			<a id="<?php echo $comment->getCMTID(); ?>end" class="post-info" style="display: inline; text-decoration: none;" href="<?php echo hrefReplaceVar("to", $user->getName()); ?>">Antworten</a>
 			<div class="post-control post-like"><a onclick="return callURLWithReload('like.php?like=1&cmtid=<?php echo $comment->getCMTID();?>');" href="like.php?like=1&cmtid=<?php echo $comment->getCMTID();?>&from=<?php echo $from; ?>"><i style="color: <?php echo $color; ?>" class="fas fa-heart"></i></a> <?php echo $api->countCommentLikes($comment->getCMTID());?></div>
