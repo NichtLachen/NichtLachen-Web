@@ -26,7 +26,7 @@ if ($user != null) {
 	$bgImage = $profileimage != null ? "url('profileimages/" . $profileimage . "')" : "none"; 
 ?>
 		<div class="center">
-			<div class="profileimage" style="background-image: <?php echo $bgImage; ?>;">
+			<div class="center profileimage" style="background-image: <?php echo $bgImage; ?>;">
 			</div>
 			<p style="font-size: x-large; font-weight: bold;"><?php echo $user != null ? $user->getName() : ""; ?> <?php if ($uid == $myuid) { ?><a class="edit" href="editprofile.php?from=<?php echo $from; ?>"><i class="fas fa-edit"></i></a><?php } else { ?><!-- TODO: REPORT --><?php } ?></p>
 			<div>
