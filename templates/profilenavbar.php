@@ -17,7 +17,7 @@ $TITLE = $uid == $myuid ? "Mein Profil" : $TITLE;
 
 ?>
 		<div class="topnav">
-			<a onclick="return back();" style="margin-left: 20px;" href="<?php echo $from; ?>"><i class="fa fa-arrow-left"></i></a>
+			<a onclick="return back();" style="margin-left: 1.5em;" href="<?php echo $from; ?>"><i class="fa fa-arrow-left"></i></a>
 			<div class="header"><?php echo $TITLE; ?></div>
 <?php
 if($uid == $myuid) {
