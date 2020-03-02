@@ -3,6 +3,7 @@ require_once (__DIR__ . '/../classes/db/DatabaseAPI.php');
 require_once (__DIR__ . '/../classes/date/DateUtil.php');
 require_once (__DIR__ . '/../include/htmlutils.php');
 require_once (__DIR__ . '/../include/stringutils.php');
+require_once (__DIR__ . '/../config.php');
 
 $api = new DatabaseAPI();
 $category = $api->getCategoryName($post->getCID());
@@ -18,6 +19,8 @@ $last_post = $post;
 $from = urlencode($_SERVER['REQUEST_URI'] . "#" . $post->getPID() . "end");
 $from_before = urlencode($_SERVER['REQUEST_URI'] . '#' . $post->getPID());
 $from_delete = urlencode($_SERVER['REQUEST_URI'] . '#' . $lastid . "end");
+
+$posted_by = in_array($post->getCID(), ANONYMOUS_CATEGORIES) ? "" : "von <a href=\"users.php?uid=" . $user->getUID() . "&from=" .  $from . "\">" . $user->getName() . "</a> ";
 
 $content = formatText(escapeHTML($post->getContent()));
 
@@ -38,7 +41,7 @@ $content = splitTextAtLength($content, 800);
 if (!isset($queue) || !$queue) {
 ?>
 
-			<p id="<?php echo $post->getPID(); ?>end" class="post-info">Eingereicht von <a href="users.php?uid=<?php echo $user->getUID();?>&from=<?php echo $from; ?>"><?php echo $user->getName();?></a> vor <?php echo DateUtil::diff($post->getCreatedAt()); ?></p>
+			<p id="<?php echo $post->getPID(); ?>end" class="post-info">Eingereicht <?php echo $posted_by; ?>vor <?php echo DateUtil::diff($post->getCreatedAt()); ?></p>
 			<div class="post-control post-like"><a onclick="return callURLWithReload('like.php?like=1&pid=<?php echo $post->getPID();?>');" href="like.php?like=1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $like; ?> fa-thumbs-up"></i></a> <?php echo $api->countPostLikes($post->getPID());?></div>
 			<div class="post-control post-dislike"><a onclick="return callURLWithReload('like.php?like=-1&pid=<?php echo $post->getPID();?>');" href="like.php?like=-1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $dislike; ?> fa-thumbs-down"></i></a> <?php echo $api->countPostDislikes($post->getPID());?></div>
 			<div class="post-control post-comments"><a href="comments.php?pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>"><i class="fas fa-comments"></i></a> <?php echo $api->countPostComments($post->getPID());?></div>
