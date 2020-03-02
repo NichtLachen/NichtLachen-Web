@@ -4,6 +4,7 @@ require_once (__DIR__ . '/Database.php');
 require_once (__DIR__ . '/../user/User.php');
 require_once (__DIR__ . '/../post/Post.php');
 require_once (__DIR__ . '/../post/Comment.php');
+require_once (__DIR__ . '/../../config.php');
 
 DatabaseAPI::$DB_INSTANCE = new Database();
 
@@ -615,12 +616,14 @@ class DatabaseAPI {
 		return false;
 	}
 
-	public function getUserPosts(int $uid, int $page, int $perPage) : array {
+	public function getUserPosts(int $uid, bool $own, int $page, int $perPage) : array {
 		$res = [];
 		$start = ($page - 1) * $perPage;
 		$end = $perPage; // LIMIT offset,amount
-		$stmt = $this->database->conn->prepare("SELECT * FROM posts WHERE UID = :uid ORDER BY PID DESC LIMIT :start,:end");
-		$stmt->execute(array("uid" => $uid, "start" => $start, "end" => $end));
+		$disallowedCIDs = $own ? array('') : ANONYMOUS_CATEGORIES;
+		$disallowed = str_repeat('?,', count($disallowedCIDs) - 1) . '?'; // generates string with questionmarks for prepared statement
+		$stmt = $this->database->conn->prepare("SELECT * FROM posts WHERE UID = ? AND CID NOT IN ($disallowed) ORDER BY PID DESC LIMIT ?,?");
+		$stmt->execute(array_merge(array($uid), $disallowedCIDs, array($start, $end)));
 
 		foreach ($stmt as $row) {
 			$res[sizeof($res)] = $this->getPost($row);
@@ -629,11 +632,13 @@ class DatabaseAPI {
 		return $res;
 	}
 
-	public function moreUserPosts(int $uid, int $page, int $perPage) : bool {
+	public function moreUserPosts(int $uid, bool $own, int $page, int $perPage) : bool {
 		$start = ($page - 1) * $perPage;
 		$end = $start + $perPage;
-		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM posts WHERE UID = :uid ORDER BY PID");
-		$stmt->execute(array("uid" => $uid));
+		$disallowedCIDs = $own ? array('') : ANONYMOUS_CATEGORIES;
+		$disallowed  = str_repeat('?,', count($disallowedCIDs) - 1) . '?'; // generates string with questionmarks for prepared statement
+		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM posts WHERE UID = ? AND CID NOT IN($disallowed) ORDER BY PID");
+		$stmt->execute(array_merge(array($uid), $disallowedCIDs));
 
 		foreach ($stmt as $row) {
 			if ($row['COUNT(PID)'] > $end) {

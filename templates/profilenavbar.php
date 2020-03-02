@@ -13,8 +13,6 @@ $user = $api->getUserByUID($uid);
 $myuid = $api->getUIDBySessionID(session_id());
 $from = isset($_GET['from']) ? $_GET['from'] : "./";
 
-$TITLE = $uid == $myuid ? "Mein Profil" : $TITLE;
-
 ?>
 		<div class="topnav">
 			<a onclick="return back();" style="margin-left: 1.5em;" href="<?php echo $from; ?>"><i class="fa fa-arrow-left"></i></a>
