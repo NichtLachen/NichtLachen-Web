@@ -4,6 +4,7 @@ require_once (__DIR__ . '/../classes/date/DateUtil.php');
 require_once (__DIR__ . '/../include/htmlutils.php');
 require_once (__DIR__ . '/../include/varutils.php');
 require_once (__DIR__ . '/../include/stringutils.php');
+require_once (__DIR__ . '/../config.php');
 
 $api = new DatabaseAPI();
 $user = $api->getUserByUID($comment->getCreatorUID());
@@ -15,6 +16,10 @@ $last_comment = $comment;
 $from = urlencode($_SERVER['REQUEST_URI'] . "#" . $comment->getCMTID() . "end");
 $from_before = urlencode($_SERVER['REQUEST_URI'] . '#' . $comment->getCMTID());
 $from_delete = urlencode($_SERVER['REQUEST_URI'] . '#' . $lastid . "end");
+
+$post = $api->getPostByPID($comment->getPID());
+$userinfo = in_array($post->getPID(), ANONYMOUS_CATEGORIES) && $post->getCreatorUID() == $comment->getCreatorUID() ? "" : "<a class=\"post-category\" href=\"users.php?uid=" . $user->getUID() . "&from=" . $from_before . "\">" . $user->getName() . "</a>";
+$anoninfo = in_array($post->getPID(), ANONYMOUS_CATEGORIES) && $post->getCreatorUID() == $comment->getCreatorUID() ? "Vor" : "vor";
 
 $content = escapeHTML($comment->getContent());
 
@@ -32,8 +37,8 @@ $content = splitTextAtLength($content, 800);
 $color = $api->isCommentLikeSet($comment->getCMTID(), $uid, 1) ? "red" : "grey";
 ?>
 		<div class="post" id="<?php echo $comment->getCMTID();?>">
-			<a class="post-category" href="users.php?uid=<?php echo $user->getUID();?>&from=<?php echo $from_before; ?>"><?php echo $user->getName(); ?></a>
-			<div class="post-info" style="display: inline;">vor <?php echo DateUtil::diff($comment->getCreatedAt()); ?></div>
+			<?php echo $userinfo; ?>
+			<div class="post-info" style="display: inline;"><?php echo $anoninfo . " " . DateUtil::diff($comment->getCreatedAt()); ?></div>
 			<br><br>
 			<div class="post-content"><?php
 				echo $content[0];
