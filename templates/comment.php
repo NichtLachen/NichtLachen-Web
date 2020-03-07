@@ -18,8 +18,9 @@ $from_before = urlencode($_SERVER['REQUEST_URI'] . '#' . $comment->getCMTID());
 $from_delete = urlencode($_SERVER['REQUEST_URI'] . '#' . $lastid . "end");
 
 $post = $api->getPostByPID($comment->getPID());
-$userinfo = in_array($post->getCID(), ANONYMOUS_CATEGORIES) && $post->getCreatorUID() == $comment->getCreatorUID() ? "" : "<a class=\"post-category\" href=\"users.php?uid=" . $user->getUID() . "&from=" . $from_before . "\">" . $user->getName() . "</a>";
+$anonuserinfo = in_array($post->getCID(), ANONYMOUS_CATEGORIES) && $post->getCreatorUID() == $comment->getCreatorUID() ? "" : "<a class=\"post-category\" href=\"users.php?uid=" . $user->getUID() . "&from=" . $from_before . "\">" . $user->getName() . "</a>";
 $anoninfo = in_array($post->getCID(), ANONYMOUS_CATEGORIES) && $post->getCreatorUID() == $comment->getCreatorUID() ? "Vor" : "vor";
+$anonreply = in_array($post->getCID(), ANONYMOUS_CATEGORIES) && $post->getCreatorUID() == $comment->getCreatorUID() ? "" : "<a id=\"". $comment->getCMTID() . "end\" class=\"post-info\" style=\"display: inline; text-decoration: none;\" href=\"" . hrefReplaceVar("to", $user->getName()) . "\">Antworten</a>";
 
 $content = escapeHTML($comment->getContent());
 
@@ -37,7 +38,7 @@ $content = splitTextAtLength($content, 800);
 $color = $api->isCommentLikeSet($comment->getCMTID(), $uid, 1) ? "red" : "grey";
 ?>
 		<div class="post" id="<?php echo $comment->getCMTID();?>">
-			<?php echo $userinfo; ?>
+			<?php echo $anonuserinfo; ?>
 			<div class="post-info" style="display: inline;"><?php echo $anoninfo . " " . DateUtil::diff($comment->getCreatedAt()); ?></div>
 			<br><br>
 			<div class="post-content"><?php
@@ -49,7 +50,7 @@ $color = $api->isCommentLikeSet($comment->getCMTID(), $uid, 1) ? "red" : "grey";
 					?></div><?php
 				} ?></div>
 			<br>
-			<a id="<?php echo $comment->getCMTID(); ?>end" class="post-info" style="display: inline; text-decoration: none;" href="<?php echo hrefReplaceVar("to", $user->getName()); ?>">Antworten</a>
+			<?php echo $anonreply; ?>
 			<div class="post-control post-like"><a onclick="return callURLWithReload('like.php?like=1&cmtid=<?php echo $comment->getCMTID();?>');" href="like.php?like=1&cmtid=<?php echo $comment->getCMTID();?>&from=<?php echo $from; ?>"><i style="color: <?php echo $color; ?>" class="fas fa-heart"></i></a> <?php echo $api->countCommentLikes($comment->getCMTID());?></div>
 
 <?php
