@@ -18,8 +18,8 @@ $from_before = urlencode($_SERVER['REQUEST_URI'] . '#' . $comment->getCMTID());
 $from_delete = urlencode($_SERVER['REQUEST_URI'] . '#' . $lastid . "end");
 
 $post = $api->getPostByPID($comment->getPID());
-$userinfo = in_array($post->getPID(), ANONYMOUS_CATEGORIES) && $post->getCreatorUID() == $comment->getCreatorUID() ? "" : "<a class=\"post-category\" href=\"users.php?uid=" . $user->getUID() . "&from=" . $from_before . "\">" . $user->getName() . "</a>";
-$anoninfo = in_array($post->getPID(), ANONYMOUS_CATEGORIES) && $post->getCreatorUID() == $comment->getCreatorUID() ? "Vor" : "vor";
+$userinfo = in_array($post->getCID(), ANONYMOUS_CATEGORIES) && $post->getCreatorUID() == $comment->getCreatorUID() ? "" : "<a class=\"post-category\" href=\"users.php?uid=" . $user->getUID() . "&from=" . $from_before . "\">" . $user->getName() . "</a>";
+$anoninfo = in_array($post->getCID(), ANONYMOUS_CATEGORIES) && $post->getCreatorUID() == $comment->getCreatorUID() ? "Vor" : "vor";
 
 $content = escapeHTML($comment->getContent());
 
