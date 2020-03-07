@@ -6,7 +6,7 @@ require_once (__DIR__ . '/../post/Post.php');
 require_once (__DIR__ . '/../post/Comment.php');
 require_once (__DIR__ . '/../../config.php');
 
-DatabaseAPI::$DB_INSTANCE = new Database();
+DatabaseAPI::$DB_INSTANCE = isset(DatabaseAPI::$DB_INSTANCE) ? DatabaseAPI::$DB_INSTANCE : new Database();
 
 class DatabaseAPI {
 
