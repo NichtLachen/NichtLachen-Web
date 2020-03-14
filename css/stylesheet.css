@@ -234,6 +234,7 @@ body {
 }
 
 .dropdown-content a {
+	text-align: left;
 	text-transform: none;
 	white-space: nowrap;
 	text-decoration: none;

@@ -903,6 +903,19 @@ class DatabaseAPI {
 	public function canSubscribe(int $followeruid, int $uid) {
 		return $followeruid != $uid && !$this->hasSubscribed($followeruid, $uid);
 	}
+
+	public function getUserSettings(int $uid, string $key) : array {
+		$stmt = $this->database->conn->prepare("SELECT Value FROM settings WHERE UID = :uid AND Name = :key");
+		$stmt->execute(array("uid" => $uid, "key" => $key));
+
+		$res = [];
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $row['Value'];
+		}
+
+		return $res; 
+	}
 }
 
 ?>
