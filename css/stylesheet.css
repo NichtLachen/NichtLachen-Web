@@ -157,6 +157,7 @@ body {
 }
 
 .topnav {
+	z-index: 999;
 	transition: top 0.3s;
 	position: sticky;
 	border-top: 1em solid orange;
