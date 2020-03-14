@@ -176,9 +176,13 @@ body {
 	display: flex;
 }
 
-.topnav a {
+.topnav .links a {
 	width: 100%;
 	text-align: center;
+}
+
+.topnav a {
+	text-align: left;
 	text-overflow: ellipsis;
 	font-size: 11pt;
 	border-bottom: 0.5em solid orange;
@@ -234,7 +238,6 @@ body {
 }
 
 .dropdown-content a {
-	text-align: left;
 	text-transform: none;
 	white-space: nowrap;
 	text-decoration: none;
