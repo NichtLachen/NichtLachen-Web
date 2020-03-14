@@ -416,6 +416,18 @@ class DatabaseAPI {
 		return null;
 	}
 
+	public function getAllSubCategories() : array {
+		$res = [];
+		$stmt = $this->database->conn->prepare("SELECT CID FROM categories WHERE SUPER = '0' ORDER BY CID ASC");
+		$stmt->execute();
+
+		foreach ($stmt as $row) {
+			$res[sizeof($res)] = $row['CID'];
+		}
+
+		return $res;
+	}
+
 	public function getParentLessCategories() : array {
 		$res = [];
 		$stmt = $this->database->conn->prepare("SELECT CID FROM categories WHERE Parent IS NULL AND Super = '0' ORDER BY CID ASC");
@@ -955,6 +967,16 @@ class DatabaseAPI {
 		}
 
 		return $res; 
+	}
+
+	public function addUserSetting(int $uid, string $key, string $value) {
+		$stmt = $this->database->conn->prepare("INSERT INTO settings (UID,Name,Value) VALUES (:uid, :key, :value)");
+		$stmt->execute(array("uid" => $uid, "key" => $key, "value" => $value));
+	}
+
+	public function deleteUserSettings(int $uid, string $key) {
+		$stmt = $this->database->conn->prepare("DELETE FROM settings WHERE UID = :uid AND Name = :key");
+		$stmt->execute(array("uid" => $uid, "key" => $key));
 	}
 }
 
