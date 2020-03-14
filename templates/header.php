@@ -5,14 +5,14 @@ require_once (__DIR__ . '/../classes/db/DatabaseAPI.php');
 $api = new DatabaseAPI();
 
 if (session_id() != null) {
-	$uid = $api->getUIDBySessionID(session_id());
+	$myuid = $api->getUIDBySessionID(session_id());
 }
 
 function getColor(string $name) : ?string {
-	global $api,$uid;
+	global $api,$myuid;
 
-	if (isset($uid) && $uid != null) {
-		$settings = $api->getUserSettings($uid, $name);
+	if (isset($myuid) && $myuid != null) {
+		$settings = $api->getUserSettings($myuid, $name);
 
 		if (sizeof($settings) > 0) {
 			return $settings[0];
