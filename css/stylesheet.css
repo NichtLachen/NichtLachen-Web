@@ -72,7 +72,24 @@ span a {
 }
 
 html {
+	outline: 0;
 	height: 100%;
+}
+
+a {
+	outline: 0;
+}
+
+a:focus {
+	outline: 0;
+}
+
+button::-moz-focus-inner {
+	border: 0;
+}
+
+button:focus {
+	outline: 0;
 }
 
 body {
