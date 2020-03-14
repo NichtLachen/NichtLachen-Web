@@ -26,13 +26,15 @@ if($uid == $myuid) {
 ?>
 			<br><br>
 
-			<a<?php echo active("users.php");?> href="users.php?uid=<?php echo $uid; ?>&from=<?php echo urlencode($from); ?>">Profil</a>
-			<a<?php echo active("user_posts.php");?> href="user_posts.php?uid=<?php echo $uid; ?>&from=<?php echo urlencode($from); ?>">Beiträge</a>
+			<div class="links">
+				<a<?php echo active("users.php");?> href="users.php?uid=<?php echo $uid; ?>&from=<?php echo urlencode($from); ?>">Profil</a>
+				<a<?php echo active("user_posts.php");?> href="user_posts.php?uid=<?php echo $uid; ?>&from=<?php echo urlencode($from); ?>">Beiträge</a>
 <?php
 if($uid == $myuid) {
 ?>
-			<a<?php echo active("myqueue.php");?> href="myqueue.php?from=<?php echo urlencode($from); ?>">Eingereicht</a>
+				<a<?php echo active("myqueue.php");?> href="myqueue.php?from=<?php echo urlencode($from); ?>">Eingereicht</a>
 <?php
 }
 ?>
+			</div>
 		</div>

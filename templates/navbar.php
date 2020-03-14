@@ -36,8 +36,10 @@ $from = urlencode($_SERVER['REQUEST_URI']);
 			</div>
 			<br><br>
 
-			<a<?php echo active("top.php"); ?> href="top.php">Top</a>
-			<a<?php echo active("new.php"); ?> href="new.php">Neu</a>
-			<a<?php echo active("categories.php"); ?> href="categories.php">Kategorien</a>
-			<a<?php echo active("subs.php"); ?> href="subs.php">Abos</a>
+			<div class="links">
+				<a<?php echo active("top.php"); ?> href="top.php">Top</a>
+				<a<?php echo active("new.php"); ?> href="new.php">Neu</a>
+				<a<?php echo active("categories.php"); ?> href="categories.php">Kategorien</a>
+				<a<?php echo active("subs.php"); ?> href="subs.php">Abos</a>
+			</div>
 		</div>
