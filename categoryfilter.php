@@ -45,15 +45,15 @@ $categoryfilter = sizeof($categoryfilter) > 0 && $categoryfilter[0];
 $enabledCategories = $api->getUserSettings($uid, "filter_enabled_category");
 
 ?>
-		<div class="center">
-			<form class="default-form" method="POST" id="post">
-				<p class="center" style="width: 50%">Durch das Aktivieren des Kategoriefilters werden nur von Ihnen ausgewählte Kategorien im Top- und Neu-Bereich angezeigt.</p><br>
+		<div class="center" style="text-align: left; width: 50%;">
+			<form class="default-form" method="POST" id="categoryfilter">
+				<p class="center" style="text-align: left;">Durch das Aktivieren des Kategoriefilters werden nur von Ihnen ausgewählte Kategorien im Top- und Neu-Bereich angezeigt.</p><br>
 				Kategoriefilter <input type="checkbox" name="categoryfilter" value="true"<?php echo $categoryfilter ? " checked" : ""; ?>>
 				<br><br>
 				<?php
 				foreach ($api->getAllSubCategories() as $category) {
 					$categoryName = $api->getCategoryName($category);
-					echo $categoryName . " <input type=\"checkbox\" name=\"cid_" . $category . "\" value=\"" . $category . "\"" . (in_array($category, $enabledCategories) ? " checked" : "") . "><br>\n\t\t\t\t";
+					echo "<input type=\"checkbox\" name=\"cid_" . $category . "\" value=\"" . $category . "\"" . (in_array($category, $enabledCategories) ? " checked" : "") . ">" . $categoryName . "<br>\n\t\t\t\t";
 				}
 				?>				
 				<br><br>
