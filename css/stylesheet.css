@@ -214,6 +214,7 @@ body {
 }
 
 .dropbtn {
+	font-size: 16pt;
 	margin-right: 1em;
 	background-color: orange;
 	color: white;
@@ -499,6 +500,10 @@ input.search {
 	border-radius: 0.5em;
 	padding: 0.5em;
 	margin: 0.5em;
+}
+
+input.search::placeholder {
+	color: white;
 }
 
 .rank {

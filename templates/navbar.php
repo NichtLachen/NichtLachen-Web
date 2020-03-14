@@ -11,7 +11,7 @@ $from = urlencode($_SERVER['REQUEST_URI']);
 		<div class="topnav">
 			<div class="header">Nicht lachen!</div>
 			<div class="dropdown" style="float: right;">
-				<button class="dropbtn"><i class="fas fa-bars" style="font-size: xx-large;"></i></button>
+				<button class="dropbtn"><i class="fas fa-bars"></i></button>
 				<div class="dropdown-content">
 					<a href="users.php?uid=<?php echo $uid; ?>&from=<?php echo $from; ?>">Mein Profil</a>
 					<a href="queue.php?from=<?php echo $from; ?>">Warteschlange</a>
@@ -21,7 +21,7 @@ $from = urlencode($_SERVER['REQUEST_URI']);
 				</div>
 			</div>
 			<div class="dropdown" style="float: right;">
-				<button class="dropbtn" style="border-radius: 50%;"><i class="fas fa-search" style="font-size: xx-large;"></i></button>
+				<button class="dropbtn" style="border-radius: 50%;"><i class="fas fa-search"></i></button>
 				<div class="dropdown-content">
 					<form method="GET" action="search_user.php">
 						<input type="hidden" name="from" value="<?php echo urldecode($from); ?>">
