@@ -8,7 +8,7 @@ if (session_id() != null) {
 	$uid = $api->getUIDBySessionID(session_id());
 }
 
-function getColor(string $name) : string {
+function getColor(string $name) : ?string {
 	global $api,$uid;
 
 	if (isset($uid) && $uid != null) {
@@ -21,23 +21,23 @@ function getColor(string $name) : string {
 
 	switch ($name) {
 		case "colorPrimaryBackground":
-			return "white";
+			return "#ffffff";
 		case "colorPostBackground":
-			return "white";
+			return "#ffffff";
 		case "colorSecondaryBackground":
-			return "orange";
+			return "#ffa500";
 		case "colorPrimaryHeading":
-			return "orange";
+			return "#ffa500";
 		case "colorPrimaryText":
-			return "black";
+			return "#000000";
 		case "colorSecondaryText":
-			return "white";
+			return "#ffffff";
 		case "colorTextAdditionalInfo":
-			return "grey";
+			return "#808080";
 		case "colorPrimarySeparator":
-			return "lightgrey";
+			return "#d3d3d3";
 		default:
-			return "white";
+			return null;
 	}
 }
 
