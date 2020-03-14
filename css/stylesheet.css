@@ -190,7 +190,7 @@ body {
 	font-size: 11pt;
 	border-bottom: 0.5em solid orange;
 	text-transform: uppercase;
-	display: inline-block;
+	display: inline;
 	color: white;
 	padding: 0.8em;
 	text-decoration: none;
