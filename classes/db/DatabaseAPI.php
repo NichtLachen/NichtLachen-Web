@@ -587,12 +587,22 @@ class DatabaseAPI {
 		$stmt->execute(array("pid" => $pid));
 	}
 
-	public function getNewPosts(int $page, int $perPage) : array {
+	public function getNewPosts(int $uid, int $page, int $perPage) : array {
 		$res = [];
 		$start = ($page - 1) * $perPage;
 		$end = $perPage; // LIMIT offset,amount
- 		$stmt = $this->database->conn->prepare("SELECT * FROM posts ORDER BY PID DESC LIMIT :start,:end");
-		$stmt->execute(array("start" => $start, "end" => $end));
+
+		$categoryfilter = $this->getUserSettings($uid, "categoryfilter");
+		$enabledCategories = $this->getUserSettings($uid, "filter_enabled_category");
+		if (sizeof($categoryfilter) > 0 && $categoryfilter[0] && sizeof($enabledCategories) > 0) {
+			$enabled = str_repeat('?,', count($enabledCategories) - 1) . '?'; // generates string with questionmarks for prepared statement
+
+			$stmt = $this->database->conn->prepare("SELECT * FROM posts WHERE CID IN ($enabled) ORDER BY PID DESC LIMIT ?,?");
+			$stmt->execute(array_merge($enabledCategories, array($start, $end)));
+		} else {
+ 			$stmt = $this->database->conn->prepare("SELECT * FROM posts ORDER BY PID DESC LIMIT :start,:end");
+			$stmt->execute(array("start" => $start, "end" => $end));
+		}
 
 		foreach ($stmt as $row) {
 			$res[sizeof($res)] = $this->getPost($row);
@@ -601,11 +611,21 @@ class DatabaseAPI {
 		return $res;
 	}
 
-	public function moreNewPosts(int $page, int $perPage) : bool {
+	public function moreNewPosts(int $uid, int $page, int $perPage) : bool {
 		$start = ($page - 1) * $perPage;
 		$end = $start + $perPage;
-		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM posts ORDER BY PID");
-		$stmt->execute();
+
+		$categoryfilter = $this->getUserSettings($uid, "categoryfilter");
+		$enabledCategories = $this->getUserSettings($uid, "filter_enabled_category");
+		if (sizeof($categoryfilter) > 0 && $categoryfilter[0] && sizeof($enabledCategories) > 0) {
+			$enabled = str_repeat('?,', count($enabledCategories) - 1) . '?'; // generates string with questionmarks for prepared statement
+
+			$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM posts WHERE CID IN ($enabled)");
+			$stmt->execute($enabledCategories);
+		} else {
+			$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM posts ORDER BY PID");
+			$stmt->execute();
+		}
 
 		foreach ($stmt as $row) {
 			if ($row['COUNT(PID)'] > $end) {
@@ -707,12 +727,22 @@ class DatabaseAPI {
 		return false;
 	}
 
-	public function getTopPosts(int $page, int $perPage) : array {
+	public function getTopPosts(int $uid, int $page, int $perPage) : array {
 		$res = [];
 		$start = ($page - 1) * $perPage;
 		$end = $perPage; // LIMIT offset,amount
-		$stmt = $this->database->conn->prepare("SELECT * FROM likes,posts WHERE likes.PID IS NOT NULL AND posts.PID = likes.PID GROUP BY likes.PID HAVING SUM(likes.Value) > 0 ORDER BY CreatedAt DESC, SUM(likes.Value) DESC LIMIT :start,:end");
-		$stmt->execute(array("start" => $start, "end" => $end));
+
+		$categoryfilter = $this->getUserSettings($uid, "categoryfilter");
+		$enabledCategories = $this->getUserSettings($uid, "filter_enabled_category");
+		if (sizeof($categoryfilter) > 0 && $categoryfilter[0] && sizeof($enabledCategories) > 0) {
+			$enabled = str_repeat('?,', count($enabledCategories) - 1) . '?'; // generates string with questionmarks for prepared statement
+
+			$stmt = $this->database->conn->prepare("SELECT * FROM likes,posts WHERE likes.PID IS NOT NULL AND posts.PID = likes.PID AND CID IN ($enabled) GROUP BY likes.PID HAVING SUM(likes.Value) > 0 ORDER BY CreatedAt DESC, SUM(likes.Value) DESC LIMIT ?,?");
+			$stmt->execute(array_merge($enabledCategories, array($start, $end)));
+		} else {
+			$stmt = $this->database->conn->prepare("SELECT * FROM likes,posts WHERE likes.PID IS NOT NULL AND posts.PID = likes.PID GROUP BY likes.PID HAVING SUM(likes.Value) > 0 ORDER BY CreatedAt DESC, SUM(likes.Value) DESC LIMIT :start,:end");
+			$stmt->execute(array("start" => $start, "end" => $end));
+		}
 
 		foreach ($stmt as $row) {
 			$res[sizeof($res)] = $this->getPost($row);
@@ -721,11 +751,21 @@ class DatabaseAPI {
 		return $res;
 	}
 
-	public function moreTopPosts(int $page, int $perPage) : bool {
+	public function moreTopPosts(int $uid, int $page, int $perPage) : bool {
 		$start = ($page - 1) * $perPage;
 		$end = $start + $perPage;
-		$stmt = $this->database->conn->prepare("SELECT COUNT(posts.PID) FROM likes,posts WHERE likes.PID IS NOT NULL AND posts.PID = likes.PID GROUP BY likes.PID HAVING SUM(likes.Value) > 0 ORDER BY CreatedAt DESC, SUM(likes.Value) DESC");
-		$stmt->execute();
+
+		$categoryfilter = $this->getUserSettings($uid, "categoryfilter");
+		$enabledCategories = $this->getUserSettings($uid, "filter_enabled_category");
+		if (sizeof($categoryfilter) > 0 && $categoryfilter[0] && sizeof($enabledCategories) > 0) {
+			$enabled = str_repeat('?,', count($enabledCategories) - 1) . '?'; // generates string with questionmarks for prepared statement
+
+			$stmt = $this->database->conn->prepare("SELECT COUNT(posts.PID) FROM likes,posts WHERE likes.PID IS NOT NULL AND posts.PID = likes.PID AND posts.CID in ($enabled) GROUP BY likes.PID HAVING SUM(likes.Value) > 0 ORDER BY CreatedAt DESC, SUM(likes.Value) DESC");
+			$stmt->execute($enabledCategories);
+		} else {
+			$stmt = $this->database->conn->prepare("SELECT COUNT(posts.PID) FROM likes,posts WHERE likes.PID IS NOT NULL AND posts.PID = likes.PID GROUP BY likes.PID HAVING SUM(likes.Value) > 0 ORDER BY CreatedAt DESC, SUM(likes.Value) DESC");
+			$stmt->execute();
+		}
 
 		foreach ($stmt as $row) {
 			if ($row['COUNT(posts.PID)'] > $end) {

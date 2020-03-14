@@ -238,6 +238,7 @@ body {
 }
 
 .dropdown-content a {
+	min-width: 33%;
 	text-transform: none;
 	white-space: nowrap;
 	text-decoration: none;
