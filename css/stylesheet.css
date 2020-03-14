@@ -164,7 +164,6 @@ body {
 	font-weight: bold;
 	color: white;
 	top: 0em;
-	z-index: 1;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -239,7 +238,7 @@ body {
 	background-color: orange;
 	color: white;
 	box-shadow: 0em 0.4em 0.8em 0.4em rgba(0, 0, 0, 0.2);
-	z-index: 1;
+	z-index: 1000;
 }
 
 .dropdown-content a {
