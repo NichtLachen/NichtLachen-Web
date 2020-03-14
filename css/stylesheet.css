@@ -1,6 +1,6 @@
 .button {
 	border: none;
-	background-color: orange;
+	background-color: var(--colorSecondaryBackground);
 	text-decoration: none;
 	display: inline-block;
 	padding: .75rem 1.25rem;
@@ -56,7 +56,7 @@
 
 .h1 {
 	font-family: Arial;
-	background-color: orange;
+	background-color: var(--colorSecondaryBackground);
 	color: white;
 }
 
@@ -78,7 +78,8 @@ html {
 body {
 	padding: 0;
 	margin: 0;
-	background-color: white;
+	color: var(--colorPrimaryText);
+	background-color: var(--colorPrimaryBackground);
 	font-size: 12pt;
 	position: relative;
 	min-height: calc(100% - 6em);
@@ -160,7 +161,7 @@ body {
 	z-index: 999;
 	transition: top 0.3s;
 	position: sticky;
-	border-top: 1em solid orange;
+	border-top: 1em solid var(--colorSecondaryBackground);
 	font-weight: bold;
 	color: white;
 	top: 0em;
@@ -169,7 +170,7 @@ body {
 	padding: 0;
 	font-size: 13pt;
 	overflow: visible;
-	background-color: orange;
+	background-color: var(--colorSecondaryBackground);
 }
 
 .topnav .links {
@@ -188,16 +189,16 @@ body {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	font-size: 11pt;
-	border-bottom: 0.5em solid orange;
+	border-bottom: 0.5em solid var(--colorSecondaryBackground);
 	text-transform: uppercase;
 	display: inline;
-	color: white;
+	color: var(--colorSecondaryText);
 	padding: 0.8em;
 	text-decoration: none;
 }
 
 .topnav a.active {
-	border-bottom: 0.5em solid white;
+	border-bottom: 0.5em solid var(--colorPrimaryBackground);
 }
 
 .topnav a:hover {
@@ -207,20 +208,20 @@ body {
 
 .topnav a.active:hover {
 	box-shadow:inset 0 0 0 99999em rgba(0,0,0,0.2);
-	border-bottom: 0.5em solid rgba(255,255,255,0.99);
+	border-bottom: 0.5em solid var(--colorPrimaryBackground);
 }
 
 .topnav .header {
 	line-height: 1.5em;
 	display: inline;
-	border-left: 1em solid orange;
+	border-left: 1em solid var(--colorSecondaryBackground);
 }
 
 .dropbtn {
 	font-size: 16pt;
 	margin-right: 1em;
-	background-color: orange;
-	color: white;
+	background-color: var(--colorSecondaryBackground);
+	color: var(--colorSecondaryText);
 	padding: 0.5em;
 	border: none;
 	cursor: pointer;
@@ -235,8 +236,8 @@ body {
 	display: none;
 	position: absolute;
 	right: 0;
-	background-color: orange;
-	color: white;
+	background-color: var(--colorSecondaryBackground);
+	color: var(--colorSecondaryText);
 	box-shadow: 0em 0.4em 0.8em 0.4em rgba(0, 0, 0, 0.2);
 	z-index: 1000;
 }
@@ -299,8 +300,8 @@ table.userinfo a {
 
 footer {
 	width: 100%;
-	color: white;
-	background-color: orange;
+	color: var(--colorSecondaryText);
+	background-color: var(--colorSecondaryBackground);
 	text-align: right;
 	height: 5em;
 	position: absolute;
@@ -311,8 +312,8 @@ footer {
 	box-shadow: 0em 0.4em 0.8em 0em rgba(0, 0, 0, 0.2);
 	width: 90%;
 	margin: auto;
-	border: 0.5em solid white;
-	background-color: white;
+	border: 0.5em solid var(--colorPostBackground);
+	background-color: var(--colorPostBackground);
 	margin-top: 1em;
 	border-radius: 0.5em;
 }
@@ -324,16 +325,16 @@ footer {
 .post-category {
 	text-decoration: none;
 	font-weight: bold;
-	color: orange;
+	color: var(--colorPrimaryHeading);
 }
 
 .post-info {
-	color: grey;
+	color: var(--colorTextAdditionalInfo);
 }
 
 .post-info a {
 	text-decoration: none;
-	color: grey;
+	color: var(--colorTextAdditionalInfo);
 	font-weight: bold;
 }
 
@@ -380,7 +381,7 @@ footer {
 
 .about h1 {
 	background-color: transparent;
-	color: orange; 
+	color: var(--colorPrimaryHeading); 
 	margin-left: 5%;
 }
 
@@ -394,16 +395,16 @@ footer {
 
 div.nextpage {
 	margin: 0 auto;
-	color: white;
+	color: var(--colorSecondaryText);
 	font-size: x-large;
 	margin-top: 1em;
 	display: table;
 }
 
 div.nextpage a {
-	color: white;
+	color: var(--colorSecondaryText);
 	text-decoration: none;
-	background-color: orange;
+	background-color: var(--colorSecondaryBackground);
 	float: left;
 	padding: 0.4em 0.8em;
 	border: 0.05em solid rgba(0,0,0,0.2);
@@ -430,20 +431,20 @@ div.nextpage a:last-child {
 .categories div.border {
 	margin: 0 auto;
 	cursor: pointer;
-	border-top: 1px solid lightgrey;
-	border-bottom: 1px solid lightgrey;
+	border-top: 1px solid var(--colorPrimarySeparator);
+	border-bottom: 1px solid var(--colorPrimarySeparator);
 	width: 100%;
 }
 
 .categories div.categories-wrapper {
 	margin: 0 auto;
-	border-top: 1px solid lightgrey;
-	border-bottom: 1px solid lightgrey;
+	border-top: 1px solid var(--colorPrimarySeparator);
+	border-bottom: 1px solid var(--colorPrimarySeparator);
 	width: 95%;
 }
 
 .categories div.super {
-	color: orange;
+	color: var(--colorPrimaryHeading);
 	text-transform: uppercase;
 	margin-left: 5%;
 }
@@ -497,21 +498,21 @@ form.default-form {
 }
 
 input.search {
-	background-color: orange;
-	color: white;
-	border: 0.1em solid white;
+	background-color: var(--colorSecondaryBackground);
+	color: var(--colorSecondaryText);
+	border: 0.1em solid var(--colorPrimaryBackground);
 	border-radius: 0.5em;
 	padding: 0.5em;
 	margin: 0.5em;
 }
 
 input.search::placeholder {
-	color: white;
+	color: var(--colorSecondaryText);
 }
 
 .rank {
 	border-radius: 10rem;
-	color: white;
+	color: var(--colorSecondaryText);
 	display: inline-block;
 	padding: 0.5em;
 	font-weight: bold;
