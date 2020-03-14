@@ -163,7 +163,7 @@ body {
 	position: sticky;
 	border-top: 1em solid var(--colorSecondaryBackground);
 	font-weight: bold;
-	color: white;
+	color: var(--colorSecondaryText);
 	top: 0em;
 	list-style-type: none;
 	margin: 0;
