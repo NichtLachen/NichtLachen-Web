@@ -183,6 +183,8 @@ body {
 
 .topnav a {
 	text-align: left;
+	overflow: hidden;
+	white-space: nowrap;
 	text-overflow: ellipsis;
 	font-size: 11pt;
 	border-bottom: 0.5em solid orange;
