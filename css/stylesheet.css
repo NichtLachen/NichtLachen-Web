@@ -41,7 +41,7 @@
 
 .button:hover {
 	background-color: var(--colorPrimaryBackground);
-	color: var(--colorPrimaryHeading);
+	color: var(--colorSecondaryBackground);
 }
 
 .button:hover:before {
