@@ -60,6 +60,11 @@
 	color: var(--colorSecondaryText);
 }
 
+hr {
+	background-color: var(--colorPrimarySeparator);
+	border-color: var(--colorPrimarySeparator);
+}
+
 span {
 	display: block;
 	margin-top: 2rem;
