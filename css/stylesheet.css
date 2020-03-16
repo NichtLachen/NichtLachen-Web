@@ -65,17 +65,6 @@ hr {
 	border-color: var(--colorPrimarySeparator);
 }
 
-span {
-	display: block;
-	margin-top: 2rem;
-	color: #777;
-}
-
-span a {
-	color: #999;
-	text-decoration: underline;
-}
-
 html {
 	outline: 0;
 	height: 100%;
@@ -113,11 +102,11 @@ body {
 }
 
 .error {
-	background-color: #d9534f;
+	background-color: var(--colorPrimaryError);
 }
 
 .success {
-	background-color: #5cb85c;
+	background-color: var(--colorPrimarySuccess);
 }
 
 .btnControl {
@@ -161,7 +150,7 @@ body {
 	margin: 15% auto;
 	/* 15% from the top and centered */
 	padding: 1em;
-	box-shadow: 0em 0.4em 0.8em 0em #888;
+	box-shadow: 0em 0.4em 0.8em 0.4em rgba(0, 0, 0, 0.2);
 	width: 80%;
 	/* Could be more or less, depending on screen size */
 }
@@ -170,14 +159,14 @@ body {
 /* The Close Button */
 
 .close {
-	color: #aaa;
+	color: var(--colorPrimarySeparator);
 	float: right;
 	font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-	color: black;
+	color: var(--colorPrimaryText);
 	text-decoration: none;
 	cursor: pointer;
 }
@@ -320,7 +309,7 @@ table.userinfo tr.space {
 
 table.userinfo a {
 	text-decoration: none;
-	color: #0066ff;
+	color: var(--colorPrimaryLink);
 }
 
 footer {
@@ -494,7 +483,7 @@ form.default-form {
 	font-size: 14pt;
 	display: inline;
 	text-decoration: none;
-	color: #0066ff;
+	color: var(--colorPrimaryLink);
 }
 
 .showMore {
@@ -502,7 +491,7 @@ form.default-form {
 }
 
 .showMore + label {
-	color: #0066ff;
+	color: var(--colorPrimaryLink);
 	cursor: pointer;
 }
 

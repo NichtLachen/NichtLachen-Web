@@ -36,6 +36,12 @@ function getColor(string $name) : ?string {
 			return "#808080";
 		case "colorPrimarySeparator":
 			return "#d3d3d3";
+		case "colorPrimaryError":
+			return "#d9534f";
+		case "colorPrimarySuccess":
+			return "#5cb85c";
+		case "colorPrimaryLink":
+			return "#0066ff";
 		default:
 			return null;
 	}
@@ -59,6 +65,9 @@ function getColor(string $name) : ?string {
 				--colorSecondaryText: <?php echo getColor("colorSecondaryText"); ?>;
 				--colorTextAdditionalInfo: <?php echo getColor("colorTextAdditionalInfo"); ?>;
 				--colorPrimarySeparator: <?php echo getColor("colorPrimarySeparator"); ?>;
+				--colorPrimaryError: <?php echo getColor("colorPrimaryError"); ?>;
+				--colorPrimarySuccess: <?php echo getColor("colorPrimarySuccess"); ?>;
+				--colorPrimaryLink: <?php echo getColor("colorPrimaryLink"); ?>;
 			}
 		</style>
 		<link rel="stylesheet" href="css/stylesheet.css"/>

@@ -11,7 +11,7 @@ require_once (__DIR__ . '/templates/navbar_back.php');
 $api = new DatabaseAPI();
 $uid = $api->getUIDBySessionID(session_id());
 
-$availableColors = array("colorPrimaryBackground", "colorPostBackground", "colorSecondaryBackground", "colorPrimaryHeading", "colorPrimaryText", "colorSecondaryText", "colorTextAdditionalInfo", "colorPrimarySeparator");
+$availableColors = array("colorPrimaryBackground", "colorPostBackground", "colorSecondaryBackground", "colorPrimaryHeading", "colorPrimaryText", "colorSecondaryText", "colorTextAdditionalInfo", "colorPrimarySeparator", "colorPrimaryError", "colorPrimarySuccess", "colorPrimaryLink");
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$colors = [];
@@ -74,6 +74,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						case "colorPrimarySeparator":
 							$name = "Primäre Trennerfarbe";
 							$desc = "Farbe für Trennstriche, z.B Kategorieübersicht";
+							break;
+						case "colorPrimaryError":
+							$name = "Standard Fehlermeldungenfarbe";
+							$desc = "Farbe für Fehlermeldungen (Hintergrundfarbe)";
+							break;
+						case "colorPrimarySuccess":
+							$name = "Standard Erfolgsmeldungenfarbe";
+							$desc = "Farbe für Erfolgsmeldungen (Hintergrundfarbe)";
+							break;
+						case "colorPrimaryLink":
+							$name = "Standard Linkfarbe";
+							$desc = "Farbe für Links und z.B \"Mehr anzeigen\"";
 							break;
 						default:
 							$name = $color;
