@@ -45,9 +45,9 @@ function str_replace_first(string $from, string $to, string $content, int $count
 }
 
 function validate_username(string $username) : bool {
-	$allowed = array(".", "-", "_");
+	$allowed = array(".", "-", "_", "ä", "ö", "ü", "ß");
 
-	return ctype_alnum(str_replace($allowed, '', $username));
+	return ctype_alnum(str_replace($allowed, '', strtolower($username)));
 }
 
 ?>
