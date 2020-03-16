@@ -551,3 +551,11 @@ input.search::placeholder {
 .report:hover {
 	color: red;
 }
+
+.flexbox {
+	display: flex;
+}
+
+.flexbox-column {
+	width: 100%;
+}
