@@ -124,7 +124,7 @@ $user = $api->getUserByUID($uid);
 				<br><br>
 				<input type="checkbox" name="delete_description"/> Beschreibung löschen
 				<br><br>
-				<input type="submit" name="submit" class="button">
+				<input type="submit" name="submit" class="button" value="Speichern">
 				<br><br><br>
 				<div class="post-info">Hinweis: Es müssen nicht alle Felder ausgefüllt sein</div>
 			</form>

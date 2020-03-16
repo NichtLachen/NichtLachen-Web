@@ -96,7 +96,7 @@ button::-moz-focus-inner {
 textarea, input[type=text], input[type=email], input[type=password] {
 	background-color: var(--colorPrimaryPost);
 	color: var(--colorPrimaryText);
-	border: 1px solid var(--colorSecondaryText);
+	border: 1px solid var(--colorPrimarySeparator);
 	border-radius: 0.2em;
 }
 

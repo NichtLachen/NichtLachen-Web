@@ -34,10 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 ?>
 		<div class="center" style="text-align: left; width: 70%; font-size: 14pt;">
+			<p class="center" style="text-align: left;">Hier können Sie das Aussehen von NichtLachen 2.0 verändern.</p><br>
+			<form class="default-form" method="POST" id="colors-reset">
+				<input type="hidden" name="reset" value="true">
+				<input type="submit" class="button" value="Farben zurücksetzen">
+			</form>
 			<form class="default-form" method="POST" id="colors">
-				<p class="center" style="text-align: left;">Hier können Sie das Aussehen von NichtLachen 2.0 verändern.</p><br>
-				<input type="checkbox" name="reset" value="true"> Farben zurücksetzen
-				<br><br>
 				<?php
 				foreach ($availableColors as $color) {
 					switch($color) {
@@ -83,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				}
 				?>				
 				<br><br>
-				<input type="submit" class="button">
+				<input type="submit" class="button" value="Speichern">
 			</form>
 		</div>
 <?php
