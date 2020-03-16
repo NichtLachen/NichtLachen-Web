@@ -2,9 +2,11 @@
 
 require_once (__DIR__ . '/../include/navutils.php');
 require_once (__DIR__ . '/../classes/db/DatabaseAPI.php');
+require_once (__DIR__ . '/../classes/user/Rank.php');
 
 $api = new DatabaseAPI();
 $uid = $api->getUIDBySessionID(session_id());
+$user = $api->getUserByUID($uid);
 $from = urlencode($_SERVER['REQUEST_URI']);
 
 ?>
@@ -18,7 +20,13 @@ $from = urlencode($_SERVER['REQUEST_URI']);
 					<a href="myfavorites.php?from=<?php echo $from; ?>">Favoriten</a>
 					<a href="categoryfilter.php?from=<?php echo $from; ?>">Kategoriefilter</a>
 					<a href="colors.php?from=<?php echo $from; ?>">Farben</a>
+<?php
+if ($user->hasRank(Rank::MODERATOR) || $user->hasRank(Rank::ADMINISTRATOR)) {
+?>
 					<a href="modsite.php?from=<?php echo $from; ?>">Moderation & Administration</a>
+<?php
+}
+?>
 					<a href="about.php?from=<?php echo $from; ?>">Über</a>
 				</div>
 			</div>
