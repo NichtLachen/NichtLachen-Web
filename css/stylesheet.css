@@ -257,7 +257,7 @@ body {
 }
 
 .dropdown-content a {
-	min-width: 33%;
+	min-width: 25vw;
 	text-transform: none;
 	white-space: nowrap;
 	text-decoration: none;
@@ -512,6 +512,7 @@ form.default-form {
 }
 
 input.search {
+	min-width: 25vw;
 	background-color: var(--colorSecondaryBackground);
 	color: var(--colorSecondaryText);
 	border: 0.1em solid var(--colorPrimaryBackground);
