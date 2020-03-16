@@ -27,6 +27,8 @@ $TITLE = "Profil bearbeiten";
 require_once (__DIR__ . '/templates/header.php');
 require_once (__DIR__ . '/templates/navbar_back.php');
 
+$success = false;
+
 if(isset($_FILES['profileimage']) && !empty($_FILES['profileimage']['name'])) {
 	$image = $_FILES['profileimage'];
 	$ext = pathinfo($image['name'], PATHINFO_EXTENSION);
@@ -34,6 +36,7 @@ if(isset($_FILES['profileimage']) && !empty($_FILES['profileimage']['name'])) {
 	if(in_array($ext, ALLOWED_IMAGE_EXTENSIONS)) {
 		deleteProfileImage();
 		move_uploaded_file($image['tmp_name'], __DIR__ . '/profileimages/' . $uid . "." . $ext);
+		$success = true;
 	} else {
 		$ERROR = "Das angegebene Bild besitzt eine unerlaubte Dateiendung";
 		require (__DIR__ . '/templates/error.php');
@@ -53,6 +56,7 @@ if(isset($_POST['username']) && !empty($_POST['username'])) {
 		if(validate_username($username)) {
 			if(!$api->isNameInUse($username) && !$api->isNameInVerification($username)) {
 				$api->setUserName($uid, $username);
+				$success = true;
 			} else {
 				$ERROR = "Benutzername wird bereits verwendet";
 				require (__DIR__ . '/templates/error.php');
@@ -69,6 +73,7 @@ if(isset($_POST['username']) && !empty($_POST['username'])) {
 
 if(isset($_POST['email']) && !empty($_POST['email'])) {
 	$api->setUserEMail($uid, $_POST['email']);
+	$success = true;
 }
 
 if(isset($_POST['password']) && !empty($_POST['password'])) {
@@ -77,6 +82,7 @@ if(isset($_POST['password']) && !empty($_POST['password'])) {
 	if(strlen($password) >= 8) {
 		$password = password_hash($password, PASSWORD_DEFAULT);
 		$api->setUserPassword($uid, $password);
+		$success = true;
 	} else {
 		$ERROR = "Das Passwort muss mindestens 8 Zeichen lang sein!";
 		require (__DIR__ . '/templates/error.php');
@@ -85,10 +91,17 @@ if(isset($_POST['password']) && !empty($_POST['password'])) {
 
 if(isset($_POST['description']) && !empty($_POST['description'])) {
 	$api->setUserDescription($uid, $_POST['description']);
+	$success = true;
 }
 
 if(isset($_POST['delete_description']) && $_POST['delete_description'] == "on") {
 	$api->setUserDescription($uid, null);
+	$success = true;
+}
+
+if($success && !in_array(__DIR__ . '/templates/error.php', get_included_files())) {
+	$SUCCESS = "Profil erfolgreich aktualisiert";
+	require (__DIR__ . '/templates/success.php');
 }
 
 $user = $api->getUserByUID($uid);
