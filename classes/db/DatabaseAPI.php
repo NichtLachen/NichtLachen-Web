@@ -772,7 +772,7 @@ class DatabaseAPI {
 		if (sizeof($categoryfilter) > 0 && $categoryfilter[0] && sizeof($enabledCategories) > 0) {
 			$enabled = str_repeat('?,', count($enabledCategories) - 1) . '?'; // generates string with questionmarks for prepared statement
 
-			$stmt = $this->database->conn->prepare("SELECT COUNT posts.PID FROM likes,posts WHERE likes.PID IS NOT NULL AND posts.PID = likes.PID AND posts.CID in ($enabled) GROUP BY likes.PID HAVING SUM(likes.Value) > 0 ORDER BY CreatedAt DESC, SUM(likes.Value) DESC");
+			$stmt = $this->database->conn->prepare("SELECT posts.PID FROM likes,posts WHERE likes.PID IS NOT NULL AND posts.PID = likes.PID AND posts.CID IN ($enabled) GROUP BY likes.PID HAVING SUM(likes.Value) > 0 ORDER BY CreatedAt DESC, SUM(likes.Value) DESC");
 			$stmt->execute($enabledCategories);
 		} else {
 			$stmt = $this->database->conn->prepare("SELECT posts.PID FROM likes,posts WHERE likes.PID IS NOT NULL AND posts.PID = likes.PID GROUP BY likes.PID HAVING SUM(likes.Value) > 0 ORDER BY CreatedAt DESC, SUM(likes.Value) DESC");
