@@ -54,7 +54,7 @@ if(isset($_POST['username']) && !empty($_POST['username'])) {
 		$username = trim($_POST['username']);
 
 		if(validate_username($username)) {
-			if(!$api->isNameInUse($username) && !$api->isNameInVerification($username)) {
+			if(!$api->isNameInUse($username) && !$api->isNameInVerification($username) && !strtolower($user->getOldName()) == strtolower($username)) {
 				$api->setUserName($uid, $username);
 				$success = true;
 			} else {
