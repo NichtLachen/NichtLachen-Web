@@ -80,13 +80,13 @@ function onLoad() {
 		prevScrollpos = currentScrollPos;
 	}
 
-	if (NichtLachen && NichtLachen.setStatusBarColor && NichtLachen.setNavigationBarColor) {
+	if (window.NichtLachen && window.NichtLachen.setStatusBarColor && window.NichtLachen.setNavigationBarColor) {
 		var style = getComputedStyle(document.body);
 		var colorSecondaryBackground = style.getPropertyValue('--colorSecondaryBackground');
 
 		if (colorSecondaryBackground != null) {
-			NichtLachen.setStatusBarColor(colorSecondaryBackground);
-			NichtLachen.setNavigationBarColor(colorSecondaryBackground);
+			window.NichtLachen.setStatusBarColor(colorSecondaryBackground);
+			window.NichtLachen.setNavigationBarColor(colorSecondaryBackground);
 		}
 	}
 }
