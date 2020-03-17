@@ -316,7 +316,7 @@ footer {
 	width: 100%;
 	color: var(--colorSecondaryText);
 	background-color: var(--colorSecondaryBackground);
-	text-align: right;
+	text-align: center;
 	height: 5em;
 	position: absolute;
 	bottom: 0;
