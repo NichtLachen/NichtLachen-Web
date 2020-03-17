@@ -1,6 +1,7 @@
 <?php
 
 require_once (__DIR__ . '/../classes/db/DatabaseAPI.php');
+require_once (__DIR__ . '/../include/version.php');
 
 $api = new DatabaseAPI();
 
@@ -81,3 +82,13 @@ function getColor(string $name) : ?string {
 		<meta name='viewport' content="width=device-width, initial-scale=1" />
 	</head>
 	<body>
+<?php
+
+if (isApp()) {
+	if (getAppVersion() == "2.0-beta1" || getAppVersion() == "2.0-beta2") {
+		$ERROR = "Die verwendete NichtLachen App ist veraltet, ein Update wird benötigt.";
+		require (__DIR__ . '/../templates/error.php');
+	}
+}
+
+?>
