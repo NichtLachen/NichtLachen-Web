@@ -13,21 +13,21 @@ function onLoad() {
 	}
 
 	var navbar_back = document.getElementById('navbar_back');
-	if (!navbar_back) {
-		var backScrollpos = JSON.parse(sessionStorage.getItem('back_scrollpos'));
+	var backScrollpos = JSON.parse(sessionStorage.getItem('back_scrollpos'));
 
-		if (backScrollpos) {
-			console.log("Found back_scrollpos array");
-			for (var i = 0; i < backScrollpos.length; i++) {
-				console.log("Found back_scrollpos entry: " + backScrollpos[i].url);
-				if (backScrollpos[i].url === window.location.href) {
-					console.log("Restoring scroll position...");
-					window.scrollTo(0, backScrollpos[i].scrollpos);
-					break;
-				}
+	if (backScrollpos) {
+		console.log("Found back_scrollpos array");
+		for (var i = 0; i < backScrollpos.length; i++) {
+			console.log("Found back_scrollpos entry: " + backScrollpos[i].url);
+			if (backScrollpos[i].url === window.location.href) {
+				console.log("Restoring scroll position...");
+				window.scrollTo(0, backScrollpos[i].scrollpos);
+				break;
 			}
 		}
+	}
 
+	if (!navbar_back) {
 		sessionStorage.removeItem('back_scrollpos');
 	}
 
