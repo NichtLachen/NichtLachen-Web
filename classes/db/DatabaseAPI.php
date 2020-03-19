@@ -517,7 +517,7 @@ class DatabaseAPI {
 	}
 
 	public function hasPostAcceptedOrRejected(int $uid, int $pid) : bool {
-		$stmt = $this->database->conn->prepare("SELECT APID FROM posts_verify_accept WHERE UID = :uid AND PID = :pid");
+		$stmt = $this->database->conn->prepare("SELECT PID FROM posts_verify_accept WHERE UID = :uid AND PID = :pid");
 		$stmt->execute(array("uid" => $uid, "pid" => $pid));
 
 		return $stmt->rowCount() > 0;
@@ -890,7 +890,7 @@ class DatabaseAPI {
 	}
 
 	public function isFavSet(int $pid, int $uid) : bool {
-		$stmt = $this->database->conn->prepare("SELECT FID FROM favorites WHERE PID = :pid AND UID = :uid");
+		$stmt = $this->database->conn->prepare("SELECT PID FROM favorites WHERE PID = :pid AND UID = :uid");
 		$stmt->execute(array("pid" => $pid, "uid" => $uid));
 
 		return $stmt->rowCount() > 0;
@@ -906,7 +906,7 @@ class DatabaseAPI {
 		$res = [];
 		$start = ($page - 1) * $perPage;
 		$end = $perPage; // LIMIT offset,amount
- 		$stmt = $this->database->conn->prepare("SELECT * FROM favorites,posts WHERE favorites.UID = :uid AND favorites.PID = posts.PID ORDER BY FID DESC LIMIT :start,:end");
+ 		$stmt = $this->database->conn->prepare("SELECT * FROM favorites,posts WHERE favorites.UID = :uid AND favorites.PID = posts.PID LIMIT :start,:end");
 		$stmt->execute(array("uid" => $uid, "start" => $start, "end" => $end));
 
 		foreach ($stmt as $row) {
@@ -919,7 +919,7 @@ class DatabaseAPI {
 	public function moreNewFavPosts(int $uid, int $page, int $perPage) : bool {
 		$start = ($page - 1) * $perPage;
 		$end = $start + $perPage;
-		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM favorites WHERE UID = :uid ORDER BY FID");
+		$stmt = $this->database->conn->prepare("SELECT COUNT(PID) FROM favorites WHERE UID = :uid");
 		$stmt->execute(array("uid" => $uid));
 
 		foreach ($stmt as $row) {
