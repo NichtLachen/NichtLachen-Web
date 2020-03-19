@@ -12,7 +12,7 @@ $from = urlencode($_SERVER['REQUEST_URI']);
 ?>
 		<div class="topnav">
 			<div class="header">Nicht lachen!</div>
-			<div class="dropdown" style="float: right; margin-top: -0.5em;">
+			<div class="dropdown" style="float: right; margin-top: -0.45em;">
 				<button class="dropbtn"><i class="fas fa-bars"></i></button>
 				<div class="dropdown-content">
 					<a href="users.php?uid=<?php echo $uid; ?>&from=<?php echo $from; ?>">Mein Profil</a>
@@ -30,7 +30,7 @@ if ($user->hasRank(Rank::MODERATOR) || $user->hasRank(Rank::ADMINISTRATOR)) {
 					<a href="about.php?from=<?php echo $from; ?>">Über</a>
 				</div>
 			</div>
-			<div class="dropdown" style="float: right; margin-top: -0.5em;">
+			<div class="dropdown" style="float: right; margin-top: -0.45em;">
 				<button class="dropbtn" style="border-radius: 50%;"><i class="fas fa-search"></i></button>
 				<div class="dropdown-content">
 					<form method="GET" action="search_user.php">
