@@ -1,21 +1,10 @@
 function onLoad() {
-	var lasturl = localStorage.getItem('lastUrl');
-
-	if (window.location.href == lasturl) {
-		console.log('back() did not work, retrying');
-		back();
-	} else {
-		localStorage.removeItem('lastUrl');
-	}
-
-	var showMore = localStorage.getItem('showMore');
+	var showMore = JSON.parse(sessionStorage.getItem('showMore'));
 	if (showMore) {
-		localStorage.removeItem('showMore');
+		sessionStorage.removeItem('showMore');
 
-		more = JSON.parse(showMore);
-
-		for (var i = 0; i < more.length; i++) {
-			var checkbox = document.getElementById(more[i]);
+		for (var i = 0; i < showMore.length; i++) {
+			var checkbox = document.getElementById(showMore[i]);
 
 			if (checkbox != null) {
 				checkbox.checked = true;
@@ -23,15 +12,39 @@ function onLoad() {
 		}
 	}
 
-	var scrollpos = localStorage.getItem('scrollpos');
-	if (scrollpos) {
-		console.log('Restoring scroll position...');
-		localStorage.removeItem('scrollpos');
+	var navbar_back = document.getElementById('navbar_back');
+	if (!navbar_back) {
+		var backScrollpos = JSON.parse(sessionStorage.getItem('back_scrollpos'));
 
-		window.scrollTo(0, scrollpos);
-		setTimeout(function() { // for Android
-			window.scrollTo(0, scrollpos);
-		}, 0);
+		if (backScrollpos) {
+			console.log("Found back_scrollpos array");
+			for (var i = 0; i < backScrollpos.length; i++) {
+				console.log("Found back_scrollpos entry: " + backScrollpos[i].url);
+				if (backScrollpos[i].url === window.location.href) {
+					console.log("Restoring scroll position...");
+					window.scrollTo(0, backScrollpos[i].scrollpos);
+					break;
+				}
+			}
+		}
+
+		sessionStorage.removeItem('back_scrollpos');
+	}
+
+	window.onbeforeunload = function() {
+		var backScrollpos = JSON.parse(sessionStorage.getItem('back_scrollpos'));
+		if (!backScrollpos) {
+			backScrollpos = [];
+		}
+
+		for (var i = 0; i < backScrollpos.length; i++) {
+			if (backScrollpos[i].url === window.location.href) {
+				backScrollpos.splice(i);
+			}
+		}
+
+		backScrollpos.push({ url:window.location.href, scrollpos: window.pageYOffset});
+		sessionStorage.setItem('back_scrollpos', JSON.stringify(backScrollpos));
 	}
 
 	var parts = window.location.href.split("#");
@@ -142,7 +155,7 @@ function getCookie(cname) {
 
 function reload() {
 	console.log('Reloading page...');
-	localStorage.setItem('scrollpos', window.pageYOffset);
+	sessionStorage.setItem('scrollpos', window.pageYOffset);
 
 	var checkboxes = document.getElementsByClassName("showMore");
 
@@ -156,16 +169,18 @@ function reload() {
 			}
 		}
 
-		localStorage.setItem('showMore', JSON.stringify(checkedCheckboxes));
+		sessionStorage.setItem('showMore', JSON.stringify(checkedCheckboxes));
 	}
 
 	location.reload(true);
 }
 
 function back() {
-	var lasturl = window.location.href;
-	localStorage.setItem('lastUrl', lasturl);
-	history.back();
+	var navbar_back = document.getElementById('navbar_back');
+
+	if (navbar_back) {
+		window.location.href = navbar_back.href.split("#")[0];
+	}
 
 	return false;
 }
