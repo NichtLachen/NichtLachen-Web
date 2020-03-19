@@ -906,7 +906,7 @@ class DatabaseAPI {
 		$res = [];
 		$start = ($page - 1) * $perPage;
 		$end = $perPage; // LIMIT offset,amount
- 		$stmt = $this->database->conn->prepare("SELECT * FROM favorites,posts WHERE favorites.UID = :uid AND favorites.PID = posts.PID LIMIT :start,:end");
+ 		$stmt = $this->database->conn->prepare("SELECT * FROM favorites,posts WHERE favorites.UID = :uid AND favorites.PID = posts.PID ORDER BY posts.PID DESC LIMIT :start,:end");
 		$stmt->execute(array("uid" => $uid, "start" => $start, "end" => $end));
 
 		foreach ($stmt as $row) {
