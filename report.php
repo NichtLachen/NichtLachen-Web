@@ -9,13 +9,13 @@ $success = false;
 
 function getCombinedReasons() : string {
 	$reason = "";
-	
+
 	foreach ($_POST as $key => $value) {
 		if (strlen($key) >= strlen("reason") && substr($key, 0, strlen("reason")) == "reason" && !empty($value)) {
 			$reason = !empty($reason) ? $reason . " & " . $value : $value;
 		}
 	}
-	
+
 	return $reason;
 }
 
@@ -25,7 +25,7 @@ require_once (__DIR__ . '/templates/header.php');
 require_once (__DIR__ . '/templates/navbar_back.php');
 
 ?>
-		<div class="center" style="width: 50%; text-align: left;">
+		<div class="center" style="width: 50%; text-align: left; font-size: 14pt;">
 			<form class="default-form" method="POST" id="report">
 				<div class="post-category">Bitte geben Sie den Grund Ihrer Meldung von <?php echo $obj; ?> an</div><br>
 <?php
