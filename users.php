@@ -28,7 +28,7 @@ if ($user != null) {
 		<div class="center">
 			<div class="center profileimage" style="background-image: <?php echo $bgImage; ?>;">
 			</div>
-			<p style="font-size: x-large; font-weight: bold;"><?php echo $user != null ? $user->getName() : ""; ?> <?php if ($uid == $myuid) { ?><a class="edit" href="editprofile.php?from=<?php echo $from; ?>"><i class="fas fa-edit"></i></a><?php } else { ?><!-- TODO: REPORT --><?php } ?></p>
+			<p style="font-size: x-large; font-weight: bold;"><?php echo $user != null ? $user->getName() : ""; ?> <?php if ($uid == $myuid) { ?><a class="edit" href="editprofile.php?from=<?php echo $from; ?>"><i class="fas fa-edit"></i></a><?php } else { $rep = "report.php?uid=" . $uid . "&from=" . $from; ?><a class="edit report" href="<?php echo $rep; ?>"><i class="fas fa-exclamation-triangle"></i></a><?php } ?></p>
 			<div>
 <?php
 	if ($user->hasRank(Rank::ADMINISTRATOR)) {

@@ -65,10 +65,9 @@ if ($comment->getCreatorUID() == $uid) {
 	require (__DIR__ . '/../templates/delete_confirm.php');
 } else {
 	$repid = $comment->getCMTID();
-	$rep_js = "report.php?cmtid=" . $repid;
-	$rep = $rep_js . "&from=" . $from;
+	$rep = "report.php?cmtid=" . $repid . "&from=" . $from;
 ?>
-	<!-- TODO: REPORT -->
+	<div class="post-control post-delete report"><a href="<?php echo $rep; ?>"><i class="fas fa-exclamation-triangle"></i></a></div>
 <?php
 }
 ?>

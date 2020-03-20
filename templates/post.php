@@ -68,13 +68,11 @@ if ($post->getCreatorUID() == $uid) {
 			<label class="post-control post-delete" for="delete<?php echo $delid; ?>" style="color: red;"><i class="fas fa-trash-alt"></i></label>
 <?php
 	require (__DIR__ . '/../templates/delete_confirm.php');
-} else {
+} else if (!isset($queue) || !$queue) {
 	$repid = $post->getPID();
-	$q = isset($queue) && $queue ? "1" : "0";
-	$rep_js = "report.php?pid=" . $repid . "&queue=" . $q;
-	$rep = $rep_js . "&from=" . $from;
+	$rep = "report.php?pid=" . $repid . "&from=" . $from;
 ?>
-<!-- TODO: REPORT -->
+	<div class="post-control post-delete report"><a href="<?php echo $rep; ?>"><i class="fas fa-exclamation-triangle"></i></a></div>
 <?php
 }
 ?>
