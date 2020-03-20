@@ -517,7 +517,7 @@ class DatabaseAPI {
 	}
 
 	public function hasPostAcceptedOrRejected(int $uid, int $pid) : bool {
-		$stmt = $this->database->conn->prepare("SELECT APID FROM posts_verify_accept WHERE UID = :uid AND PID = :pid");
+		$stmt = $this->database->conn->prepare("SELECT PID FROM posts_verify_accept WHERE UID = :uid AND PID = :pid");
 		$stmt->execute(array("uid" => $uid, "pid" => $pid));
 
 		return $stmt->rowCount() > 0;
