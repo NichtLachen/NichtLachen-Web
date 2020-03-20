@@ -7,13 +7,25 @@ $api = new DatabaseAPI();
 $uid = $api->getUIDBySessionID(session_id());
 $success = false;
 
+function getCombinedReasons() : string {
+	$reason = "";
+	
+	foreach ($_POST as $key => $value) {
+		if (strlen($key) >= strlen("reason") && substr($key, 0, strlen("reason")) == "reason" && !empty($value)) {
+			$reason = !empty($reason) ? $reason . " & " . $value : $value;
+		}
+	}
+	
+	return $reason;
+}
+
 $obj = isset($_GET['pid']) ? "Post #" . $_GET['pid'] : (isset($_GET['cmtid']) ? "Kommentar #" . $_GET['cmtid'] : (isset($_GET['uid']) ? $api->getUserByUID($_GET['uid'])->getName() : null));
 $TITLE = $obj . " melden";
 require_once (__DIR__ . '/templates/header.php');
 require_once (__DIR__ . '/templates/navbar_back.php');
 
 ?>
-		<div class="center">
+		<div class="center" style="width: 50%; text-align: left;">
 			<form class="default-form" method="POST" id="report">
 				<div class="post-category">Bitte geben Sie den Grund Ihrer Meldung von <?php echo $obj; ?> an</div><br>
 <?php
@@ -44,24 +56,24 @@ if (isset($_GET['pid']) && !isset($_POST['pid'])) {
 		$ERROR = "Benutzer nicht gefunden";
 		require (__DIR__ . '/templates/error.php');
 	}
-} else if (isset($_POST['pid']) && isset($_POST['reason'])) {
+} else if (isset($_POST['pid'])) {
 	$success = true;
 	$pid = $_GET['pid'];
-	$reason = $_POST['reason'];
+	$reason = getCombinedReasons();
 	if (!empty($reason) && $api->getPostByPID($pid) != null && !$api->hasReportedPost($uid, $pid)) {
 		$api->reportPost($uid, $pid, $reason);
 	}
-} else if (isset($_POST['cmtid']) && isset($_POST['reason'])) {
+} else if (isset($_POST['cmtid'])) {
 	$success = true;
 	$cmtid = $_GET['cmtid'];
-	$reason = $_POST['reason'];
+	$reason = getCombinedReasons();
 	if (!empty($reason) && $api->getCommentByCMTID($cmtid) != null && !$api->hasReportedComment($uid, $cmtid)) {
 		$api->reportComment($uid, $cmtid, $reason);
 	}
-} else if (isset($_POST['uid']) && isset($_POST['reason'])) {
+} else if (isset($_POST['uid'])) {
 	$success = true;
 	$ruid = $_GET['uid'];
-	$reason = $_POST['reason'];
+	$reason = getCombinedReasons();
 	if (!empty($reason) && $api->getUserByUID($ruid) != null && !$api->hasReportedUser($uid, $ruid)) {
 		$api->reportUser($uid, $ruid, $reason);
 	}
@@ -71,7 +83,12 @@ if (isset($_GET['pid']) && !isset($_POST['pid'])) {
 }
 
 ?>
-				<textarea style="width: 95%; height: 15em;" form="report" name="reason"></textarea><br>
+				<input type="checkbox" name="reason1" value="Rechtschreibung/Grammatik"> Rechtschreibung/Grammatik<br>
+				<input type="checkbox" name="reason2" value="Spam"> Spam<br>
+				<input type="checkbox" name="reason3" value="Beleidigung anderer User"> Beleidigung anderer User<br>
+				<input type="checkbox" name="reason4" value="Falsche Kategorie"> Falsche Kategorie<br>
+				<input type="checkbox" name="reason5" value="Doppelter Post"> Doppelter Post<br><br>
+				<input style="width: 100%;" type="text" name="reason6" placeholder="Anderer Grund"><br>
 				<br>
 				<input type="submit" class="button" value="Melden">
 			</form>
