@@ -4,6 +4,7 @@ require_once (__DIR__ . '/Database.php');
 require_once (__DIR__ . '/../user/User.php');
 require_once (__DIR__ . '/../post/Post.php');
 require_once (__DIR__ . '/../post/Comment.php');
+require_once (__DIR__ . '/../report/Report.php');
 require_once (__DIR__ . '/../../config.php');
 
 DatabaseAPI::$DB_INSTANCE = isset(DatabaseAPI::$DB_INSTANCE) ? DatabaseAPI::$DB_INSTANCE : new Database();
@@ -1009,6 +1010,44 @@ class DatabaseAPI {
 		$stmt->execute(array("uid" => $uid, "ruid" => $ruid));
 		
 		return $stmt->rowCount() > 0;
+	}
+	
+	public function getPostReports(int $page, int $perPage) : array {
+		$res = [];
+		$start = ($page - 1) * $perPage;
+		$end = $perPage; // LIMIT offset,amount
+		$stmt = $this->database->conn->prepare("SELECT PID, COUNT(*) FROM reports WHERE PID IS NOT NULL GROUP BY PID ORDER BY COUNT(*) DESC LIMIT :start,:end");
+		$stmt->execute(array("start" => $start, "end" => $end));
+
+		foreach ($stmt as $row) {
+			$tmpstmt = $this->database->conn->prepare("SELECT * FROM reports WHERE PID = :pid");
+			$tmpstmt->execute(array("pid" => $row['PID']));
+
+			$reports = [];
+			
+			foreach ($tmpstmt as $tmprow) {
+				$reports[sizeof($reports)] = new Report($tmprow['RPID'], $tmprow['PID'], null, null, $tmprow['Reason'], $tmprow['UID']);
+			}
+			
+			$res[sizeof($res)] = $reports;
+		}
+
+		return $res;
+	}
+
+	public function morePostReports(int $page, int $perPage) : bool {
+		$start = ($page - 1) * $perPage;
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT COUNT(DISTINCT PID) FROM reports WHERE PID IS NOT NULL");
+		$stmt->execute();
+
+		foreach ($stmt as $row) {
+			if ($row['COUNT(DISTINCT PID)'] > $end) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
 
