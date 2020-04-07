@@ -291,6 +291,7 @@ body {
 
 table.userinfo {
 	border: 0;
+	word-break: break-word;
 	white-space: pre-wrap; /* For \n */
 }
 
