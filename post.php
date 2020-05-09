@@ -33,7 +33,7 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 } else if (isset($_POST['cid']) && isset($_POST['text'])) {
 	$cid = $_GET['cid'];
 	$text = $_POST['text'];
-	if (!empty($text) && $api->getCategoryName($cid) != null && !$api->isSuperCategory($cid)) {
+	if (strlen($text) > 0 && $api->getCategoryName($cid) != null && !$api->isSuperCategory($cid)) {
 		$api->postQueue($cid, $uid, $text);
 	}
 ?>

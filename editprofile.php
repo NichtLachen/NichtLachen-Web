@@ -29,7 +29,7 @@ require_once (__DIR__ . '/templates/navbar_back.php');
 
 $success = false;
 
-if(isset($_FILES['profileimage']) && !empty($_FILES['profileimage']['name'])) {
+if(isset($_FILES['profileimage']) && strlen($_FILES['profileimage']['name']) > 0) {
 	$image = $_FILES['profileimage'];
 	$ext = pathinfo($image['name'], PATHINFO_EXTENSION);
 
@@ -47,7 +47,7 @@ if(isset($_POST['delete_profileimage']) && $_POST['delete_profileimage'] == "on"
 	deleteProfileImage();
 }
 
-if(isset($_POST['username']) && !empty($_POST['username'])) {
+if(isset($_POST['username']) && strlen($_POST['username']) > 0) {
 	$changedAt = new DateTime($user->getNameChangedAt());
 
 	if ($changedAt->diff(new Datetime())->days >= 7) {
@@ -71,12 +71,12 @@ if(isset($_POST['username']) && !empty($_POST['username'])) {
 	}
 }
 
-if(isset($_POST['email']) && !empty($_POST['email'])) {
+if(isset($_POST['email']) && strlen($_POST['email']) > 0) {
 	$api->setUserEMail($uid, $_POST['email']);
 	$success = true;
 }
 
-if(isset($_POST['password']) && !empty($_POST['password'])) {
+if(isset($_POST['password'])) {
 	$password = $_POST['password'];
 
 	if(strlen($password) >= 8) {
@@ -89,7 +89,7 @@ if(isset($_POST['password']) && !empty($_POST['password'])) {
 	}
 }
 
-if(isset($_POST['description']) && !empty($_POST['description'])) {
+if(isset($_POST['description']) && strlen($_POST['description']) > 0) {
 	$api->setUserDescription($uid, $_POST['description']);
 	$success = true;
 }

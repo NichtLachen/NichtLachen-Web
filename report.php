@@ -11,8 +11,8 @@ function getCombinedReasons() : string {
 	$reason = "";
 
 	foreach ($_POST as $key => $value) {
-		if (strlen($key) >= strlen("reason") && substr($key, 0, strlen("reason")) == "reason" && !empty($value)) {
-			$reason = !empty($reason) ? $reason . " & " . $value : $value;
+		if (strlen($key) >= strlen("reason") && substr($key, 0, strlen("reason")) == "reason" && strlen($value) > 0) {
+			$reason = strlen($reason) > 0 ? $reason . " & " . $value : $value;
 		}
 	}
 
@@ -60,21 +60,21 @@ if (isset($_GET['pid']) && !isset($_POST['pid'])) {
 	$success = true;
 	$pid = $_GET['pid'];
 	$reason = getCombinedReasons();
-	if (!empty($reason) && $api->getPostByPID($pid) != null && !$api->hasReportedPost($uid, $pid)) {
+	if (strlen($reason) > 0 && $api->getPostByPID($pid) != null && !$api->hasReportedPost($uid, $pid)) {
 		$api->reportPost($uid, $pid, $reason);
 	}
 } else if (isset($_POST['cmtid'])) {
 	$success = true;
 	$cmtid = $_GET['cmtid'];
 	$reason = getCombinedReasons();
-	if (!empty($reason) && $api->getCommentByCMTID($cmtid) != null && !$api->hasReportedComment($uid, $cmtid)) {
+	if (strlen($reason) > 0 && $api->getCommentByCMTID($cmtid) != null && !$api->hasReportedComment($uid, $cmtid)) {
 		$api->reportComment($uid, $cmtid, $reason);
 	}
 } else if (isset($_POST['uid'])) {
 	$success = true;
 	$ruid = $_GET['uid'];
 	$reason = getCombinedReasons();
-	if (!empty($reason) && $api->getUserByUID($ruid) != null && !$api->hasReportedUser($uid, $ruid)) {
+	if (strlen($reason) > 0 && $api->getUserByUID($ruid) != null && !$api->hasReportedUser($uid, $ruid)) {
 		$api->reportUser($uid, $ruid, $reason);
 	}
 } else {

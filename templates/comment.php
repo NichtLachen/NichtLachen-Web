@@ -44,7 +44,7 @@ $color = $api->isCommentLikeSet($comment->getCMTID(), $uid, 1) ? "red" : "grey";
 			<div class="post-content"><?php
 				echo $content[0];
 
-				if (!empty($content[1])) {
+				if (strlen($content[1]) > 0) {
 					?><input type="checkbox" class="showMore" id="showMore<?php echo $comment->getCMTID(); ?>"><label for="showMore<?php echo $comment->getCMTID();?>">Mehr anzeigen <i class="fa fa-arrow-down" aria-hidden="true"></i></label><div><?php
 					echo $content[1];
 					?></div><?php

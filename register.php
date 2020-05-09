@@ -21,10 +21,10 @@ require_once (__DIR__ . '/templates/header.php');
 
 if (ALLOW_REGISTRATION) {
 	if (isset($_POST['register'])) {
-		if(isset ($_POST['username']) && !empty($_POST['username'])) {
+		if(isset ($_POST['username']) && strlen($_POST['username']) > 0) {
 			$username = trim($_POST['username']);
 
-			if(isset($_POST['email']) && !empty($_POST['email'])) {
+			if(isset($_POST['email']) && strlen($_POST['email']) > 0) {
 				$email = $_POST['email'];
 				$pwlen = isset($_POST['password']) ? strlen($_POST['password']) : 0;
 

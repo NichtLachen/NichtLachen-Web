@@ -8,12 +8,12 @@ $page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
 $prev = $page > 1 ? " href=\"" . hrefReplaceVar("page", ($page - 1)) . "\"": "";
 $prevNum = $page > 1 ? '<a href="' . hrefReplaceVar("page", ($page - 1)) . '">' . ($page - 1) . '</a>' : "";
 $next = $checkMore($page, POSTS_PER_PAGE) ? " href=\"" . hrefReplaceVar("page", ($page + 1)) . "\"" : "";
-$nextNum = !empty($next) ? '<a href="' . hrefReplaceVar("page", ($page + 1)) . '">' . ($page + 1) . '</a>' : "";
+$nextNum = strlen($next) > 0 ? '<a href="' . hrefReplaceVar("page", ($page + 1)) . '">' . ($page + 1) . '</a>' : "";
 
 $comments = $getComments($page, POSTS_PER_PAGE);
 require (__DIR__ . '/../templates/comment_array.php');
 
-if ($page > 1 || !empty($next)) {
+if ($page > 1 || strlen($next) > 0) {
 	require_once (__DIR__ . '/../templates/prevnext.php');
 }
 

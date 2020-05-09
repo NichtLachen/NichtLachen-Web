@@ -33,7 +33,7 @@ $content = splitTextAtLength($content, 800);
 			<div class="post-content"><?php
 				echo $content[0];
 
-				if (!empty($content[1])) {
+				if (strlen($content[1]) > 0) {
 					?><input type="checkbox" class="showMore" id="showMore_<?php echo $post->getPID(); ?>"><label for="showMore_<?php echo $post->getPID();?>" id="showMoreL_<?php echo $post->getPID(); ?>">Mehr anzeigen <i class="fa fa-arrow-down" aria-hidden="true"></i></label><div for="showMoreL_<?php echo $post->getPID(); ?>"><?php
 					echo $content[1]; ?></div><?php
 				} ?></div>

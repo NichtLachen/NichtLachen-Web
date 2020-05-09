@@ -18,7 +18,7 @@ $content = splitTextAtLength(escapeHTML($user->getDescription()), 800);
 		<div class="post" id="<?php echo $user->getUID();?>">
 			<a class="post-category" href="users.php?uid=<?php echo $user->getUID();?>&from=<?php echo $from_before; ?>"><?php echo $user->getName(); ?></a>
 			<br><br>
-			<div class="post-content"><?php echo $content[0]; if (!empty($content[1])) { ?><input type="checkbox" class="showMore" id="showMore<?php echo $user->getUID(); ?>"><label for="showMore<?php echo $user->getUID();?>" id="showMoreL<?php echo $user->getUID(); ?>">Mehr anzeigen <i class="fa fa-arrow-down" aria-hidden="true"></i></label><div for="showMoreL<?php echo $user->getUID(); ?>"><?php echo $content[1]; ?></div><?php } ?></div>
+			<div class="post-content"><?php echo $content[0]; if (strlen($content[1]) > 0) { ?><input type="checkbox" class="showMore" id="showMore<?php echo $user->getUID(); ?>"><label for="showMore<?php echo $user->getUID();?>" id="showMoreL<?php echo $user->getUID(); ?>">Mehr anzeigen <i class="fa fa-arrow-down" aria-hidden="true"></i></label><div for="showMoreL<?php echo $user->getUID(); ?>"><?php echo $content[1]; ?></div><?php } ?></div>
 			<br>
 <?php
 if ($user->getUID() != $myuid) {
