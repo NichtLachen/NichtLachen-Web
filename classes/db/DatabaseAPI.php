@@ -818,8 +818,10 @@ class DatabaseAPI {
 		$res = [];
 		$start = ($page - 1) * $perPage;
 		$end = $perPage; // LIMIT offset,amount
-		$stmt = $this->database->conn->prepare("SELECT * FROM posts,followers WHERE posts.UID = followers.UID AND followers.FollowerUID = :uid ORDER BY PID DESC LIMIT :start,:end");
-		$stmt->execute(array("uid" => $uid, "start" => $start, "end" => $end));
+		$disallowedCIDs = ANONYMOUS_CATEGORIES;
+		$disallowed = str_repeat('?,', count($disallowedCIDs) - 1) . '?'; // generates string with questionmarks for prepared statement
+		$stmt = $this->database->conn->prepare("SELECT * FROM posts,followers WHERE posts.UID = followers.UID AND followers.FollowerUID = ? AND CID NOT IN ($disallowed) ORDER BY PID DESC LIMIT ?,?");
+		$stmt->execute(array_merge(array($uid), $disallowedCIDs, array($start, $end)));
 
 		foreach ($stmt as $row) {
 			$res[sizeof($res)] = $this->getPost($row);
@@ -831,8 +833,10 @@ class DatabaseAPI {
 	public function moreUserSubscriptionPosts(int $uid, int $page, int $perPage) : bool {
 		$start = ($page - 1) * $perPage;
 		$end = $start + $perPage;
-		$stmt = $this->database->conn->prepare("SELECT COUNT(posts.PID) FROM posts,followers WHERE posts.UID = followers.UID AND followers.FollowerUID = :uid ORDER BY PID");
-		$stmt->execute(array("uid" => $uid));
+		$disallowedCIDs = ANONYMOUS_CATEGORIES;
+		$disallowed = str_repeat('?,', count($disallowedCIDs) - 1) . '?'; // generates string with questionmarks for prepared statement
+		$stmt = $this->database->conn->prepare("SELECT COUNT(posts.PID) FROM posts,followers WHERE posts.UID = followers.UID AND followers.FollowerUID = ? AND CID NOT IN ($disallowed) ORDER BY PID");
+		$stmt->execute(array_merge(array($uid), $disallowedCIDs));
 
 		foreach ($stmt as $row) {
 			if ($row['COUNT(posts.PID)'] > $end) {
