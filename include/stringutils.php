@@ -7,7 +7,7 @@ function countCharacters(string $text) : int {
 function splitTextAtLength(?string $text, int $length) : array {
 	$res = ["", ""];
 
-	if ($text != null && countCharacters($text) > $length) {
+	if ($text != null && countCharacters(strip_tags($text)) > $length) {
 		foreach(mb_str_split($text) as $char) { // PERFORMANCE intensive!
 			$res[0] .= $char;
 
