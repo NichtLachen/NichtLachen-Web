@@ -6,7 +6,7 @@ function connectPushService(sid) {
 	socket.onopen = function () {
 		console.log("Connection to WebSocket established.");
 
-		sendPushService(sid);
+		login(sid);
 	};
 
 	socket.onmessage = function (messageEvent) {
@@ -25,6 +25,13 @@ function connectPushService(sid) {
 	};
 }
 
+function login(sid) {
+	var jsonData = {};
+	jsonData['type'] = "login";
+	jsonData['content'] = sid;
+
+	sendPushService(JSON.stringify(jsonData));
+}
 
 function sendPushService(msg) {
 	if (socket != null && socket.readyState == WebSocket.OPEN) {
