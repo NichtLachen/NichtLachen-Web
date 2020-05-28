@@ -18,10 +18,12 @@ function connectPushService(sid) {
 	};
 
 	socket.onclose = function (closeEvent) {
-		console.log('Connection to WebSocket closed!');
-		console.log('Reconnecting...');
+		if (closeEvent.code != 1001) { // closed by reloading page or socket.close()
+			console.log('Connection to WebSocket closed!');
+			console.log('Reconnecting...');
 
-		connectPushService(sid);
+			connectPushService(sid);
+		}
 	};
 }
 
