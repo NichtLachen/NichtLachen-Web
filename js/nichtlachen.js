@@ -102,6 +102,9 @@ function onLoad() {
 			window.NichtLachen.setNavigationBarColor(colorSecondaryBackground);
 		}
 	}
+
+	// PushService
+	connectPushService(getSessionID());
 }
 
 function deleteConfirmClose(id) {

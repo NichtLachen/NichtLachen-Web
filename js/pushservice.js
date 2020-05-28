@@ -1,9 +1,7 @@
-var sid;
 var socket;
 
 function connectPushService(sid) {
-	this.sid = sid;
-	socket = new WebSocket("wss://dev.nichtlachen.nl/websocket");
+	socket = new WebSocket("wss://" + location.host + "/websocket");
 
 	socket.onopen = function () {
 		console.log("Connection to WebSocket established.");
@@ -23,7 +21,7 @@ function connectPushService(sid) {
 		console.log('Connection to WebSocket closed!');
 		console.log('Reconnecting...');
 
-		connectPushService(this.sid);
+		connectPushService(sid);
 	};
 }
 
