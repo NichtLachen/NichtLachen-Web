@@ -153,6 +153,10 @@ function getCookie(cname) {
 	return "";
 }
 
+function getSessionID() {
+	return getCookie("NL_SID");
+}
+
 function reload() {
 	console.log('Reloading page...');
 	sessionStorage.setItem('scrollpos', window.pageYOffset);
