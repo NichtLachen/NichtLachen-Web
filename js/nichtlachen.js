@@ -195,3 +195,11 @@ function back() {
 function goto(url) {
 	window.location.href = url;
 }
+
+function share(text) {
+	if (window.NichtLachen && window.NichtLachen.shareURL) {
+		window.NichtLachen.shareURL(text);
+	} else {
+		window.prompt("Zum Teilen kopieren: ", text);
+	}
+}
