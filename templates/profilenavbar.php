@@ -20,7 +20,7 @@ $from = isset($_GET['from']) ? $_GET['from'] : "./";
 <?php
 if($uid == $myuid) {
 ?>
-			<a style="float: right; margin-right: 1.5em; margin-top: -0.45em;" href="logout.php">Ausloggen</a>
+			<a style="float: right; margin-right: 1.5em; margin-top: -0.45em;" href="logout.php" onclick="return confirm('Wirklich abmelden?');">Ausloggen</a>
 <?php
 }
 ?>
