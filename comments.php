@@ -34,9 +34,13 @@ if ($post != null) {
 		}
 
 		$api->postComment($pid, $uid, $replyTo, $text);
+
 	}
 
+require_once(__DIR__ . '/templates/post.php');
+
 ?>
+		<br><br>
 		<div class="center">
 			<form class="default-form" method="POST" action="?pid=<?php echo $pid; ?>&from=<?php echo urlencode($_GET['from']); ?>" id="comment">
 				<div class="post-category">Kommentieren</div><br>
