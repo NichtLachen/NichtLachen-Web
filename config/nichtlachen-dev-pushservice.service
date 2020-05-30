@@ -1,0 +1,13 @@
+[Unit]
+Description=PushService for NichtLachen 2.0 (Dev)
+
+[Service]
+Type=simple
+Restart=always
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/dev.nichtlachen.nl/
+ExecStart=/usr/bin/env java -Xms128M -Xmx128M -jar /var/www/dev.nichtlachen.nl/NichtLachen-PushService/target/NichtLachen-PushService.jar
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,3 @@
+[submodule "NichtLachen-PushService"]
+	path = NichtLachen-PushService
+	url = https://git.linux4.de/NichtLachen/NichtLachen-PushService
