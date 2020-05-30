@@ -204,4 +204,6 @@ function share(text) {
 	} else {
 		window.prompt("Zum Teilen kopieren: ", text);
 	}
+
+	return false;
 }
