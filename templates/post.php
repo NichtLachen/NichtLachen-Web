@@ -46,6 +46,7 @@ if (!isset($queue) || !$queue) {
 			<div class="post-control post-dislike"><a onclick="return callURLWithReload('like.php?like=-1&pid=<?php echo $post->getPID();?>');" href="like.php?like=-1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $dislike; ?> fa-thumbs-down"></i></a> <?php echo $api->countPostDislikes($post->getPID());?></div>
 			<div class="post-control post-comments"><a href="comments.php?pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>"><i class="fas fa-comments"></i></a> <?php echo $api->countPostComments($post->getPID());?></div>
 			<div class="post-control post-fav<?php echo $api->isFavSet($post->getPID(), $uid) ? " active" : "";?>"><a onclick="return callURLWithReload('fav.php?pid=<?php echo $post->getPID();?>');" href="fav.php?pid=<?php echo $post->getPID();?>&from=<?php echo $from;?>"><i class="fas fa-star"></i></a></div>
+			<div class="post-control post-fav"><a href="" onclick="share('https://' + location.host + '/comments.php?pid=<?php echo $post->getPID(); ?>')"><i class="fas fa-share-alt"></i></a></div>
 <?php
 } else {
 
