@@ -104,7 +104,9 @@ function onLoad() {
 	}
 
 	// PushService
-	connectPushService(getSessionID());
+	if (!window.NichtLachen) { // do not connect when using app
+		connectPushService(getSessionID());
+	}
 }
 
 function deleteConfirmClose(id) {
