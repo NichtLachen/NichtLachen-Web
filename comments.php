@@ -8,6 +8,7 @@ $api = new DatabaseAPI();
 $pid = isset($_GET['pid']) && is_numeric($_GET['pid']) ? $_GET['pid'] : 0; // PID 0 does never exist
 $post = $api->getPostByPID($pid);
 $uid = $api->getUIDBySessionID(session_id());
+$comment_from = isset($_GET['from']) ? ("&from=" . urlencode($_GET['from'])) : "";
 
 $TITLE = $post != null ? "Kommentare zu Post #" . $post->getPID() : "Post nicht gefunden!";
 
@@ -42,7 +43,7 @@ require_once(__DIR__ . '/templates/post.php');
 ?>
 		<br><br>
 		<div class="center">
-			<form class="default-form" method="POST" action="?pid=<?php echo $pid; ?>&from=<?php echo urlencode($_GET['from']); ?>" id="comment">
+			<form class="default-form" method="POST" action="?pid=<?php echo $pid . $comment_from; ?>" id="comment">
 				<div class="post-category">Kommentieren</div><br>
 				<input type="hidden" name="pid" value="<?php echo $pid; ?>">
 				<textarea style="width: 90%; height: 8em;" form="comment" name="text"><?php echo isset($_GET['to']) ? "@" . $_GET['to'] : ""; ?></textarea><br>
