@@ -341,7 +341,7 @@ class DatabaseAPI {
 			$replyTo[sizeof($replyTo)] = new CommentReply($tmp['UID_F'], $tmp['ReplaceValue']);
 		}
 
-		return new Comment($row['CMTID'], $row['PID'], $row['UID'], $replyTo, $row['Content'], $row['CreatedAt']);
+		return new Comment($row['CMTID'], $row['PID'], $this->getPostCID($row['PID']), $row['UID'], $replyTo, $row['Content'], $row['CreatedAt']);
 	}
 
 	public function getComments(int $pid, int $page, int $perPage) : array {
@@ -481,6 +481,15 @@ class DatabaseAPI {
 		$stmt->execute(array("cid" => $cid));
 
 		return $stmt->rowCount() > 0;
+	}
+
+	public function getPostCID(int $pid) : int {
+		$stmt = $this->database->conn->prepare("SELECT CID FROM posts WHERE PID = :pid");
+		$stmt->execute(array("pid" => $pid));
+
+		foreach ($stmt as $row) {
+			return $row['CID'];
+		}
 	}
 
 	public function getNewCategoryPosts(int $cid, int $page, int $perPage) : array {

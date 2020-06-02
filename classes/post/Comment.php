@@ -6,14 +6,10 @@ class Comment extends Post {
 	private int $cmtid;
 	private array $replyTo;
 
-	public function __construct(int $cmtid, int $pid, int $uid, array $replyTo, string $content, string $createdAt) {
-		parent::__construct($pid, -1, $uid, $content, $createdAt);
+	public function __construct(int $cmtid, int $pid, int $cid, int $uid, array $replyTo, string $content, string $createdAt) {
+		parent::__construct($pid, $cid, $uid, $content, $createdAt);
 		$this->cmtid = $cmtid;
-		$this->pid = $pid;
-		$this->uid = $uid;
 		$this->replyTo = $replyTo;
-		$this->content = $content;
-		$this->createdAt = $createdAt;
 	}
 
 	public function getCMTID() : int {

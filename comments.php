@@ -57,12 +57,12 @@ require_once(__DIR__ . '/templates/post.php');
 		return $api->moreComments($pid, $page, $perPage);
 	};
 
-	$getComments = function(int $page, int $perPage) : array {
+	$getPosts = function(int $page, int $perPage) : array {
 		global $api, $pid;
 		return $api->getComments($pid, $page, $perPage);
 	};
 
-	require_once (__DIR__ . '/templates/paged_comment_array.php');
+	require_once (__DIR__ . '/templates/paged_post_array.php');
 } else {
 	$ERROR = $TITLE;
 	require (__DIR__ . '/templates/error.php');
