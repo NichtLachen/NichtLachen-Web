@@ -976,7 +976,7 @@ class DatabaseAPI {
 			$res[sizeof($res)] = $row['Value'];
 		}
 
-		return $res; 
+		return $res;
 	}
 
 	public function addUserSetting(int $uid, string $key, string $value) {
@@ -988,43 +988,43 @@ class DatabaseAPI {
 		$stmt = $this->database->conn->prepare("DELETE FROM settings WHERE UID = :uid AND Name = :key");
 		$stmt->execute(array("uid" => $uid, "key" => $key));
 	}
-	
+
 	public function reportPost(int $uid, int $pid, string $reason) {
 		$stmt = $this->database->conn->prepare("INSERT INTO reports (UID,PID,Reason) VALUES (:uid, :pid, :reason)");
 		$stmt->execute(array("uid" => $uid, "pid" => $pid, "reason" => $reason));
 	}
-	
+
 	public function reportComment(int $uid, int $cmtid, string $reason) {
 		$stmt = $this->database->conn->prepare("INSERT INTO reports (UID,CMTID,Reason) VALUES (:uid, :cmtid, :reason)");
 		$stmt->execute(array("uid" => $uid, "cmtid" => $pid, "reason" => $reason));
 	}
-	
+
 	public function reportUser(int $uid, int $ruid, string $reason) {
 		$stmt = $this->database->conn->prepare("INSERT INTO reports (UID,RUID,Reason) VALUES (:uid, :cmtid, :reason)");
 		$stmt->execute(array("uid" => $uid, "ruid" => $ruid, "reason" => $reason));
 	}
-	
+
 	public function hasReportedPost(int $uid, int $pid) : bool {
 		$stmt = $this->database->conn->prepare("SELECT RPID FROM reports WHERE UID = :uid AND PID = :pid");
 		$stmt->execute(array("uid" => $uid, "pid" => $pid));
-		
+
 		return $stmt->rowCount() > 0;
 	}
-	
+
 	public function hasReportedComment(int $uid, int $cmtid) : bool {
 		$stmt = $this->database->conn->prepare("SELECT RPID FROM reports WHERE UID = :uid AND CMTID = :cmtid");
 		$stmt->execute(array("uid" => $uid, "cmtid" => $cmtid));
-		
+
 		return $stmt->rowCount() > 0;
 	}
-	
+
 	public function hasReportedUser(int $uid, int $ruid) : bool {
 		$stmt = $this->database->conn->prepare("SELECT RPID FROM reports WHERE UID = :uid AND RUID = :ruid");
 		$stmt->execute(array("uid" => $uid, "ruid" => $ruid));
-		
+
 		return $stmt->rowCount() > 0;
 	}
-	
+
 	public function getPostReports(int $page, int $perPage) : array {
 		$res = [];
 		$start = ($page - 1) * $perPage;
@@ -1037,11 +1037,11 @@ class DatabaseAPI {
 			$tmpstmt->execute(array("pid" => $row['PID']));
 
 			$reports = [];
-			
+
 			foreach ($tmpstmt as $tmprow) {
 				$reports[sizeof($reports)] = new Report($tmprow['RPID'], $tmprow['PID'], null, null, $tmprow['Reason'], $tmprow['UID']);
 			}
-			
+
 			$res[sizeof($res)] = $reports;
 		}
 

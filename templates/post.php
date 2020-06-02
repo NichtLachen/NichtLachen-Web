@@ -15,6 +15,9 @@ $likeColor = "green";
 $likeIcon = "fa-thumbs-up";
 $pidStr = "pid";
 
+$likes = $api->countPostLikes($pid);
+$dislikes = $api->countPostDislikes($pid);
+
 $isComment = $post instanceof Comment;
 
 if ($isComment) {
@@ -24,6 +27,8 @@ if ($isComment) {
 	$likeColor = $api->isCommentLikeSet($post->getCMTID(), $uid, 1) ? "red" : "grey";
 	$likeIcon = "fa-heart";
 	$pidStr = "cmtid";
+
+	$likes = $api->countCommentLikes($cmtid);
 
 	$anoninfo = in_array($post->getCID(), ANONYMOUS_CATEGORIES) && $parent_post->getCreatorUID() == $post->getCreatorUID() ? "Vor" : "vor";
 	$anonreply = in_array($post->getCID(), ANONYMOUS_CATEGORIES) && $parent_post->getCreatorUID() == $post->getCreatorUID() ? "" : "<a id=\"". $post->getCMTID() . "end\" class=\"post-info\" style=\"display: inline; text-decoration: none;\" href=\"" . hrefReplaceVar("to", $user->getName()) . "\">Antworten</a>";
@@ -94,11 +99,11 @@ if (!isset($queue) || !$queue) {
 			echo $anonreply;
 	}
 ?>
-			<div class="post-control post-like"><a onclick="return callURLWithReload('api/like.php?like=1&<?php echo $pidStr . "=" . ($isComment ? $post->getCMTID() : $post->getPID());?>');" href="api/like.php?like=1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $like . " " . $likeIcon; ?>" style="color: <?php echo $likeColor; ?>"></i></a> <?php echo $api->countPostLikes($post->getPID());?></div>
+			<div class="post-control post-like"><a onclick="return callURLWithReload('api/like.php?like=1&<?php echo $pidStr . "=" . ($isComment ? $post->getCMTID() : $post->getPID());?>');" href="api/like.php?like=1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $like . " " . $likeIcon; ?>" style="color: <?php echo $likeColor; ?>"></i></a> <?php echo $likes;?></div>
 <?php
 	if (!$isComment) {
 ?>
-			<div class="post-control post-dislike"><a onclick="return callURLWithReload('api/like.php?like=-1&pid=<?php echo $post->getPID();?>');" href="api/like.php?like=-1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $dislike; ?> fa-thumbs-down"></i></a> <?php echo $api->countPostDislikes($post->getPID());?></div>
+			<div class="post-control post-dislike"><a onclick="return callURLWithReload('api/like.php?like=-1&pid=<?php echo $post->getPID();?>');" href="api/like.php?like=-1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $dislike; ?> fa-thumbs-down"></i></a> <?php echo $dislikes;?></div>
 <?php
 $comment_style = isset($comment_from) ? ' style="visibility: hidden;"' : "";
 ?>
