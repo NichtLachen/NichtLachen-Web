@@ -1,14 +1,13 @@
 <?php
-class Comment {
+require_once (__DIR__ . '/Post.php');
+
+class Comment extends Post {
 
 	private int $cmtid;
-	private int $pid;
-	private int $uid;
 	private array $replyTo;
-	private string $content;
-	private string $createdAt;
 
 	public function __construct(int $cmtid, int $pid, int $uid, array $replyTo, string $content, string $createdAt) {
+		parent::__construct($pid, -1, $uid, $content, $createdAt);
 		$this->cmtid = $cmtid;
 		$this->pid = $pid;
 		$this->uid = $uid;
@@ -21,24 +20,8 @@ class Comment {
 		return $this->cmtid;
 	}
 
-	public function getPID() : int {
-		return $this->pid;
-	}
-
-	public function getCreatorUID() : int {
-		return $this->uid;
-	}
-
 	public function getReplyTo() : array {
 		return $this->replyTo;
-	}
-
-	public function getContent() : string {
-		return $this->content;
-	}
-
-	public function getCreatedAt() : string {
-		return $this->createdAt;
 	}
 
 }

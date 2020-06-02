@@ -1,5 +1,7 @@
 <?php
-class Post {
+require_once (__DIR__ . '/IPost.php');
+
+class Post implements IPost {
 
 	private int $pid;
 	private int $cid;
