@@ -23,7 +23,7 @@ if ($user != null) {
 	$follows = $uid == $myuid ? "<a href=\"mysubscriptions.php?from=" . $from . "\">" . $api->countFollows($myuid) . "</a>" : $api->countFollows($uid);
 
 	$profileimage = findProfileImage($uid);
-	$bgImage = $profileimage != null ? "url('profileimages/" . $profileimage . "')" : "none"; 
+	$bgImage = $profileimage != null ? "url('profileimages/" . $profileimage . "')" : "none";
 ?>
 		<div class="center">
 			<div class="center profileimage" style="background-image: <?php echo $bgImage; ?>;">
@@ -47,7 +47,7 @@ if ($user != null) {
 <?php
 	if ($uid != $myuid) {
 ?>
-			<a class="button" onclick="return callURLWithReload('subscribe.php?uid=<?php echo $uid; ?>');" href="subscribe.php?uid=<?php echo $uid; ?>&from=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $api->hasSubscribed($myuid, $uid) ? "Abonniert" : "Abonnieren"; ?></a>
+			<a class="button" onclick="return callURLWithReload('api/subscribe.php?uid=<?php echo $uid; ?>');" href="api/subscribe.php?uid=<?php echo $uid; ?>&from=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"><?php echo $api->hasSubscribed($myuid, $uid) ? "Abonniert" : "Abonnieren"; ?></a>
 			<br>
 <?php
 	}

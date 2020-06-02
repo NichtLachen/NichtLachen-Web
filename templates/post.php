@@ -42,13 +42,13 @@ if (!isset($queue) || !$queue) {
 ?>
 
 			<p id="<?php echo $post->getPID(); ?>end" class="post-info">Eingereicht <?php echo $posted_by; ?>vor <?php echo DateUtil::diff($post->getCreatedAt()); ?></p>
-			<div class="post-control post-like"><a onclick="return callURLWithReload('like.php?like=1&pid=<?php echo $post->getPID();?>');" href="like.php?like=1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $like; ?> fa-thumbs-up"></i></a> <?php echo $api->countPostLikes($post->getPID());?></div>
-			<div class="post-control post-dislike"><a onclick="return callURLWithReload('like.php?like=-1&pid=<?php echo $post->getPID();?>');" href="like.php?like=-1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $dislike; ?> fa-thumbs-down"></i></a> <?php echo $api->countPostDislikes($post->getPID());?></div>
+			<div class="post-control post-like"><a onclick="return callURLWithReload('api/like.php?like=1&pid=<?php echo $post->getPID();?>');" href="api/like.php?like=1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $like; ?> fa-thumbs-up"></i></a> <?php echo $api->countPostLikes($post->getPID());?></div>
+			<div class="post-control post-dislike"><a onclick="return callURLWithReload('api/like.php?like=-1&pid=<?php echo $post->getPID();?>');" href="api/like.php?like=-1&pid=<?php echo $post->getPID();?>&from=<?php echo $from; ?>"><i class="<?php echo $dislike; ?> fa-thumbs-down"></i></a> <?php echo $api->countPostDislikes($post->getPID());?></div>
 <?php
 $comment_style = isset($comment_from) ? ' style="visibility: hidden;"' : "";
 ?>
 			<div class="post-control post-comments"<?php echo $comment_style; ?>><a href="comments.php?pid=<?php echo $post->getPID(); ?>&from=<?php echo $from; ?>"><i class="fas fa-comments"></i></a> <?php echo $api->countPostComments($post->getPID());?></div>
-			<div class="post-control post-fav<?php echo $api->isFavSet($post->getPID(), $uid) ? " active" : "";?>"><a onclick="return callURLWithReload('fav.php?pid=<?php echo $post->getPID();?>');" href="fav.php?pid=<?php echo $post->getPID();?>&from=<?php echo $from;?>"><i class="fas fa-star"></i></a></div>
+			<div class="post-control post-fav<?php echo $api->isFavSet($post->getPID(), $uid) ? " active" : "";?>"><a onclick="return callURLWithReload('api/fav.php?pid=<?php echo $post->getPID();?>');" href="api/fav.php?pid=<?php echo $post->getPID();?>&from=<?php echo $from;?>"><i class="fas fa-star"></i></a></div>
 			<div class="post-control post-fav"><a href="" onclick="return share('https://' + location.host + '/comments.php?pid=<?php echo $post->getPID(); ?>')"><i class="fas fa-share-alt"></i></a></div>
 <?php
 } else {
@@ -56,8 +56,8 @@ $comment_style = isset($comment_from) ? ' style="visibility: hidden;"' : "";
 $accepts = $api->getPostQueueAccepts($post->getPID());
 ?>
 			<br>
-			<div class="post-control post-like"><a onclick="return callURLWithReload('accept.php?accept=1&pid=<?php echo $post->getPID(); ?>');" href="accept.php?accept=1&pid=<?php echo $post->getPID(); ?>&from=<?php echo $from_delete; ?>"><i class="fas fa-check"></i></a></div>
-			<div class="post-control post-dislike"><a onclick="return callURLWithReload('accept.php?accept=-1&pid=<?php echo $post->getPID(); ?>');" href="accept.php?accept=-1&pid=<?php echo $post->getPID(); ?>&from=<?php echo $from_delete; ?>"><i class="fas fa-times"></i></a></div>
+			<div class="post-control post-like"><a onclick="return callURLWithReload('api/accept.php?accept=1&pid=<?php echo $post->getPID(); ?>');" href="api/accept.php?accept=1&pid=<?php echo $post->getPID(); ?>&from=<?php echo $from_delete; ?>"><i class="fas fa-check"></i></a></div>
+			<div class="post-control post-dislike"><a onclick="return callURLWithReload('api/accept.php?accept=-1&pid=<?php echo $post->getPID(); ?>');" href="api/accept.php?accept=-1&pid=<?php echo $post->getPID(); ?>&from=<?php echo $from_delete; ?>"><i class="fas fa-times"></i></a></div>
 			<div class="post-control <?php echo $accepts >= 0 ? 'post-like' : 'post-dislike'; ?>"><?php echo $accepts; ?></div>
 <?php
 }
@@ -65,7 +65,7 @@ $accepts = $api->getPostQueueAccepts($post->getPID());
 if ($post->getCreatorUID() == $uid) {
 	$delid = $post->getPID();
 	$q = isset($queue) && $queue ? "1" : "0";
-	$delete_js = "delete.php?pid=" . $delid . "&queue=" . $q;
+	$delete_js = "api/delete.php?pid=" . $delid . "&queue=" . $q;
 	$delete = $delete_js . "&from=" . $from_delete;
 ?>
 			<input type="checkbox" class="showMore" id="delete<?php echo $delid; ?>">
