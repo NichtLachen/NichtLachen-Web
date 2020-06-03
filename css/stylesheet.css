@@ -571,6 +571,7 @@ input.search::placeholder {
 }
 
 .swal2-content {
+	white-space: pre-wrap!important; /* For \n */
 	color: var(--colorPrimaryText)!important;
 }
 
