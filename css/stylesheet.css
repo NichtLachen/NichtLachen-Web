@@ -396,7 +396,7 @@ footer {
 
 .about h1 {
 	background-color: transparent;
-	color: var(--colorPrimaryHeading); 
+	color: var(--colorPrimaryHeading);
 	margin-left: 5%;
 }
 
@@ -559,4 +559,27 @@ input.search::placeholder {
 
 .flexbox-column {
 	width: 100%;
+}
+
+/** SweetAlert2 **/
+.swal2-popup {
+	background-color: var(--colorPrimaryBackground)!important;
+}
+
+.swal2-title {
+	color: var(--colorPrimaryHeading)!important;
+}
+
+.swal2-content {
+	color: var(--colorPrimaryText)!important;
+}
+
+.swal2-confirm {
+	background-color: var(--colorPrimarySuccess)!important;
+	color: var(--colorPrimaryText)!important;
+}
+
+.swal2-cancel {
+	background-color: var(--colorPrimaryError)!important;
+	color: var(--colorPrimaryText)!important;
 }

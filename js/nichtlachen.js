@@ -202,8 +202,24 @@ function share(text) {
 	if (window.NichtLachen && window.NichtLachen.shareURL) {
 		window.NichtLachen.shareURL(text);
 	} else {
-		window.prompt("Zum Teilen kopieren: ", text);
+		Swal.fire('Teilen', text);
 	}
+
+	return false;
+}
+
+function nlConfirm(title, text, action) {
+	Swal.fire({
+		title: title,
+		text: text,
+		showCancelButton: true,
+		confirmButtonText: 'Ja',
+		cancelButtonText: 'Nein'
+	}).then((result) => {
+		if(result.value) {
+			action()
+		}
+	});
 
 	return false;
 }
