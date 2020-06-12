@@ -1,4 +1,13 @@
 var socket;
+var pingTask;
+
+function ping() {
+	var jsonData = {};
+	jsonData['type'] = "ping";
+	jsonData['content'] = 1;
+
+	sendPushService(JSON.stringify(jsonData));
+}
 
 function connectPushService(sid) {
 	socket = new WebSocket("wss://" + location.host + "/websocket");
@@ -7,6 +16,7 @@ function connectPushService(sid) {
 		console.log("Connection to WebSocket established.");
 
 		login(sid);
+		pingTask = setInterval(ping, 30000);
 	};
 
 	socket.onmessage = function (messageEvent) {
@@ -22,6 +32,7 @@ function connectPushService(sid) {
 			console.log('Connection to WebSocket closed!');
 			console.log('Reconnecting...');
 
+			clearInterval(pingTask);
 			connectPushService(sid);
 		}
 	};
