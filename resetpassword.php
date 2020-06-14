@@ -6,7 +6,7 @@ require_once (__DIR__ . '/config.php');
 require_once (__DIR__ . '/include/stringutils.php');
 
 function sendResetMail(User $user, string $key) {
-	$headers = array("Content-Type: text/plain; charset=UTF-8");
+	$headers = "Content-Type: text/plain; charset=UTF-8";
 	$subject = "NichtLachen.nl | Passwort zurücksetzen";
 	$content = file_get_contents(__DIR__ . '/templates/email-resetpw.txt');
 	$content = str_replace('$USER', $user->getName(), $content);
