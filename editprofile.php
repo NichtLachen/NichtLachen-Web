@@ -89,7 +89,7 @@ if(isset($_POST['password']) && strlen($_POST['password']) > 0) {
 	}
 }
 
-if(isset($_POST['description']) && strlen($_POST['description']) > 0) {
+if(isset($_POST['description']) && strlen($_POST['description']) > 0 && $_POST['description'] != $api->getUserByUID($uid)->getDescription()) {
 	$api->setUserDescription($uid, $_POST['description']);
 	$success = true;
 }
