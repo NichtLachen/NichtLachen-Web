@@ -1079,8 +1079,7 @@ class DatabaseAPI {
 		$stmt->execute(array("uid" => $uid, "rpwid" => $key));
 
 		if ($stmt->rowCount() > 0) {
-			$stmt = $this->database->conn->prepare("UPDATE users SET Password = :password WHERE UID = :uid");
-			$stmt->execute(array("password" => $newPassword, "uid" => $uid));
+			$this->setUserPassword($uid, $newPassword);
 
 			return true;
 		}
