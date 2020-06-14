@@ -76,7 +76,7 @@ if(isset($_POST['email']) && strlen($_POST['email']) > 0) {
 	$success = true;
 }
 
-if(isset($_POST['password'])) {
+if(isset($_POST['password']) && strlen($_POST['password']) > 0) {
 	$password = $_POST['password'];
 
 	if(strlen($password) >= 8) {
@@ -133,5 +133,3 @@ $user = $api->getUserByUID($uid);
 
 require_once (__DIR__ . '/templates/footer.html');
 ?>
-
-
