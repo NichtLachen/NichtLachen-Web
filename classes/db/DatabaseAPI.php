@@ -114,7 +114,7 @@ class DatabaseAPI {
 
 	public function verify(string $name, string $email, string $password) : string {
 		$vid = uniqid("", true);
-		$stmt = $this->database->conn->prepare("INSERT INTO verify (VID, Name, Password, EMail, ExpiresAT) VALUES (:vid, :name, :password, :email, NOW() + INTERVAL 1 DAY)");
+		$stmt = $this->database->conn->prepare("INSERT INTO verify (VID, Name, Password, EMail, ExpiresAt) VALUES (:vid, :name, :password, :email, NOW() + INTERVAL 1 DAY)");
 		$stmt->execute(array("vid" => $vid, "name" => $name, "password" => $password, "email" => $email));
 
 		return $vid;
@@ -1058,6 +1058,31 @@ class DatabaseAPI {
 			if ($row['COUNT(DISTINCT PID)'] > $end) {
 				return true;
 			}
+		}
+
+		return false;
+	}
+
+	public function resetPasswordVerify(int $uid) : string {
+		$stmt = $this->database->conn->prepare("DELETE FROM resetpassword WHERE UID = :uid");
+		$stmt->execute(array("uid" => $uid));
+
+		$rpwid = uniqid("", true);
+		$stmt = $this->database->conn->prepare("INSERT INTO resetpassword (RPWID, UID, ExpiresAt) VALUES (:rpwid, :uid, NOW() + INTERVAL 30 MINUTE)");
+		$stmt->execute(array("rpwid" => $rpwid, "uid" => $uid));
+
+		return $rpwid;
+	}
+
+	public function resetPassword(int $uid, string $newPassword, string $key) : bool {
+		$stmt = $this->database->conn->prepare("DELETE FROM resetpassword WHERE UID = :uid AND RPWID = :rpwid");
+		$stmt->execute(array("uid" => $uid, "rpwid" => $key));
+
+		if ($stmt->rowCount() > 0) {
+			$stmt = $this->database->conn->prepare("UPDATE users SET Password = :password WHERE UID = :uid");
+			$stmt->execute(array("password" => $newPassword, "uid" => $uid));
+
+			return true;
 		}
 
 		return false;

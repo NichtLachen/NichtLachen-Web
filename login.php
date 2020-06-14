@@ -14,7 +14,7 @@ if(isset($_POST['login'])) {
 			$api = new DatabaseAPI();
 			$user = $api->getUserByName(trim($_POST['username']));
 			$user = $user != null ? $user : $api->getUserByEMail(trim($_POST['username']));
-			
+
 			if($user != null) {
 				if ($api->authenticate($user->getUID(), $_POST['password'])) {
 					$login = true;
@@ -50,6 +50,7 @@ require_once (__DIR__ . '/templates/navbar_back.php');
 				<input type="password" name="password" placeholder="Passwort"/><br>
 				<br>
 				<input class="button" type="submit" name="login" value="Anmelden"/>
+				<br><br><a class="button" href="resetpassword.php">Passwort vergessen?</a>
 			</form>
 		</div>
 <?php

@@ -1,0 +1,6 @@
+Um Ihr Passwort zurückzusetzen, müssen Sie folgenden Link aufrufen:
+
+$URL
+
+--
+NichtLachen.nl Team
