@@ -419,7 +419,7 @@ class DatabaseAPI {
 
 	public function getAllSubCategories() : array {
 		$res = [];
-		$stmt = $this->database->conn->prepare("SELECT CID FROM categories WHERE SUPER = '0' ORDER BY CID ASC");
+		$stmt = $this->database->conn->prepare("SELECT CID FROM categories WHERE SUPER = '0' ORDER BY Name ASC");
 		$stmt->execute();
 
 		foreach ($stmt as $row) {
@@ -431,7 +431,7 @@ class DatabaseAPI {
 
 	public function getParentLessCategories() : array {
 		$res = [];
-		$stmt = $this->database->conn->prepare("SELECT CID FROM categories WHERE Parent IS NULL AND Super = '0' ORDER BY CID ASC");
+		$stmt = $this->database->conn->prepare("SELECT CID FROM categories WHERE Parent IS NULL AND Super = '0' ORDER BY Name ASC");
 		$stmt->execute();
 
 		foreach ($stmt as $row) {
@@ -443,7 +443,7 @@ class DatabaseAPI {
 
 	public function getSuperCategories() : array {
 		$res = [];
-		$stmt = $this->database->conn->prepare("SELECT CID FROM categories WHERE Super = '1' ORDER BY CID ASC");
+		$stmt = $this->database->conn->prepare("SELECT CID FROM categories WHERE Super = '1' ORDER BY Name ASC");
 		$stmt->execute();
 
 		foreach ($stmt as $row) {
@@ -455,7 +455,7 @@ class DatabaseAPI {
 
 	public function getSubCategories(int $supercid) : array {
 		$res = [];
-		$stmt = $this->database->conn->prepare("SELECT CID FROM categories WHERE Parent = :cid ORDER BY CID ASC");
+		$stmt = $this->database->conn->prepare("SELECT CID FROM categories WHERE Parent = :cid ORDER BY Name ASC");
 		$stmt->execute(array("cid" => $supercid));
 
 		foreach ($stmt as $row) {
