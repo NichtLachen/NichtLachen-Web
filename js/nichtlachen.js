@@ -109,11 +109,6 @@ function onLoad() {
 	}
 }
 
-function deleteConfirmClose(id) {
-	document.getElementById('delete' + id).checked = false;
-	return false;
-}
-
 function callURLWithReload(url) {
 	console.log('Calling URL ' + url + '...');
 	const XHR = new XMLHttpRequest();
@@ -220,6 +215,23 @@ function nlConfirm(title, text, action) {
 			action()
 		}
 	});
+
+	return false;
+}
+
+function deleteConfirm(delName, delid, delUrl) {
+	Swal.fire({
+		title: 'Sind Sie sicher?',
+		text: "Soll " + delName + " #" + delid + " wirklich gelöscht werden?",
+		icon: 'warning',
+		showCancelButton: true,
+		focusConfirm: false,
+		confirmButtonText: 'Ja'
+	}).then((result) => {
+		if (result.value) {
+				callURLWithReload(delUrl);
+		}
+	})
 
 	return false;
 }

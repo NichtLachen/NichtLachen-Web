@@ -145,9 +145,8 @@ if ($post->getCreatorUID() == $uid) {
 	$delete = $delete_js . "&from=" . $from_delete;
 ?>
 			<input type="checkbox" class="showMore" id="delete<?php echo $delid; ?>">
-			<label class="post-control post-delete" for="delete<?php echo $delid; ?>" style="color: red;"><i class="fas fa-trash-alt"></i></label>
+			<a class="post-control post-delete" style="color: red;" href="" onClick="return deleteConfirm('<?php echo $delName; ?>', '<?php echo $delid; ?>', '<?php echo $delete; ?>');"><i class="fas fa-trash-alt"></i></a>
 <?php
-	require (__DIR__ . '/../templates/delete_confirm.php');
 } else if (!isset($queue) || !$queue) {
 	$repid = $isComment ? $post->getCMTID() : $pid;
 	$rep = "report.php?" . $pidStr . "=" . $repid . "&from=" . $from;
