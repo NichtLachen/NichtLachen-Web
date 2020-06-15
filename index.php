@@ -47,7 +47,7 @@ if(isset($_POST['login'])) {
 			<br>
 		</h1>
 
-		<div class="center" style="font-family: Arial; background-color: #ff9900; color: var(--colorSecondaryText); border-radius: 8px; max-width: 30em; font-size: 14pt; padding: 0.5em; overflow-wrap: normal;">
+		<div class="center" style="font-family: Arial; background-color: #ff9900; color: var(--colorSecondaryText); border-radius: 16px; max-width: 30em; font-size: 14pt; padding: 0.5em; overflow-wrap: normal;">
 			<h2>Anmelden</h2>
 			<form class="default-form" method="POST">
 				<input type="text" style="width: 75%; height: 2em; color: var(--colorSecondaryText);" name="username" placeholder="Benutzername/EMail-Adresse"/><br>
