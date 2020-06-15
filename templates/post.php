@@ -112,11 +112,11 @@ if (!isset($queue) || !$queue) {
 			echo $anonreply;
 	}
 ?>
-<div class="post-control post-like"><a onclick="return callURLWithReload('<?php echo $likeUrl; ?>');" href="<?php echo $likeUrl . "&from=" . $from; ?>"><i class="<?php echo $like . " " . $likeIcon; ?>" style="color: <?php echo $likeColor; ?>"></i></a> <?php echo $likes;?></div>
+			<div class="post-control post-like"><a onclick="return callURLWithReload('<?php echo $likeUrl; ?>');" href="<?php echo $likeUrl . "&from=" . $from; ?>"><i class="<?php echo $like . " " . $likeIcon; ?>" style="color: <?php echo $likeColor; ?>"></i></a> <?php echo $likes;?></div>
 <?php
 if (!$isComment) {
 ?>
-<div class="post-control post-dislike"><a onclick="return callURLWithReload('<?php echo $dislikeUrl; ?>');" href="<?php echo $dislikeUrl . "&from=" . $from; ?>"><i class="<?php echo $dislike; ?> fa-thumbs-down"></i></a> <?php echo $dislikes;?></div>
+			<div class="post-control post-dislike"><a onclick="return callURLWithReload('<?php echo $dislikeUrl; ?>');" href="<?php echo $dislikeUrl . "&from=" . $from; ?>"><i class="<?php echo $dislike; ?> fa-thumbs-down"></i></a> <?php echo $dislikes;?></div>
 <?php
 $comment_style = isset($comment_from) ? ' style="visibility: hidden;"' : "";
 ?>
