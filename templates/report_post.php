@@ -7,14 +7,24 @@ require_once (__DIR__ . '/../config.php');
 
 $api = new DatabaseAPI();
 
-print_r($report);
-echo "<br><br>";
+$firstreport = $report[0];
+$rpid = $firstreport->getReportID();
+$pid = $firstreport->getReportedPID();
+$from = urlencode($_SERVER['REQUEST_URI'] . "#" . $rpid);
 
-foreach ($report as $reason) {
-	print_r($report[0]);
-	echo "<br><br>";
-}
-
-echo "END<br><br>";
+?>
+				<div id="<?php echo $rpid; ?>" class="post">
+					<a class="post-category" href="comments.php?pid=<?php echo $pid; ?>&from=<?php echo $from; ?>">Post #<?php echo $pid; ?></a><br><br>
+<?php
+							foreach ($report as $reason) {
+								$reporter = $api->getUserByUID($reason->getReporterUID());
+?>
+					<a class="post-category" href="users.php?uid=<?php echo $reason->getReporterUID(); ?>&from=<?php echo $from; ?>"><?php echo $reporter->getName(); ?></a>:
+					<?php echo $reason->getReason(); ?><br>
+<?php
+							}
+?>
+				</div>
+<?php
 
 ?>

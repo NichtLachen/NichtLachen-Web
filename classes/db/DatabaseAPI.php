@@ -1029,7 +1029,7 @@ class DatabaseAPI {
 		$res = [];
 		$start = ($page - 1) * $perPage;
 		$end = $perPage; // LIMIT offset,amount
-		$stmt = $this->database->conn->prepare("SELECT PID, COUNT(*) FROM reports WHERE PID IS NOT NULL GROUP BY PID ORDER BY COUNT(*) DESC LIMIT :start,:end");
+		$stmt = $this->database->conn->prepare("SELECT PID, COUNT(*) FROM reports WHERE PID IS NOT NULL GROUP BY PID ORDER BY RPID ASC LIMIT :start,:end");
 		$stmt->execute(array("start" => $start, "end" => $end));
 
 		foreach ($stmt as $row) {
