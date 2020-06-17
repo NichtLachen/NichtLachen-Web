@@ -585,6 +585,8 @@ class DatabaseAPI {
 	}
 
 	public function commentDelete(int $cmtid) {
+		$stmt = $this->database->conn->prepare("DELETE FROM reports WHERE CMTID = :cmtid");
+		$stmt->execute(array("cmtid" => $cmtid));
 		$stmt = $this->database->conn->prepare("DELETE FROM comment_reply WHERE CMTID = :cmtid");
 		$stmt->execute(array("cmtid" => $cmtid));
 		$stmt = $this->database->conn->prepare("DELETE FROM likes WHERE CMTID = :cmtid");
@@ -601,6 +603,8 @@ class DatabaseAPI {
 			$this->commentDelete($row['CMTID']);
 		}
 
+		$stmt = $this->database->conn->prepare("DELETE FROM reports WHERE PID = :pid");
+		$stmt->execute(array("pid" => $pid));
 		$stmt = $this->database->conn->prepare("DELETE FROM favorites WHERE PID = :pid");
 		$stmt->execute(array("pid" => $pid));
 		$stmt = $this->database->conn->prepare("DELETE FROM likes WHERE PID = :pid");
