@@ -72,7 +72,7 @@ function getColor(string $name) : ?string {
 			}
 		</style>
 		<link rel="stylesheet" href="css/stylesheet.css"/>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
+		<link rel="stylesheet" href="external/fontawesome/css/all.min.css"/>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 		<script src="js/pushservice.js"></script>
 		<script src="js/nichtlachen.js"></script>

@@ -7,7 +7,7 @@ Restart=always
 User=www-data
 Group=www-data
 WorkingDirectory=/var/www/nichtlachen.nl/
-ExecStart=/usr/bin/env java -Xms128M -Xmx128M -jar /var/www/nichtlachen.nl/NichtLachen-PushService/target/NichtLachen-PushService.jar
+ExecStart=/usr/bin/env java -Xms128M -Xmx128M -jar /var/www/nichtlachen.nl/pushservice/target/NichtLachen-PushService.jar
 
 [Install]
 WantedBy=multi-user.target
