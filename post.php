@@ -6,7 +6,7 @@ require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
 $api = new DatabaseAPI();
 $uid = $api->getUIDBySessionID(session_id());
 
-$TITLE = "Witz hinzufügen";
+$TITLE = "Beitrag hinzufügen";
 
 require_once (__DIR__ . '/templates/header.php');
 require_once (__DIR__ . '/templates/navbar_back.php');
@@ -48,5 +48,3 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 
 require_once (__DIR__ . '/templates/footer.html');
 ?>
-
-
