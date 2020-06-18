@@ -1,6 +1,0 @@
-[Unit]
-Description=Cronjob for NichtLachen 2.0 (Beta)
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/env php /var/www/beta.nichtlachen.nl/cron.php

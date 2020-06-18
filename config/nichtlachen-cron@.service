@@ -1,0 +1,6 @@
+[Unit]
+Description=Cronjob for NichtLachen 2.0 (%I)
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/env php /var/www/%I.nichtlachen.nl/cron.php

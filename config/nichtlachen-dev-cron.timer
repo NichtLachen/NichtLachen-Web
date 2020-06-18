@@ -1,9 +1,0 @@
-[Unit]
-Description=Cronjob for NichtLachen 2.0 (Dev)
-
-[Timer]
-OnCalendar=*:0/15
-Persistent=true
-
-[Install]
-WantedBy=timers.target
