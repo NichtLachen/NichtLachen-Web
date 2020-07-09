@@ -2,7 +2,8 @@
 
 require_once (__DIR__ . '/../include/navutils.php');
 
-$from = $_SERVER['REQUEST_URI'];
+$from = isset($_GET['from']) ? $_GET['from'] : "./";
+$myfrom = $_SERVER['REQUEST_URI'];
 
 ?>
 		<div class="topnav">
@@ -11,7 +12,7 @@ $from = $_SERVER['REQUEST_URI'];
 			<br><br>
 
 			<div class="links">
-				<a<?php echo active("modsite.php");?> href="<?php echo $from; ?>">Übersicht</a>
-				<a href="reports.php?from=<?php echo urlencode($from); ?>">Reports</a> <!-- TODO: improve? (this can never be active!) -->
+				<a<?php echo active("modsite.php");?> href="<?php echo $myfrom; ?>">Übersicht</a>
+				<a href="reports.php?from=<?php echo urlencode($myfrom); ?>">Reports</a> <!-- TODO: improve? (this can never be active!) -->
 			</div>
 		</div>
