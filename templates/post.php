@@ -77,7 +77,7 @@ $content = formatText($content);
 $content = splitTextAtLength($content, 800);
 
 ?>
-		<div class="post" id="<?php echo $pid; ?>">
+		<div class="post" id="<?php echo $isComment ? $cmtid : $pid; ?>">
 <?php
 if ($isComment) {
 	echo $posted_by;

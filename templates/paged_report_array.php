@@ -11,7 +11,7 @@ $next = $checkMore($page, POSTS_PER_PAGE) ? " href=\"" . hrefReplaceVar("page", 
 $nextNum = strlen($next) > 0 ? '<a href="' . hrefReplaceVar("page", ($page + 1)) . '">' . ($page + 1) . '</a>' : "";
 
 $reports = $getReports($page, POSTS_PER_PAGE);
-require (__DIR__ . '/../templates/report_post_array.php');
+require (__DIR__ . '/../templates/report_array.php');
 
 if ($page > 1 || strlen($next) > 0) {
 	require_once (__DIR__ . '/../templates/prevnext.php');

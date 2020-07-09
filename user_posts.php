@@ -11,7 +11,7 @@ $myuid = $api->getUIDBySessionID(session_id());
 $TITLE = $user != null ? "Beiträge von " . $user->getName() : "Benutzer nicht gefunden!";
 
 require_once (__DIR__ . '/templates/header.php');
-require_once (__DIR__ . '/templates/profilenavbar.php');
+require_once (__DIR__ . '/templates/navbar_profile.php');
 
 if ($user != null) {
 	$checkMore = function(int $page, int $perPage) : bool {

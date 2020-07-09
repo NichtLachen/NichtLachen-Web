@@ -1,7 +1,7 @@
 <?php
 
 foreach ($reports as $report) {
-	require (__DIR__ . '/report_post.php');
+	require (__DIR__ . '/report.php');
 }
 
 ?>

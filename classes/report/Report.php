@@ -20,23 +20,23 @@ class Report {
 	public function getReportID() : int {
 		return $this->rpid;
 	}
-	
+
 	public function getReportedPID() : ?int {
 		return $this->pid;
 	}
-	
+
 	public function getReportedCMTID() : ?int {
 		return $this->cmtid;
 	}
-	
+
 	public function getReportedUID() : ?int {
-		return $this->uid;
+		return $this->ruid;
 	}
-	
+
 	public function getReason() {
 		return $this->reason;
 	}
-	
+
 	public function getReporterUID() {
 		return $this->uid;
 	}

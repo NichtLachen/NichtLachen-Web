@@ -72,10 +72,10 @@ if (isset($_GET['pid']) && !isset($_POST['pid'])) {
 	}
 } else if (isset($_POST['uid'])) {
 	$success = true;
-	$ruid = $_GET['uid'];
+	$reporteduid = $_GET['uid'];
 	$reason = getCombinedReasons();
-	if (strlen($reason) > 0 && $api->getUserByUID($ruid) != null && !$api->hasReportedUser($uid, $ruid)) {
-		$api->reportUser($uid, $ruid, $reason);
+	if (strlen($reason) > 0 && $api->getUserByUID($reporteduid) != null && !$api->hasReportedUser($uid, $reporteduid)) {
+		$api->reportUser($uid, $reporteduid, $reason);
 	}
 } else {
 	$ERROR = "Ungültige Anfrage";
@@ -105,5 +105,3 @@ if ($success) {
 require_once (__DIR__ . '/templates/footer.html');
 
 ?>
-
-

@@ -1000,12 +1000,12 @@ class DatabaseAPI {
 
 	public function reportComment(int $uid, int $cmtid, string $reason) {
 		$stmt = $this->database->conn->prepare("INSERT INTO reports (UID,CMTID,Reason) VALUES (:uid, :cmtid, :reason)");
-		$stmt->execute(array("uid" => $uid, "cmtid" => $pid, "reason" => $reason));
+		$stmt->execute(array("uid" => $uid, "cmtid" => $cmtid, "reason" => $reason));
 	}
 
-	public function reportUser(int $uid, int $ruid, string $reason) {
-		$stmt = $this->database->conn->prepare("INSERT INTO reports (UID,RUID,Reason) VALUES (:uid, :cmtid, :reason)");
-		$stmt->execute(array("uid" => $uid, "ruid" => $ruid, "reason" => $reason));
+	public function reportUser(int $uid, int $reporteduid, string $reason) {
+		$stmt = $this->database->conn->prepare("INSERT INTO reports (UID,RUID,Reason) VALUES (:uid, :ruid, :reason)");
+		$stmt->execute(array("uid" => $uid, "ruid" => $reporteduid, "reason" => $reason));
 	}
 
 	public function hasReportedPost(int $uid, int $pid) : bool {
@@ -1022,9 +1022,9 @@ class DatabaseAPI {
 		return $stmt->rowCount() > 0;
 	}
 
-	public function hasReportedUser(int $uid, int $ruid) : bool {
+	public function hasReportedUser(int $uid, int $reporteduid) : bool {
 		$stmt = $this->database->conn->prepare("SELECT RPID FROM reports WHERE UID = :uid AND RUID = :ruid");
-		$stmt->execute(array("uid" => $uid, "ruid" => $ruid));
+		$stmt->execute(array("uid" => $uid, "ruid" => $reporteduid));
 
 		return $stmt->rowCount() > 0;
 	}
@@ -1060,6 +1060,111 @@ class DatabaseAPI {
 
 		foreach ($stmt as $row) {
 			if ($row['COUNT(DISTINCT PID)'] > $end) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public function getCommentReports(int $page, int $perPage) : array {
+		$res = [];
+		$start = ($page - 1) * $perPage;
+		$end = $perPage; // LIMIT offset,amount
+		$stmt = $this->database->conn->prepare("SELECT CMTID, COUNT(*) FROM reports WHERE CMTID IS NOT NULL GROUP BY CMTID ORDER BY RPID ASC LIMIT :start,:end");
+		$stmt->execute(array("start" => $start, "end" => $end));
+
+		foreach ($stmt as $row) {
+			$tmpstmt = $this->database->conn->prepare("SELECT * FROM reports WHERE CMTID = :cmtid");
+			$tmpstmt->execute(array("cmtid" => $row['CMTID']));
+
+			$reports = [];
+
+			foreach ($tmpstmt as $tmprow) {
+				$reports[sizeof($reports)] = new Report($tmprow['RPID'], null, $tmprow['CMTID'], null, $tmprow['Reason'], $tmprow['UID']);
+			}
+
+			$res[sizeof($res)] = $reports;
+		}
+
+		return $res;
+	}
+
+	public function moreCommentReports(int $page, int $perPage) : bool {
+		$start = ($page - 1) * $perPage;
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT COUNT(DISTINCT CMTID) FROM reports WHERE CMTID IS NOT NULL");
+		$stmt->execute();
+
+		foreach ($stmt as $row) {
+			if ($row['COUNT(DISTINCT CMTID)'] > $end) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public function getPIDByCMTID(int $cmtid) : ?int {
+		$stmt = $this->database->conn->prepare("SELECT PID FROM comments WHERE CMTID = :cmtid");
+		$stmt->execute(array("cmtid" => $cmtid));
+
+		foreach ($stmt as $row) {
+			return $row['PID'];
+		}
+
+		return null;
+	}
+
+	public function getCommentPage(int $cmtid, int $perPage) : ?int {
+		$stmt = $this->database->conn->prepare("SELECT COUNT(CMTID)/:perPage AS page FROM comments WHERE CMTID >= :cmtid AND PID = :pid");
+		$stmt->execute(array("perPage" => $perPage, "cmtid" => $cmtid, "pid" => $this->getPIDBYCMTID($cmtid)));
+
+		foreach ($stmt as $row) {
+			$page = $row['page'];
+			$pageRound = round($page, 0);
+
+			if ($page > $pageRound) {
+				return ++$pageRound;
+			}
+
+			return $pageRound;
+		}
+
+		return null;
+	}
+
+	public function getUserReports(int $page, int $perPage) : array {
+		$res = [];
+		$start = ($page - 1) * $perPage;
+		$end = $perPage; // LIMIT offset,amount
+		$stmt = $this->database->conn->prepare("SELECT RUID, COUNT(*) FROM reports WHERE RUID IS NOT NULL GROUP BY RUID ORDER BY RPID ASC LIMIT :start,:end");
+		$stmt->execute(array("start" => $start, "end" => $end));
+
+		foreach ($stmt as $row) {
+			$tmpstmt = $this->database->conn->prepare("SELECT * FROM reports WHERE RUID = :ruid");
+			$tmpstmt->execute(array("ruid" => $row['RUID']));
+
+			$reports = [];
+
+			foreach ($tmpstmt as $tmprow) {
+				$reports[sizeof($reports)] = new Report($tmprow['RPID'], null, null, $tmprow['RUID'], $tmprow['Reason'], $tmprow['UID']);
+			}
+
+			$res[sizeof($res)] = $reports;
+		}
+
+		return $res;
+	}
+
+	public function moreUserReports(int $page, int $perPage) : bool {
+		$start = ($page - 1) * $perPage;
+		$end = $start + $perPage;
+		$stmt = $this->database->conn->prepare("SELECT COUNT(DISTINCT RUID) FROM reports WHERE RUID IS NOT NULL");
+		$stmt->execute();
+
+		foreach ($stmt as $row) {
+			if ($row['COUNT(DISTINCT RUID)'] > $end) {
 				return true;
 			}
 		}

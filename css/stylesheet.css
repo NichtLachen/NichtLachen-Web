@@ -491,14 +491,6 @@ input.search::placeholder {
 	color: red;
 }
 
-.flexbox {
-	display: flex;
-}
-
-.flexbox-column {
-	width: 100%;
-}
-
 /** SweetAlert2 **/
 .swal2-popup {
 	background-color: var(--colorPrimaryBackground)!important;

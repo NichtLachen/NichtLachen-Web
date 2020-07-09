@@ -14,7 +14,7 @@ $user = $api->getUserByUID($uid);
 $TITLE = $user != null ? ($uid == $myuid ? "Mein Profil" : "Profil von " . $user->getName()) : "Benutzer nicht gefunden!";
 
 require_once (__DIR__ . '/templates/header.php');
-require_once (__DIR__ . '/templates/profilenavbar.php');
+require_once (__DIR__ . '/templates/navbar_profile.php');
 
 if ($user != null) {
 
