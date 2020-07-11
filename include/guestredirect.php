@@ -15,11 +15,12 @@ if($uid != null) {
 	$api->refreshSession($sid);
 
 	if($api->isBanned($uid)) {
-?>
-		<script language="javascript">
-			alert("Ihr Account wurde dauerhaft gesperrt: <?php echo $api->getBanReason($uid); ?>");
-		</script>
-<?php
+		require_once (__DIR__ . '/../templates/header.php');
+
+		$ERROR = "Ihr Account wurde dauerhaft gesperrt: " . $api->getBanReason($uid);
+		require (__DIR__ . '/../templates/error.php');
+
+		require_once (__DIR__ . '/../templates/footer.html');
 		die();
 	}
 
