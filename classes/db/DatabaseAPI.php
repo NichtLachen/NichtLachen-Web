@@ -1195,6 +1195,23 @@ class DatabaseAPI {
 
 		return false;
 	}
+
+	public function isBanned(int $uid) : bool {
+		$stmt = $this->database->conn->prepare("SELECT UID FROM bans WHERE UID = :uid");
+		$stmt->execute(array("uid" => $uid));
+
+		return $stmt->rowCount() > 0;
+	}
+
+	public function getBanReason(int $uid) {
+		$stmt = $this->database->conn->prepare("SELECT Reason FROM bans WHERE UID = :uid");
+		$stmt->execute(array("uid" => $uid));
+
+		foreach ($stmt as $row) {
+			return $row['Reason'];
+		}
+	}
+
 }
 
 ?>

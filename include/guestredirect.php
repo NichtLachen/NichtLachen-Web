@@ -13,6 +13,16 @@ $api = new DatabaseAPI();
 $uid = $api->getUIDBySessionID($sid);
 if($uid != null) {
 	$api->refreshSession($sid);
+
+	if($api->isBanned($uid)) {
+?>
+		<script language="javascript">
+			alert("Ihr Account wurde dauerhaft gesperrt: <?php echo $api->getBanReason($uid); ?>");
+		</script>
+<?php
+		die();
+	}
+
 } else {
 	header("Status: 302 Found");
 	header("Location: ./");
