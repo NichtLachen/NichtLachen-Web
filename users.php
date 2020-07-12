@@ -31,6 +31,12 @@ if ($user != null) {
 			<p style="font-size: x-large; font-weight: bold;"><?php echo $user != null ? $user->getName() : ""; ?> <?php if ($uid == $myuid) { ?><a class="edit" href="editprofile.php?from=<?php echo $from; ?>"><i class="fas fa-edit"></i></a><?php } else { $rep = "report.php?uid=" . $uid . "&from=" . $from; ?><a class="edit report" href="<?php echo $rep; ?>"><i class="fas fa-exclamation-triangle"></i></a><?php } ?></p>
 			<div>
 <?php
+	if ($api->isBanned($uid)) {
+?>
+				<div class="rank administrator">Gesperrt</div>
+<?php
+	}
+
 	if ($user->hasRank(Rank::ADMINISTRATOR)) {
 ?>
 				<div class="rank administrator">Administrator</div>
@@ -80,4 +86,3 @@ if ($user != null) {
 
 require_once (__DIR__ . '/templates/footer.html');
 ?>
-
