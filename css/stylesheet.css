@@ -350,6 +350,7 @@ footer {
 	margin-left: 5%;
 	line-height: 2.5em;
 	text-decoration-line: none;
+	color: var(--colorPrimaryHeading);
 }
 
 .onclick {

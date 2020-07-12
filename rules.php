@@ -3,6 +3,17 @@
 require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
 require_once (__DIR__ . '/include/version.php');
 
+session_name("NL_SID");
+if(session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
+
+$api = new DatabaseAPI();
+$uid = $api->getUIDBySessionID(session_id());
+if ($uid != null) {
+	$user = $api->getUserByUID($uid);
+}
+
 $TITLE = "Regeln";
 
 require_once (__DIR__ . '/templates/header.php');
