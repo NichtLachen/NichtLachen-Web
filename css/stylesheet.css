@@ -346,6 +346,16 @@ footer {
 	margin-left: 5%;
 }
 
+.about a {
+	margin-left: 5%;
+	line-height: 2.5em;
+	text-decoration-line: none;
+}
+
+.onclick {
+	cursor: pointer;
+}
+
 div.nextpage {
 	margin: 0 auto;
 	color: var(--colorSecondaryText);
