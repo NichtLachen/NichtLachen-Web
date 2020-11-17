@@ -105,7 +105,7 @@ function onLoad() {
 
 	// PushService
 	if (!window.NichtLachen) { // do not connect when using app
-		connectPushService(getSessionID());
+		//connectPushService(getSessionID());
 	}
 }
 
