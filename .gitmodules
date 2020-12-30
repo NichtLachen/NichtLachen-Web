@@ -1,6 +1,3 @@
-[submodule "pushservice"]
-	path = pushservice
-	url = https://git.linux4.de/NichtLachen/NichtLachen-PushService
 [submodule "external/fontawesome"]
 	path = external/fontawesome
 	url = https://github.com/FortAwesome/Font-Awesome
