@@ -186,44 +186,44 @@ class DatabaseAPI {
 	}
 
 	public function countPostLikes(int $pid) : int {
-		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE PID = :pid AND Value = '1'");
+		$stmt = $this->database->conn->prepare("SELECT SUM(Value) FROM likes WHERE PID = :pid AND Value > '0'");
 		$stmt->execute(array("pid" => $pid));
 
 		foreach ($stmt as $row) {
-			return $row['COUNT(LID)'];
+			return $row['SUM(Value)'] != null ? $row['SUM(Value)'] : 0;
 		}
 
 		return 0;
 	}
 
 	public function countPostDislikes(int $pid) : int {
-		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE PID = :pid AND Value = '-1'");
+		$stmt = $this->database->conn->prepare("SELECT SUM(Value) FROM likes WHERE PID = :pid AND Value < '0'");
 		$stmt->execute(array("pid" => $pid));
 
 		foreach ($stmt as $row) {
-			return $row['COUNT(LID)'];
+			return $row['SUM(Value)'] != null ? $row['SUM(Value)'] : 0;
 		}
 
 		return 0;
 	}
 
 	public function countCommentLikes(int $cmtid) : int {
-		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE CMTID = :cmtid AND Value = '1'");
+		$stmt = $this->database->conn->prepare("SELECT SUM(Value) FROM likes WHERE CMTID = :cmtid AND Value > '0'");
 		$stmt->execute(array("cmtid" => $cmtid));
 
 		foreach ($stmt as $row) {
-			return $row['COUNT(LID)'];
+			return $row['SUM(Value)'] != null ? $row['SUM(Value)'] : 0;
 		}
 
 		return 0;
 	}
 
 	public function countCommentDislikes(int $cmtid) : int {
-		$stmt = $this->database->conn->prepare("SELECT COUNT(LID) FROM likes WHERE CMTID = :cmtid AND Value = '-1'");
+		$stmt = $this->database->conn->prepare("SELECT SUM(Value) FROM likes WHERE CMTID = :cmtid AND Value < '0'");
 		$stmt->execute(array("cmtid" => $cmtid));
 
 		foreach ($stmt as $row) {
-			return $row['COUNT(LID)'];
+			return $row['SUM(Value)'] != null ? $row['SUM(Value)'] : 0;
 		}
 
 		return 0;
