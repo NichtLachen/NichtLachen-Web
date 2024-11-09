@@ -1,5 +1,6 @@
 <?php
 
+require_once (__DIR__ . '/../cron.php'); // Remove expired sessions
 require_once (__DIR__ . '/../classes/db/DatabaseAPI.php');
 
 session_name("NL_SID");
