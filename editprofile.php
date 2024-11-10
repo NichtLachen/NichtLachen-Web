@@ -1,6 +1,7 @@
 <?php
 
 require_once (__DIR__ . '/include/guestredirect.php');
+require_once (__DIR__ . '/classes/date/DateUtil.php');
 require_once (__DIR__ . '/classes/db/DatabaseAPI.php');
 require_once (__DIR__ . '/include/profileimageutils.php');
 require_once (__DIR__ . '/config.php');
@@ -48,7 +49,7 @@ if(isset($_POST['delete_profileimage']) && $_POST['delete_profileimage'] == "on"
 }
 
 if(isset($_POST['username']) && strlen($_POST['username']) > 0) {
-	$changedAt = new DateTime($user->getNameChangedAt());
+	$changedAt = DateUtil::utcToLocalTime($user->getNameChangedAt());
 
 	if ($changedAt->diff(new Datetime())->days >= 7) {
 		$username = trim($_POST['username']);

@@ -2,8 +2,16 @@
 
 class DateUtil {
 
+	public static function utcToLocalTime(string $timestamp) : DateTime {
+		$date = new DateTime($timestamp);
+
+		$date->setTimezone(new DateTimeZone(date_default_timezone_get()));
+
+		return $date;
+	}
+
 	public static function diff(string $timestamp) : ?string {
-		$start_date = new DateTime($timestamp);
+		$start_date = DateUtil::utcToLocalTime($timestamp);
 		$since_start = $start_date->diff(new DateTime());
 
 		if ($since_start->y != 0) {
