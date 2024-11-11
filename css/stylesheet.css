@@ -1,3 +1,9 @@
+@import url('fonts/roboto-v32-latin.css');
+
+* {
+	font-family: 'Roboto';
+}
+
 .button {
 	border: none;
 	background-color: var(--colorSecondaryBackground);
