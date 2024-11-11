@@ -46,5 +46,5 @@ if (isset($_GET['cid']) && !isset($_POST['cid'])) {
 }
 
 
-require_once (__DIR__ . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.php');
 ?>

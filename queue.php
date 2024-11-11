@@ -26,7 +26,7 @@ $queue = true;
 
 require_once (__DIR__ . '/templates/paged_post_array.php');
 
-require_once (__DIR__ . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.php');
 ?>
 
 

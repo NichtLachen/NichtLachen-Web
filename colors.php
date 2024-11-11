@@ -102,6 +102,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		</div>
 <?php
 
-require_once (__DIR__ . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.php');
 
 ?>

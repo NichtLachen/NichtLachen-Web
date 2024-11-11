@@ -21,7 +21,7 @@ if($uid != null) {
 		$ERROR = "Ihr Account wurde dauerhaft gesperrt: " . $api->getBanReason($uid);
 		require (__DIR__ . '/../templates/error.php');
 
-		require_once (__DIR__ . '/../templates/footer.html');
+		require_once (__DIR__ . '/../templates/footer.php');
 		die();
 	}
 

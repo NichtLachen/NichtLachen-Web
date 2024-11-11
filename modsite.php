@@ -7,6 +7,6 @@ $TITLE = "Moderation & Administration";
 require_once (__DIR__ . '/templates/header.php');
 require_once (__DIR__ . '/templates/navbar_modsite.php');
 
-require_once (__DIR__ . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.php');
 
 ?>

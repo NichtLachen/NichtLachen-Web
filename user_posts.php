@@ -30,7 +30,7 @@ if ($user != null) {
 	require (__DIR__ . '/templates/error.php');
 }
 
-require_once (__DIR__ . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.php');
 ?>
 
 

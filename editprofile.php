@@ -132,5 +132,5 @@ $user = $api->getUserByUID($uid);
 		</div>
 <?php
 
-require_once (__DIR__ . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.php');
 ?>

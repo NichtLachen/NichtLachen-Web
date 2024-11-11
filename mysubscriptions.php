@@ -23,7 +23,7 @@ $getUsers = function(int $page, int $perPage) : array {
 
 require_once (__DIR__ . '/templates/paged_user_array.php');
 
-require_once (__DIR__ . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.php');
 ?>
 
 

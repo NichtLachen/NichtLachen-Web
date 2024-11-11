@@ -46,6 +46,6 @@ if (isset($_GET['comments'])) {
 
 require(__DIR__ . '/templates/paged_report_array.php');
 
-require_once (__DIR__ . '/templates/footer.html');
+require_once (__DIR__ . '/templates/footer.php');
 
 ?>
