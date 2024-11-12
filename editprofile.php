@@ -49,26 +49,27 @@ if(isset($_POST['delete_profileimage']) && $_POST['delete_profileimage'] == "on"
 }
 
 if(isset($_POST['username']) && strlen($_POST['username']) > 0) {
+	$username = trim($_POST['username']);
 	$changedAt = DateUtil::utcToLocalTime($user->getNameChangedAt());
 
-	if ($changedAt->diff(new Datetime())->days >= 7) {
-		$username = trim($_POST['username']);
-
-		if(validate_username($username)) {
-			if((!$api->isNameInUse($username) && !$api->isNameInVerification($username)) || strtolower($user->getOldName()) == strtolower($username)) {
-				$api->setUserName($uid, $username);
-				$success = true;
+	if (strtolower($username) != strtolower($user->getName())) {
+		if ($changedAt->diff(new Datetime())->days >= 7) {
+			if(validate_username($username)) {
+				if((!$api->isNameInUse($username) && !$api->isNameInVerification($username)) || strtolower($user->getOldName()) == strtolower($username)) {
+					$api->setUserName($uid, $username);
+					$success = true;
+				} else {
+					$ERROR = "Benutzername wird bereits verwendet";
+					require (__DIR__ . '/templates/error.php');
+				}
 			} else {
-				$ERROR = "Benutzername wird bereits verwendet";
+				$ERROR = "Der Benutzername enthält ein ungültiges Zeichen";
 				require (__DIR__ . '/templates/error.php');
 			}
 		} else {
-			$ERROR = "Der Benutzername enthält ein ungültiges Zeichen";
+			$ERROR = "Der Benutzername kann nur alle 7 Tage geändert werden";
 			require (__DIR__ . '/templates/error.php');
 		}
-	} else {
-		$ERROR = "Der Benutzername kann nur alle 7 Tage geändert werden";
-		require (__DIR__ . '/templates/error.php');
 	}
 }
 
