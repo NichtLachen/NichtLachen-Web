@@ -32,7 +32,7 @@ $success = false;
 
 if(isset($_FILES['profileimage']) && strlen($_FILES['profileimage']['name']) > 0) {
 	$image = $_FILES['profileimage'];
-	$ext = pathinfo($image['name'], PATHINFO_EXTENSION);
+	$ext = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
 
 	if(in_array($ext, ALLOWED_IMAGE_EXTENSIONS)) {
 		deleteProfileImage();
