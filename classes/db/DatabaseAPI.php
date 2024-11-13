@@ -763,10 +763,10 @@ class DatabaseAPI {
 		if (sizeof($categoryfilter) > 0 && $categoryfilter[0] && sizeof($enabledCategories) > 0) {
 			$enabled = str_repeat('?,', count($enabledCategories) - 1) . '?'; // generates string with questionmarks for prepared statement
 
-			$stmt = $this->database->conn->prepare("SELECT posts.*, SUM(likes.Value) as total_likes FROM likes INNER JOIN posts ON posts.PID = likes.PID WHERE CID IN ($enabled) GROUP BY likes.PID HAVING total_likes > 0 ORDER BY CreatedAt DESC, total_likes DESC LIMIT ?,?");
+			$stmt = $this->database->conn->prepare("SELECT posts.*, FROM posts, top_posts WHERE posts.PID = top_posts.PID AND Likes > 0 AND CID IN ($enabled) ORDER BY top_posts.CreatedAt DESC, Likes DESC LIMIT ?,?");
 			$stmt->execute(array_merge($enabledCategories, array($start, $end)));
 		} else {
-			$stmt = $this->database->conn->prepare("SELECT posts.*, SUM(likes.Value) as total_likes FROM likes INNER JOIN posts ON posts.PID = likes.PID GROUP BY likes.PID HAVING total_likes > 0 ORDER BY CreatedAt DESC, total_likes DESC LIMIT :start,:end");
+			$stmt = $this->database->conn->prepare("SELECT posts.* FROM posts, top_posts WHERE posts.PID = top_posts.PID AND Likes > 0 ORDER BY top_posts.CreatedAt DESC, Likes DESC LIMIT :start,:end");
 			$stmt->execute(array("start" => $start, "end" => $end));
 		}
 
@@ -786,10 +786,10 @@ class DatabaseAPI {
 		if (sizeof($categoryfilter) > 0 && $categoryfilter[0] && sizeof($enabledCategories) > 0) {
 			$enabled = str_repeat('?,', count($enabledCategories) - 1) . '?'; // generates string with questionmarks for prepared statement
 
-			$stmt = $this->database->conn->prepare("SELECT posts.PID, SUM(likes.Value) as total_likes FROM likes INNER JOIN posts ON posts.PID = likes.PID WHERE posts.CID IN ($enabled) GROUP BY likes.PID HAVING total_likes > 0 ORDER BY CreatedAt DESC, total_likes DESC");
+			$stmt = $this->database->conn->prepare("SELECT PID FROM top_posts WHERE Likes > 0 AND CID IN ($enabled) ORDER BY top_posts.CreatedAt DESC, Likes DESC");
 			$stmt->execute($enabledCategories);
 		} else {
-			$stmt = $this->database->conn->prepare("SELECT posts.PID, SUM(likes.Value) as total_likes FROM likes INNER JOIN posts ON posts.PID = likes.PID GROUP BY likes.PID HAVING total_likes > 0 ORDER BY CreatedAt DESC, total_likes DESC");
+			$stmt = $this->database->conn->prepare("SELECT PID FROM top_posts WHERE Likes > 0 ORDER BY top_posts.CreatedAt DESC, Likes DESC");
 			$stmt->execute();
 		}
 
